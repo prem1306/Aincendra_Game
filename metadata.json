@@ -1,0 +1,6 @@
+{
+  "name": "Aincendra: Elarion",
+  "description": "Playable 3D greybox movement prototype and UE5 C++ architecture for Elarion in the world of Aincendra.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
