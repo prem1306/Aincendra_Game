@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OzzPoseMixer } from '../../animation/OzzPoseMixer';
 import type {
   BoxCollider,
   CombatState,
@@ -186,6 +187,7 @@ export class PlayerCharacter {
   private readonly contactShadow: THREE.Mesh;
 
   private readonly disposables: Array<{ dispose: () => void }> = [];
+  private readonly poseMixer = new OzzPoseMixer();
 
   public readonly position = new THREE.Vector3();
   public readonly velocity = new THREE.Vector3();
@@ -202,6 +204,7 @@ export class PlayerCharacter {
   private staminaRegenDelay = 0;
 
   private walkCycle = 0;
+  private lastStepIndex = 0;
   private idleTime = 0;
   private landSquash = 0;
   private coyoteTimer = 0;
@@ -221,6 +224,8 @@ export class PlayerCharacter {
   private comboResetTimer = 0;
   private queuedAttack = false;
   public guarding = false;
+  private guardDuration = 0;
+  private spellCastTimer = 0;
 
   // Social Emote state
   public activeEmote: PlayerEmoteKind = 'none';
@@ -272,11 +277,43 @@ export class PlayerCharacter {
     this.comboResetTimer = 0;
     this.queuedAttack = false;
     this.guarding = false;
+    this.guardDuration = 0;
+    this.spellCastTimer = 0;
     this.activeEmote = 'none';
     this.emoteTimer = 0;
     this.root.position.copy(this.position);
     this.visualPivot.rotation.set(0, this.yaw, 0);
     this.rigUpper.rotation.set(0, 0, 0);
+  }
+
+  public isParryWindowActive(): boolean {
+    return this.guarding && this.guardDuration <= 0.28;
+  }
+
+  public triggerSpellCastPose(facingYaw?: number): void {
+    this.spellCastTimer = 0.34;
+    if (facingYaw !== undefined) {
+      this.yaw = facingYaw;
+    }
+    this.activeEmote = 'none';
+  }
+
+  public applyKnockback(dirX: number, dirZ: number, strength = 6.5): void {
+    this.velocity.x += dirX * strength;
+    this.velocity.z += dirZ * strength;
+  }
+
+  public triggerHitRecoil(pitchRad = -0.18, rollRad = 0.08): void {
+    this.poseMixer.triggerAdditiveRecoil(pitchRad, rollRad);
+  }
+
+  public triggerRiposteLunge(targetYaw?: number): void {
+    if (typeof targetYaw === 'number') {
+      this.yaw = targetYaw;
+    }
+    this.poseMixer.triggerAdditiveRecoil(0.24, 0.06);
+    this.velocity.x += Math.sin(this.yaw) * 6.2;
+    this.velocity.z += Math.cos(this.yaw) * 6.2;
   }
 
   public triggerEmote(emote: PlayerEmoteKind): void {
@@ -419,6 +456,7 @@ export class PlayerCharacter {
     callbacks?: {
       onFireSidearm?: (origin: THREE.Vector3, dir: THREE.Vector3) => void;
       onPlayerEmote?: (emote: PlayerEmoteKind) => void;
+      onFootstep?: (sprinting: boolean) => void;
     }
   ): void {
     const clampedDt = Math.min(dt, 0.05);
@@ -478,6 +516,7 @@ export class PlayerCharacter {
     if (this.dodgeTimer > 0) this.dodgeTimer = Math.max(0, this.dodgeTimer - clampedDt);
     if (this.vaultTimer > 0) this.vaultTimer = Math.max(0, this.vaultTimer - clampedDt);
     if (this.sidearmTimer > 0) this.sidearmTimer = Math.max(0, this.sidearmTimer - clampedDt);
+    if (this.spellCastTimer > 0) this.spellCastTimer = Math.max(0, this.spellCastTimer - clampedDt);
 
     if (this.heavyTimer > 0) {
       this.heavyTimer = Math.max(0, this.heavyTimer - clampedDt);
@@ -532,6 +571,7 @@ export class PlayerCharacter {
       this.heavyTimer = HEAVY_DURATION;
       this.queuedAttack = false;
       this.guarding = false;
+      this.poseMixer.triggerAdditiveRecoil(0.14, -0.08);
       this.yaw = hasMoveInput
         ? Math.atan2(_wishDir.x, _wishDir.z)
         : Math.atan2(-Math.sin(cameraYaw), -Math.cos(cameraYaw));
@@ -579,6 +619,11 @@ export class PlayerCharacter {
     this.guarding = Boolean(
       input.guardHeld && !busyLock && this.swingTimer <= 0 && this.heavyTimer <= 0 && this.sidearmTimer <= 0
     );
+    if (this.guarding) {
+      this.guardDuration += clampedDt;
+    } else {
+      this.guardDuration = 0;
+    }
 
     if (input.sprintHeld && this.crouched && !input.crouchActive && this.canStandUp(boxColliders)) {
       this.crouched = false;
@@ -794,7 +839,7 @@ export class PlayerCharacter {
     this.root.position.copy(this.position);
     this.visualPivot.rotation.y = this.yaw;
     this.visualPivot.rotation.z = this.bankAngle;
-    this.animatePose(clampedDt, postSpeed, supportY);
+    this.animatePose(clampedDt, postSpeed, supportY, callbacks?.onFootstep);
   }
 
   private detectVaultObstacle(boxColliders: BoxCollider[]): boolean {
@@ -825,6 +870,7 @@ export class PlayerCharacter {
     this.swingTimer = SWING_DURATION;
     this.comboResetTimer = COMBO_WINDOW;
     this.guarding = false;
+    this.poseMixer.triggerAdditiveRecoil(this.comboStep === 3 ? 0.12 : 0.06, this.comboStep === 2 ? -0.05 : 0.05);
 
     if (!hasMoveInput) {
       this.yaw = Math.atan2(-Math.sin(cameraYaw), -Math.cos(cameraYaw));
@@ -969,7 +1015,12 @@ export class PlayerCharacter {
     }
   }
 
-  private animatePose(dt: number, horizSpeed: number, supportY: number): void {
+  private animatePose(
+    dt: number,
+    horizSpeed: number,
+    supportY: number,
+    onFootstep?: (sprinting: boolean) => void
+  ): void {
     this.idleTime += dt;
     this.landSquash = THREE.MathUtils.damp(this.landSquash, 0, 14, dt);
 
@@ -1040,6 +1091,11 @@ export class PlayerCharacter {
         13.2
       );
       this.walkCycle += dt * strideFreq;
+      const stepIndex = Math.floor(this.walkCycle / Math.PI);
+      if (stepIndex !== this.lastStepIndex) {
+        this.lastStepIndex = stepIndex;
+        onFootstep?.(this.sprinting);
+      }
 
       const strideAmp = this.sprinting ? 0.68 : this.crouched ? 0.36 : 0.48;
       const swingL = Math.sin(this.walkCycle);
@@ -1129,6 +1185,13 @@ export class PlayerCharacter {
       }
       this.leftShoulderPivot.rotation.x = THREE.MathUtils.damp(this.leftShoulderPivot.rotation.x, -0.48, 18, dt);
       this.leftElbowPivot.rotation.x = THREE.MathUtils.damp(this.leftElbowPivot.rotation.x, -0.75, 18, dt);
+    } else if (this.spellCastTimer > 0) {
+      const p = 1 - this.spellCastTimer / 0.34;
+      const thrust = Math.sin(Math.min(1, p * 1.8) * Math.PI) * 0.35;
+      this.torsoGroup.rotation.y = 0.22;
+      this.leftShoulderPivot.rotation.set(-1.52 - thrust, 0.12, -0.1);
+      this.leftElbowPivot.rotation.set(-0.18, 0, 0);
+      this.rightShoulderPivot.rotation.set(-0.95, -0.2, 0.2);
     } else if (this.guarding) {
       this.torsoGroup.rotation.y = THREE.MathUtils.damp(this.torsoGroup.rotation.y, -0.28, 16, dt);
       this.rightShoulderPivot.rotation.x = THREE.MathUtils.damp(this.rightShoulderPivot.rotation.x, -1.15, 18, dt);
@@ -1157,6 +1220,17 @@ export class PlayerCharacter {
       this.headGroup.rotation.y = THREE.MathUtils.damp(this.headGroup.rotation.y, Math.sin(this.idleTime * 0.8) * 0.05, 8, dt);
       this.headGroup.rotation.z = THREE.MathUtils.damp(this.headGroup.rotation.z, 0, 10, dt);
     }
+
+    const poseWeights = this.poseMixer.update(dt, {
+      isMoving: this.grounded && horizSpeed > 0.18,
+      isSwinging: this.swingTimer > 0 || this.heavyTimer > 0,
+      isGuarding: this.guarding,
+      spellCastTimer: this.spellCastTimer,
+      riposteLungeTimer: this.dodgeTimer,
+    });
+    this.torsoGroup.rotation.x += poseWeights.recoilPitch;
+    this.torsoGroup.rotation.z =
+      poseWeights.recoilRoll * (1 - poseWeights.guardWeight * 0.5 + poseWeights.upperCombatWeight * 0.25);
 
     const heightAboveGround = Math.max(0, this.position.y - supportY);
     this.contactShadow.position.set(0, -heightAboveGround + 0.02, 0);

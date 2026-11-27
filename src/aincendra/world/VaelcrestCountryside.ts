@@ -1,5 +1,8 @@
 import * as THREE from 'three';
 import type { BoxCollider } from '../core/types';
+import { createMaterialMakerTerrainTexturePair } from './ElarionTextures';
+import { SHARED_FAST_NOISE } from './FastNoiseField';
+import { createVoxelOutcropMesh } from './VoxelOutcropBuilder';
 
 export interface CountrysideOutput {
   group: THREE.Group;
@@ -39,9 +42,9 @@ interface AmbientCreature {
 }
 
 /**
- * Deterministic heightfield for the Vaelcrest Countryside outside Elarion's walls.
- * Inside the walled city footprint (-290..+308, Z <= 336) it returns 0.16m so
- * city streets and Bastion Gate transitions have zero step/seam.
+ * Deterministic FastNoiseLite + Ridged Foothill heightfield for the Vaelcrest Countryside
+ * outside Elarion's walls. Inside the walled city footprint (-290..+308, Z <= 336)
+ * it returns 0.16m so city streets and Bastion Gate transitions have zero step/seam.
  */
 export function getCountrysideGroundY(x: number, z: number): number {
   const dxCity = x < -290 ? -290 - x : x > 308 ? x - 308 : 0;
@@ -65,43 +68,13 @@ export function getCountrysideGroundY(x: number, z: number): number {
   const pondDip1 = Math.exp(-(pond1Dist * pond1Dist) / (26 * 26)) * -1.45;
   const pondDip2 = Math.exp(-(pond2Dist * pond2Dist) / (28 * 28)) * -1.45;
 
-  const rolling =
-    Math.sin(x * 0.016 + 0.4) * Math.cos(z * 0.015 - 0.3) * 4.2 +
-    Math.sin(x * 0.037 - z * 0.029) * 1.85 +
-    Math.cos(x * 0.009 + z * 0.011) * 2.8;
+  const fastNoiseHills = SHARED_FAST_NOISE.sampleTerrainElevation(x, z);
 
-  // Higher scenic hills farther out (south/west/east edges)
-  const edgeRise = THREE.MathUtils.smoothstep(distOut, 95, 360) * 9.5;
-  const rawH = 0.16 + (rolling + edgeRise) * (1 - roadFlatten) + pondDip1 + pondDip2;
+  // Higher scenic alpine ridges farther out (Terrain3D horizon skirt)
+  const edgeRise = THREE.MathUtils.smoothstep(distOut, 95, 420) * 16.5;
+  const rawH = 0.16 + (fastNoiseHills * 0.72 + edgeRise) * (1 - roadFlatten) + pondDip1 + pondDip2;
 
   return THREE.MathUtils.lerp(0.16, Math.max(-0.8, rawH), blend);
-}
-
-function createGrassDetailTexture(maxAnisotropy: number): THREE.CanvasTexture {
-  const size = 256;
-  const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext('2d')!;
-
-  ctx.fillStyle = '#4e753b';
-  ctx.fillRect(0, 0, size, size);
-
-  for (let i = 0; i < 1800; i++) {
-    const x = (Math.sin(i * 12.9898) * 43758.5453 % 1 + 1) % 1 * size;
-    const y = (Math.sin(i * 78.233) * 19341.123 % 1 + 1) % 1 * size;
-    const shade = i % 3 === 0 ? '#5d8845' : i % 3 === 1 ? '#3e622f' : '#6f964e';
-    ctx.fillStyle = shade;
-    ctx.fillRect(x, y, 2, 4);
-  }
-
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.wrapS = THREE.RepeatWrapping;
-  tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(42, 42);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = Math.min(8, maxAnisotropy);
-  return tex;
 }
 
 function seededRand(seed: number): number {
@@ -110,10 +83,10 @@ function seededRand(seed: number): number {
 }
 
 /**
- * Rolling Green Vaelcrest Countryside & Evolved Wildlife Reserve:
- * - Replaces all grey exterior voids with continuous sunlit emerald hills, winding dirt road,
- *   meadow ponds, ~950 instanced oak/pine/shrub trees, mossy boulders, & vaultable fallen logs.
- * - Populates purely ambient woodland animals & evolved mana-beasts for open-world exploration.
+ * Rolling Green Vaelcrest Countryside, Terrain3D Horizon LOD Skirt & Voxel Outcrops:
+ * - Powered by Auburn FastNoiseLite (OpenSimplex2 + Ridged + Domain Warp) and MaterialMaker PBR maps.
+ * - Includes Terrain3D-style multi-tier distant horizon mountain patches and Zylann-style
+ *   3D voxel basalt arches + Aether crystal mineral clusters in the Wilds.
  */
 export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput {
   const group = new THREE.Group();
@@ -121,12 +94,32 @@ export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput 
   const boxColliders: BoxCollider[] = [];
   const disposables: Array<{ dispose: () => void }> = [];
 
-  const grassTex = createGrassDetailTexture(maxAnisotropy);
+  const terrainPbr = createMaterialMakerTerrainTexturePair(maxAnisotropy, 36, 36);
   const matTerrain = new THREE.MeshStandardMaterial({
-    map: grassTex,
+    map: terrainPbr.map,
+    normalMap: terrainPbr.normalMap,
+    normalScale: new THREE.Vector2(0.75, 0.75),
+    roughnessMap: terrainPbr.roughnessMap,
+    vertexColors: true,
+    roughness: 1.0,
+    metalness: 0.02,
+  });
+  const matDistantRidge = new THREE.MeshStandardMaterial({
     vertexColors: true,
     roughness: 0.94,
     metalness: 0.02,
+  });
+  const matVoxelBasalt = new THREE.MeshStandardMaterial({
+    vertexColors: true,
+    roughness: 0.88,
+    metalness: 0.08,
+  });
+  const matVoxelCrystal = new THREE.MeshStandardMaterial({
+    vertexColors: true,
+    emissive: 0x0e7490,
+    emissiveIntensity: 0.55,
+    roughness: 0.24,
+    metalness: 0.25,
   });
   const matBark = new THREE.MeshStandardMaterial({ color: 0x4b3626, roughness: 0.9, metalness: 0.02 });
   const matOakLeaf = new THREE.MeshStandardMaterial({ color: 0x3b6e35, roughness: 0.84, metalness: 0.02 });
@@ -141,12 +134,43 @@ export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput 
     opacity: 0.88,
   });
 
-  disposables.push(grassTex, matTerrain, matBark, matOakLeaf, matLightLeaf, matPineLeaf, matMossRock, matPondWater);
+  disposables.push(
+    terrainPbr.map,
+    terrainPbr.bumpMap,
+    terrainPbr.normalMap,
+    terrainPbr.roughnessMap,
+    matTerrain,
+    matDistantRidge,
+    matVoxelBasalt,
+    matVoxelCrystal,
+    matBark,
+    matOakLeaf,
+    matLightLeaf,
+    matPineLeaf,
+    matMossRock,
+    matPondWater
+  );
 
   // -------------------------------------------------------------------------
-  // 1. CONTINUOUS GREEN TERRAIN MESHES (South Expands + West & East Meadow Wings)
+  // 1. CONTINUOUS TERRAIN PATCHES + TERRAIN3D-STYLE DISTANT CLIPMAP HORIZON SKIRT
   // -------------------------------------------------------------------------
-  const buildTerrainPatch = (minX: number, maxX: number, minZ: number, maxZ: number, segX: number, segZ: number) => {
+  const colGrass = new THREE.Color(0x88b36d);
+  const colHighGrass = new THREE.Color(0x638f4e);
+  const colAlpineRock = new THREE.Color(0x6d757a);
+  const colDirt = new THREE.Color(0xa68964);
+  const colShore = new THREE.Color(0x7c8f5e);
+  const tmpCol = new THREE.Color();
+
+  const buildTerrainPatch = (
+    minX: number,
+    maxX: number,
+    minZ: number,
+    maxZ: number,
+    segX: number,
+    segZ: number,
+    mat: THREE.Material,
+    name: string
+  ) => {
     const w = maxX - minX;
     const d = maxZ - minZ;
     const geo = new THREE.PlaneGeometry(w, d, segX, segZ);
@@ -154,11 +178,6 @@ export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput 
 
     const pos = geo.attributes.position;
     const colors = new Float32Array(pos.count * 3);
-    const colGrass = new THREE.Color(0x88b36d);
-    const colHighGrass = new THREE.Color(0x6b9855);
-    const colDirt = new THREE.Color(0xa68964);
-    const colShore = new THREE.Color(0x7c8f5e);
-    const tmpCol = new THREE.Color();
 
     for (let i = 0; i < pos.count; i++) {
       const wx = pos.getX(i) + (minX + maxX) * 0.5;
@@ -168,13 +187,16 @@ export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput 
 
       const roadCurveX = Math.sin((wz - 336) * 0.011) * 16;
       const roadDist = Math.abs(wx - roadCurveX);
-      if (wz > 333 && roadDist < 8.0) {
+      if (wz > 333 && wz < 740 && roadDist < 8.0) {
         const t = THREE.MathUtils.smoothstep(roadDist, 3.8, 8.0);
         tmpCol.copy(colDirt).lerp(colGrass, t);
       } else if (wy < 0.05) {
         tmpCol.copy(colShore);
+      } else if (wy > 9.0) {
+        const rockT = THREE.MathUtils.clamp((wy - 9.0) / 11.0, 0, 1);
+        tmpCol.copy(colHighGrass).lerp(colAlpineRock, rockT);
       } else {
-        const hillT = THREE.MathUtils.clamp((wy - 0.5) / 10, 0, 1);
+        const hillT = THREE.MathUtils.clamp((wy - 0.5) / 8.5, 0, 1);
         tmpCol.copy(colGrass).lerp(colHighGrass, hillT);
       }
       colors[i * 3] = tmpCol.r;
@@ -186,18 +208,50 @@ export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput 
     geo.computeVertexNormals();
     disposables.push(geo);
 
-    const mesh = new THREE.Mesh(geo, matTerrain);
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.name = name;
     mesh.position.set((minX + maxX) * 0.5, 0, (minZ + maxZ) * 0.5);
     mesh.receiveShadow = true;
     group.add(mesh);
   };
 
-  // Main South Countryside Expands (Z = 335..760, X = -640..+640)
-  buildTerrainPatch(-640, 640, 335, 760, 88, 64);
-  // West Green Meadow Wing outside Western Industrial Wall (X = -640..-288, Z = -46..336)
-  buildTerrainPatch(-640, -288, -46, 336, 34, 42);
-  // East Green Meadow Wing outside Citadel Wall (X = 306..640, Z = -46..336)
-  buildTerrainPatch(306, 640, -46, 336, 34, 42);
+  // High-detail inner countryside rings
+  buildTerrainPatch(-640, 640, 335, 760, 96, 68, matTerrain, 'Terrain3D_SouthWilds');
+  buildTerrainPatch(-640, -288, -46, 336, 36, 44, matTerrain, 'Terrain3D_WestMeadows');
+  buildTerrainPatch(306, 640, -46, 336, 36, 44, matTerrain, 'Terrain3D_EastMeadows');
+
+  // Distant Terrain3D-style coarse horizon ridge rings (out to +/-1080m)
+  buildTerrainPatch(-1080, 1080, 758, 1140, 44, 24, matDistantRidge, 'Terrain3D_HorizonSouth');
+  buildTerrainPatch(-1080, -638, -140, 760, 22, 36, matDistantRidge, 'Terrain3D_HorizonWest');
+  buildTerrainPatch(638, 1080, -140, 760, 22, 36, matDistantRidge, 'Terrain3D_HorizonEast');
+
+  // Voxel Outcrops (Zylann/godot_voxel-style 3D scalar-field Basalt Arches & Aether Crystals)
+  const voxelSpecs: Array<{ x: number; z: number; mode: 'basalt-arch' | 'aether-crystal'; seed: number; yaw: number }> = [
+    { x: -34, z: 368, mode: 'basalt-arch', seed: 410, yaw: 0.35 },
+    { x: 46, z: 446, mode: 'basalt-arch', seed: 522, yaw: -0.45 },
+    { x: -64, z: 492, mode: 'aether-crystal', seed: 618, yaw: 0.2 },
+    { x: 68, z: 506, mode: 'aether-crystal', seed: 734, yaw: -0.6 },
+    { x: -16, z: 540, mode: 'aether-crystal', seed: 842, yaw: 0.9 },
+  ];
+  for (const vs of voxelSpecs) {
+    const isArch = vs.mode === 'basalt-arch';
+    const { mesh, geometry } = createVoxelOutcropMesh(
+      {
+        gridX: isArch ? 11 : 8,
+        gridY: isArch ? 8 : 9,
+        gridZ: isArch ? 7 : 8,
+        voxelSize: isArch ? 0.62 : 0.45,
+        seed: vs.seed,
+        mode: vs.mode,
+      },
+      isArch ? matVoxelBasalt : matVoxelCrystal
+    );
+    const vy = getCountrysideGroundY(vs.x, vs.z) - 0.15;
+    mesh.position.set(vs.x, vy, vs.z);
+    mesh.rotation.y = vs.yaw;
+    group.add(mesh);
+    disposables.push(geometry);
+  }
 
   // Meadow Ponds
   for (const [px, pz, r] of [
@@ -226,6 +280,32 @@ export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput 
   const oaks: TreePlacement[] = [];
   const pines: TreePlacement[] = [];
 
+  // Agricultural Heartland Plot bounds (Seele-Scatter style rectangular domain parcels)
+  const farmPlots: Array<{
+    minX: number;
+    maxX: number;
+    minZ: number;
+    maxZ: number;
+    crop: 'wheat' | 'emerald' | 'loam' | 'orchard';
+    hasCottage?: boolean;
+  }> = [
+    { minX: -240, maxX: -145, minZ: 356, maxZ: 406, crop: 'wheat', hasCottage: true },
+    { minX: -140, maxX: -48, minZ: 356, maxZ: 406, crop: 'emerald' },
+    { minX: -250, maxX: -135, minZ: 515, maxZ: 580, crop: 'loam', hasCottage: true },
+    { minX: 48, maxX: 150, minZ: 356, maxZ: 416, crop: 'wheat', hasCottage: true },
+    { minX: 155, maxX: 255, minZ: 356, maxZ: 416, crop: 'emerald' },
+    { minX: 145, maxX: 260, minZ: 548, maxZ: 615, crop: 'loam', hasCottage: true },
+  ];
+
+  const insideFarmPlot = (x: number, z: number): boolean => {
+    for (const p of farmPlots) {
+      if (x >= p.minX - 4 && x <= p.maxX + 4 && z >= p.minZ - 4 && z <= p.maxZ + 4) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   for (let i = 0; i < 1250; i++) {
     const r1 = seededRand(i * 3 + 1);
     const r2 = seededRand(i * 3 + 2);
@@ -247,11 +327,12 @@ export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput 
       tz = THREE.MathUtils.lerp(-25, 340, r2);
     }
 
-    // Keep dirt highway corridor and pond interiors clear
+    // Keep dirt highway corridor, farm plots, and pond interiors clear
     const roadCurveX = Math.sin((tz - 336) * 0.011) * 16;
     if (tz > 334 && Math.abs(tx - roadCurveX) < 11.5) continue;
     if (Math.hypot(tx + 88, tz - 468) < 25) continue;
     if (Math.hypot(tx - 94, tz - 522) < 27) continue;
+    if (insideFarmPlot(tx, tz)) continue;
 
     const ty = getCountrysideGroundY(tx, tz);
     if (ty < -0.1) continue;
@@ -404,6 +485,193 @@ export function buildVaelcrestCountryside(maxAnisotropy = 4): CountrysideOutput 
       maxZ: lz + 0.38,
     });
   }
+
+  // -------------------------------------------------------------------------
+  // 2B. SEELE-SCATTER AGRICULTURAL HEARTLAND PLOTS & COASTAL SNOW-PEAK MOUNTAINS
+  // -------------------------------------------------------------------------
+  const matWheatField = new THREE.MeshStandardMaterial({ color: 0xc2a452, roughness: 0.9, metalness: 0.02 });
+  const matEmeraldCrop = new THREE.MeshStandardMaterial({ color: 0x5c8c42, roughness: 0.88, metalness: 0.02 });
+  const matTilledLoam = new THREE.MeshStandardMaterial({ color: 0x5a4635, roughness: 0.94, metalness: 0.02 });
+  const matDryStone = new THREE.MeshStandardMaterial({ color: 0x857f73, roughness: 0.92, metalness: 0.04 });
+  const matCottageWall = new THREE.MeshStandardMaterial({ color: 0xcfc5b2, roughness: 0.86, metalness: 0.02 });
+  const matCottageRoof = new THREE.MeshStandardMaterial({ color: 0x8d4534, roughness: 0.78, metalness: 0.08 });
+  const matSnowMountain = new THREE.MeshStandardMaterial({
+    vertexColors: true,
+    roughness: 0.9,
+    metalness: 0.04,
+  });
+  disposables.push(
+    matWheatField,
+    matEmeraldCrop,
+    matTilledLoam,
+    matDryStone,
+    matCottageWall,
+    matCottageRoof,
+    matSnowMountain
+  );
+
+  const farmWallMatrices: THREE.Matrix4[] = [];
+  const hayMatrices: THREE.Matrix4[] = [];
+  const wallBoxGeo = new THREE.BoxGeometry(1, 0.78, 0.45);
+  const hayGeo = new THREE.CylinderGeometry(0.62, 0.62, 1.15, 8);
+  hayGeo.rotateZ(Math.PI / 2);
+  const cottageBodyGeo = new THREE.BoxGeometry(8.5, 4.4, 6.8);
+  const cottageRoofGeo = new THREE.ConeGeometry(6.2, 3.2, 4);
+  disposables.push(wallBoxGeo, hayGeo, cottageBodyGeo, cottageRoofGeo);
+
+  for (const plot of farmPlots) {
+    const pw = plot.maxX - plot.minX;
+    const pd = plot.maxZ - plot.minZ;
+    const pcx = (plot.minX + plot.maxX) * 0.5;
+    const pcz = (plot.minZ + plot.maxZ) * 0.5;
+    const pGeo = new THREE.PlaneGeometry(pw, pd, 12, 8);
+    pGeo.rotateX(-Math.PI / 2);
+    const pPos = pGeo.attributes.position;
+    for (let vi = 0; vi < pPos.count; vi++) {
+      const wx = pPos.getX(vi) + pcx;
+      const wz = pPos.getZ(vi) + pcz;
+      pPos.setY(vi, getCountrysideGroundY(wx, wz) + 0.09);
+    }
+    pGeo.computeVertexNormals();
+    disposables.push(pGeo);
+
+    const plotMat =
+      plot.crop === 'wheat'
+        ? matWheatField
+        : plot.crop === 'loam'
+          ? matTilledLoam
+          : matEmeraldCrop;
+    const plotMesh = new THREE.Mesh(pGeo, plotMat);
+    plotMesh.position.set(pcx, 0, pcz);
+    plotMesh.receiveShadow = true;
+    group.add(plotMesh);
+
+    // Perimeter low drystone wall segments
+    for (let sx = plot.minX + 4; sx < plot.maxX; sx += 8) {
+      for (const sz of [plot.minZ, plot.maxZ]) {
+        const sy = getCountrysideGroundY(sx, sz);
+        dummy.position.set(sx, sy + 0.35, sz);
+        dummy.rotation.set(0, 0, 0);
+        dummy.scale.set(7.8, 1, 1);
+        dummy.updateMatrix();
+        farmWallMatrices.push(dummy.matrix.clone());
+      }
+    }
+    for (let sz = plot.minZ + 4; sz < plot.maxZ; sz += 8) {
+      for (const sx of [plot.minX, plot.maxX]) {
+        const sy = getCountrysideGroundY(sx, sz);
+        dummy.position.set(sx, sy + 0.35, sz);
+        dummy.rotation.set(0, Math.PI / 2, 0);
+        dummy.scale.set(7.8, 1, 1);
+        dummy.updateMatrix();
+        farmWallMatrices.push(dummy.matrix.clone());
+      }
+    }
+
+    // Hay bales scattered neatly inside plot
+    for (let h = 0; h < 4; h++) {
+      const hx = THREE.MathUtils.lerp(plot.minX + 10, plot.maxX - 10, (h + 0.35) / 4);
+      const hz = pcz + ((h % 2) * 2 - 1) * (pd * 0.22);
+      const hy = getCountrysideGroundY(hx, hz);
+      dummy.position.set(hx, hy + 0.62, hz);
+      dummy.rotation.set(0, h * 0.7, 0);
+      dummy.scale.set(1, 1, 1);
+      dummy.updateMatrix();
+      hayMatrices.push(dummy.matrix.clone());
+    }
+
+    // Coastal-European Stone Farm Cottage & Chimney
+    if (plot.hasCottage) {
+      const cx = plot.minX + 12;
+      const cz = plot.minZ + 11;
+      const cy = getCountrysideGroundY(cx, cz);
+      const body = new THREE.Mesh(cottageBodyGeo, matCottageWall);
+      body.position.set(cx, cy + 2.2, cz);
+      const roof = new THREE.Mesh(cottageRoofGeo, matCottageRoof);
+      roof.position.set(cx, cy + 5.8, cz);
+      roof.rotation.y = Math.PI / 4;
+      group.add(body, roof);
+      boxColliders.push({
+        minX: cx - 4.3,
+        maxX: cx + 4.3,
+        minY: cy,
+        maxY: cy + 4.8,
+        minZ: cz - 3.5,
+        maxZ: cz + 3.5,
+      });
+    }
+  }
+
+  if (farmWallMatrices.length > 0) {
+    const wallInst = new THREE.InstancedMesh(wallBoxGeo, matDryStone, farmWallMatrices.length);
+    farmWallMatrices.forEach((m, idx) => wallInst.setMatrixAt(idx, m));
+    wallInst.computeBoundingSphere();
+    group.add(wallInst);
+  }
+  if (hayMatrices.length > 0) {
+    const hayInst = new THREE.InstancedMesh(hayGeo, matWheatField, hayMatrices.length);
+    hayMatrices.forEach((m, idx) => hayInst.setMatrixAt(idx, m));
+    hayInst.computeBoundingSphere();
+    group.add(hayInst);
+  }
+
+  // Colossal Snow-Capped Coastal Mountain Backdrop (Heightmap-style vertex-shaded alpine massif)
+  const mountainLandmark = new THREE.Group();
+  mountainLandmark.name = 'Vaelcrest_Mountain_Range_Landmark';
+  const mtnPeaks: Array<{ x: number; z: number; radius: number; height: number; seed: number }> = [
+    { x: -340, z: 960, radius: 390, height: 245, seed: 11 },
+    { x: 240, z: 980, radius: 440, height: 295, seed: 23 },
+    { x: 760, z: 760, radius: 340, height: 225, seed: 37 },
+    { x: -790, z: 680, radius: 350, height: 230, seed: 53 },
+    { x: -860, z: 220, radius: 310, height: 195, seed: 67 },
+    { x: 870, z: 260, radius: 320, height: 205, seed: 79 },
+  ];
+  const colPineBase = new THREE.Color(0x2f4d35);
+  const colGranite = new THREE.Color(0x5b646d);
+  const colSnowCap = new THREE.Color(0xeef4fa);
+
+  for (const pk of mtnPeaks) {
+    const mGeo = new THREE.ConeGeometry(pk.radius, pk.height, 20, 8);
+    const mPos = mGeo.attributes.position;
+    const mCol = new Float32Array(mPos.count * 3);
+    for (let i = 0; i < mPos.count; i++) {
+      const vx = mPos.getX(i);
+      const vy = mPos.getY(i);
+      const vz = mPos.getZ(i);
+      const hNorm = THREE.MathUtils.clamp((vy + pk.height * 0.5) / pk.height, 0, 1);
+      // Ridged FBM-like displacement for organic alpine crags (zero displacement at summit apex & base)
+      const n =
+        SHARED_FAST_NOISE.sample2D((vx + pk.x) * 0.65, (vz + pk.z) * 0.65) *
+        (1 - hNorm) *
+        hNorm *
+        78;
+      const radial = Math.hypot(vx, vz);
+      if (radial > 1) {
+        mPos.setX(i, vx + (vx / radial) * n);
+        mPos.setZ(i, vz + (vz / radial) * n);
+      }
+      if (hNorm < 0.36) {
+        tmpCol.copy(colPineBase).lerp(colGranite, hNorm / 0.36);
+      } else if (hNorm < 0.64) {
+        tmpCol.copy(colGranite);
+      } else {
+        const snowT = THREE.MathUtils.smoothstep(hNorm, 0.64, 0.84);
+        tmpCol.copy(colGranite).lerp(colSnowCap, snowT);
+      }
+      mCol[i * 3] = tmpCol.r;
+      mCol[i * 3 + 1] = tmpCol.g;
+      mCol[i * 3 + 2] = tmpCol.b;
+    }
+    mGeo.setAttribute('color', new THREE.BufferAttribute(mCol, 3));
+    mGeo.computeVertexNormals();
+    disposables.push(mGeo);
+
+    const peakMesh = new THREE.Mesh(mGeo, matSnowMountain);
+    peakMesh.position.set(pk.x, pk.height * 0.44 - 8.0, pk.z);
+    peakMesh.rotation.y = pk.seed * 0.35;
+    mountainLandmark.add(peakMesh);
+  }
+  group.add(mountainLandmark);
 
   // -------------------------------------------------------------------------
   // 3. AMBIENT WOODLAND ANIMALS & EVOLVED MANA-BEASTS (Purely Ambient)

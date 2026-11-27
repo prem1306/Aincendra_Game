@@ -1,0 +1,88 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/WeatherController.gd" id="1_weather"]
+[ext_resource type="Script" path="res://scripts/world/ElarionTerrain.gd" id="2_terrain"]
+[ext_resource type="Script" path="res://scripts/world/ElarionWorldLoader.gd" id="3_loader"]
+[ext_resource type="Script" path="res://scripts/world/AmbientWildlife.gd" id="4_wildlife"]
+[ext_resource type="Script" path="res://scripts/npc/NpcManager.gd" id="5_npcs"]
+[ext_resource type="Script" path="res://scripts/combat/EnemyManager.gd" id="6_enemies"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="7_player"]
+[ext_resource type="PackedScene" path="res://scenes/GameHUD.tscn" id="8_hud"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.24, 0.52, 0.78, 1)
+sky_horizon_color = Color(0.68, 0.81, 0.90, 1)
+ground_bottom_color = Color(0.14, 0.22, 0.18, 1)
+ground_horizon_color = Color(0.54, 0.68, 0.74, 1)
+
+[sub_resource type="Sky" id="Sky_elarion"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_elarion"]
+background_mode = 2
+sky = SubResource("Sky_elarion")
+ambient_light_source = 3
+ambient_light_energy = 0.82
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.66, 0.80, 0.90, 1)
+fog_density = 0.00095
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rain"]
+emission_shape = 3
+emission_box_extents = Vector3(24, 1, 24)
+direction = Vector3(0, -1, 0)
+spread = 4.0
+initial_velocity_min = 24.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, -9.8, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rain"]
+transparency = 1
+albedo_color = Color(0.75, 0.88, 1, 0.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rain"]
+material = SubResource("StandardMaterial3D_rain")
+size = Vector3(0.03, 0.65, 0.03)
+
+[node name="Main" type="Node3D"]
+
+[node name="WeatherController" type="Node3D" parent="."]
+script = ExtResource("1_weather")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WeatherController"]
+environment = SubResource("Environment_elarion")
+
+[node name="SunLight" type="DirectionalLight3D" parent="WeatherController"]
+transform = Transform3D(0.793353, -0.433013, 0.427967, 0, 0.703018, 0.711172, -0.608761, -0.564211, 0.557742, 0, 80, 0)
+light_color = Color(1, 0.95, 0.86, 1)
+light_energy = 1.55
+shadow_enabled = true
+directional_shadow_max_distance = 320.0
+
+[node name="RainParticles" type="GPUParticles3D" parent="WeatherController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, 0)
+emitting = false
+amount = 900
+lifetime = 1.15
+process_material = SubResource("ParticleProcessMaterial_rain")
+draw_pass_1 = SubResource("BoxMesh_rain")
+
+[node name="ElarionTerrain" type="Node3D" parent="."]
+script = ExtResource("2_terrain")
+
+[node name="ElarionWorldLoader" type="Node3D" parent="."]
+script = ExtResource("3_loader")
+
+[node name="AmbientWildlife" type="Node3D" parent="."]
+script = ExtResource("4_wildlife")
+
+[node name="NpcManager" type="Node3D" parent="."]
+script = ExtResource("5_npcs")
+
+[node name="EnemyManager" type="Node3D" parent="."]
+script = ExtResource("6_enemies")
+
+[node name="Player" parent="." instance=ExtResource("7_player")]
+
+[node name="GameHUD" parent="." instance=ExtResource("8_hud")]

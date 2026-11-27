@@ -21,6 +21,7 @@ export const FloatingCombatOverlay = forwardRef<FloatingCombatOverlayHandle>(
     const popupNodeRefs = useRef<Map<string, HTMLDivElement>>(new Map());
     const dummyNodeRefs = useRef<Map<string, HTMLDivElement>>(new Map());
     const dummyFillRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+    const dummyPoiseRefs = useRef<Map<string, HTMLDivElement>>(new Map());
     const dummyHpTextRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 
     const latestPopupsRef = useRef<Map<string, FloatingCombatPopup>>(new Map());
@@ -42,9 +43,17 @@ export const FloatingCombatOverlay = forwardRef<FloatingCombatOverlayHandle>(
         const pct = Math.max(0, Math.min(100, (d.hp / Math.max(1, d.maxHp)) * 100));
         fillEl.style.width = `${pct.toFixed(1)}%`;
       }
+      const poiseEl = dummyPoiseRefs.current.get(id);
+      if (poiseEl && d.maxPoise && d.maxPoise > 0) {
+        const poisePct = d.staggered
+          ? 100
+          : Math.max(0, Math.min(100, ((d.poise ?? d.maxPoise) / d.maxPoise) * 100));
+        poiseEl.style.width = `${poisePct.toFixed(1)}%`;
+        poiseEl.style.backgroundColor = d.staggered ? '#fbbf24' : '#d49b63';
+      }
       const hpEl = dummyHpTextRefs.current.get(id);
       if (hpEl) {
-        hpEl.textContent = d.hp > 0 ? `${d.hp}/${d.maxHp}` : 'Resetting';
+        hpEl.textContent = d.staggered ? 'STAGGER!' : d.hp > 0 ? `${d.hp}/${d.maxHp}` : 'Resetting';
       }
     };
 
@@ -125,6 +134,22 @@ export const FloatingCombatOverlay = forwardRef<FloatingCombatOverlayHandle>(
                 className="h-full bg-[#c95343] transition-all duration-100"
               />
             </div>
+            {spec.maxPoise && spec.maxPoise > 0 && (
+              <div className="mt-0.5 h-1 w-28 overflow-hidden rounded-sm bg-[#1f262e]">
+                <div
+                  ref={(el) => {
+                    if (el) {
+                      dummyPoiseRefs.current.set(spec.id, el);
+                      const latest = latestDummiesRef.current.get(spec.id) ?? spec;
+                      applyDummy(spec.id, latest);
+                    } else {
+                      dummyPoiseRefs.current.delete(spec.id);
+                    }
+                  }}
+                  className="h-full bg-[#d49b63] transition-all duration-100"
+                />
+              </div>
+            )}
           </div>
         ))}
 

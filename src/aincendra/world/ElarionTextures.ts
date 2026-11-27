@@ -1,10 +1,11 @@
 import * as THREE from 'three';
+import { evaluateMaterialMakerGraph } from './MaterialMakerGraph';
 
 function makeCanvas(w: number, h: number): [HTMLCanvasElement, CanvasRenderingContext2D] {
   const canvas = document.createElement('canvas');
   canvas.width = w;
   canvas.height = h;
-  const ctx = canvas.getContext('2d')!;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
   return [canvas, ctx];
 }
 
@@ -37,7 +38,7 @@ function buildNormalMapFromHeightCanvas(
 ): THREE.DataTexture {
   const w = heightCanvas.width;
   const h = heightCanvas.height;
-  const ctx = heightCanvas.getContext('2d')!;
+  const ctx = heightCanvas.getContext('2d', { willReadFrequently: true })!;
   const src = ctx.getImageData(0, 0, w, h).data;
   const out = new Uint8Array(w * h * 4);
 
@@ -123,6 +124,79 @@ export interface SurfaceTexturePair {
   bumpMap: THREE.CanvasTexture;
   normalMap: THREE.DataTexture;
   roughnessMap: THREE.CanvasTexture;
+}
+
+/**
+ * Material-Maker-style procedural mineral/mossy terrain rock PBR set built via composable noise graphs.
+ */
+export function createMaterialMakerTerrainTexturePair(
+  maxAnisotropy: number,
+  repeatX = 36,
+  repeatY = 36
+): SurfaceTexturePair {
+  const size = 256;
+  const maps = evaluateMaterialMakerGraph({
+    size,
+    seed: 901,
+    noiseScale: 0.048,
+    voronoiWeight: 0.35,
+    fbmWeight: 0.65,
+    normalStrength: 2.2,
+    minRoughness: 0.72,
+    maxRoughness: 0.96,
+  });
+
+  const [albedoCanvas, aCtx] = makeCanvas(size, size);
+  const [bumpCanvas, bCtx] = makeCanvas(size, size);
+  const [roughCanvas, rCtx] = makeCanvas(size, size);
+  const aImg = aCtx.createImageData(size, size);
+  const bImg = bCtx.createImageData(size, size);
+  const rImg = rCtx.createImageData(size, size);
+
+  for (let i = 0; i < size * size; i++) {
+    const hVal = maps.heightField[i];
+    const ao = maps.aoField[i];
+    const rVal = Math.round(maps.roughnessField[i] * 255);
+    const pIdx = i * 4;
+
+    aImg.data[pIdx] = Math.round((128 + hVal * 44) * ao);
+    aImg.data[pIdx + 1] = Math.round((152 + hVal * 48) * ao);
+    aImg.data[pIdx + 2] = Math.round((102 + hVal * 32) * ao);
+    aImg.data[pIdx + 3] = 255;
+
+    const bByte = Math.round(hVal * 255);
+    bImg.data[pIdx] = bByte;
+    bImg.data[pIdx + 1] = bByte;
+    bImg.data[pIdx + 2] = bByte;
+    bImg.data[pIdx + 3] = 255;
+
+    rImg.data[pIdx] = rVal;
+    rImg.data[pIdx + 1] = rVal;
+    rImg.data[pIdx + 2] = rVal;
+    rImg.data[pIdx + 3] = 255;
+  }
+
+  aCtx.putImageData(aImg, 0, 0);
+  bCtx.putImageData(bImg, 0, 0);
+  rCtx.putImageData(rImg, 0, 0);
+
+  const normalMap = new THREE.DataTexture(maps.normalData, size, size, THREE.RGBAFormat);
+  normalMap.wrapS = THREE.RepeatWrapping;
+  normalMap.wrapT = THREE.RepeatWrapping;
+  normalMap.repeat.set(repeatX, repeatY);
+  normalMap.colorSpace = THREE.NoColorSpace;
+  normalMap.magFilter = THREE.LinearFilter;
+  normalMap.minFilter = THREE.LinearMipmapLinearFilter;
+  normalMap.generateMipmaps = true;
+  normalMap.anisotropy = Math.min(8, maxAnisotropy);
+  normalMap.needsUpdate = true;
+
+  return {
+    map: finalizeTexture(albedoCanvas, repeatX, repeatY, Math.min(8, maxAnisotropy), true),
+    bumpMap: finalizeTexture(bumpCanvas, repeatX, repeatY, Math.min(8, maxAnisotropy), false),
+    normalMap,
+    roughnessMap: finalizeTexture(roughCanvas, repeatX, repeatY, Math.min(8, maxAnisotropy), false),
+  };
 }
 
 function addSurfaceNoise(ctx: CanvasRenderingContext2D, w: number, h: number, count: number, alpha = 0.05): void {

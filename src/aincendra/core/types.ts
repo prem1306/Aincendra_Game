@@ -1,4 +1,14 @@
 import * as THREE from 'three';
+import type {
+  ActiveWorldNotification,
+  CraftingStationKind,
+  FactionId,
+  GameLifecycleState,
+  GameOutcome,
+  RpgHudSnapshot,
+  SpellId,
+} from '../rpg/rpgTypes';
+import type { LootPropSpec } from '../world/WorldStationsAndLoot';
 
 export type CameraMode = 'third-person' | 'first-person';
 export type MapId = 'elarion-district' | 'greybox';
@@ -95,6 +105,10 @@ export interface InputSnapshot {
   heavyAttackPressed: boolean;
   firearmPressed: boolean;
   dodgePressed: boolean;
+  spellPressed: SpellId | null;
+  ventPressed: boolean;
+  healPressed: boolean;
+  manaPotionPressed: boolean;
   emotePressed: PlayerEmoteKind | null;
   guardHeld: boolean;
   lookDeltaX: number;
@@ -161,6 +175,13 @@ export interface NpcDialogueChoice {
   npcReaction?: NpcReactionKind;
   playerEmote?: PlayerEmoteKind;
   unlockGateId?: string;
+  questBranch?: {
+    questId: string;
+    stageIndex: number;
+    label: string;
+    faction: FactionId;
+    repDelta: number;
+  };
 }
 
 export interface NpcDialogueNode {
@@ -217,6 +238,12 @@ export interface InteractableSpec {
   labelHeight?: number;
   pickable?: boolean;
   opensRailStationId?: string;
+  opensCraftingStation?: CraftingStationKind;
+  questInspectTrigger?: {
+    questId: string;
+    stageIndex: number;
+    increment?: number;
+  };
   dialogueTree?: NpcDialogueNode[];
   initialDialogueNodeId?: string;
 }
@@ -276,6 +303,9 @@ export interface DummyStatusReadout {
   name: string;
   hp: number;
   maxHp: number;
+  poise?: number;
+  maxPoise?: number;
+  staggered?: boolean;
   screenX: number;
   screenY: number;
   opacity: number;
@@ -303,6 +333,7 @@ export interface PlayerTelemetry {
   npcCount: number;
   wildlifeCount: number;
   southGateOpen: boolean;
+  castleGateOpen: boolean;
   crowns: number;
   collectedCount: number;
   totalPickables: number;
@@ -314,6 +345,10 @@ export interface PlayerTelemetry {
   cameraYaw: number;
   activePrompt: ActiveInteractPrompt | null;
   activeInspection: ActiveInspection | null;
+  lifecycleState: GameLifecycleState;
+  outcome: GameOutcome;
+  rpg: RpgHudSnapshot;
+  notification: ActiveWorldNotification | null;
 }
 
 export interface GreyboxWorldData {
@@ -333,6 +368,9 @@ export interface GreyboxWorldData {
   unlockGate?: (gateId: string) => boolean;
   isGateOpen?: (gateId: string) => boolean;
   collectProp?: (id: string) => boolean;
+  collectLoot?: (id: string) => LootPropSpec | null;
+  getNearestStation?: (pos: THREE.Vector3) => CraftingStationKind;
+  isCraftingTrigger?: (id: string) => CraftingStationKind | null;
   update?: (dt: number, playerPosition?: THREE.Vector3) => void;
   dispose: () => void;
 }

@@ -24,6 +24,9 @@ import {
 import { buildElarionMetropolisExpansion } from './ElarionMetropolisExpansion';
 import { buildVaelcrestCountryside, getCountrysideGroundY } from './VaelcrestCountryside';
 import { RAIL_STATIONS } from './ManaRailNetwork';
+import { ModelAssetCache } from './ModelAssetCache';
+import { buildWorldStationsAndLoot } from './WorldStationsAndLoot';
+import { buildElarionCuratedAssets } from './ElarionCuratedAssets';
 
 /**
  * Expanded 5-District Elarion Slice (~270m x 216m) with Vibrant Props, 4 Interiors & Multi-Action Citizens:
@@ -33,7 +36,10 @@ import { RAIL_STATIONS } from './ManaRailNetwork';
  * 4. South Artisan Market Plaza & Extended South Bazaar Boulevard (10 Stalls, Weaver & Vintner Guildhalls)
  * 5. East Academic Courtyard (Aetheric Conservatory, Observatory, Cartography Hall) & Noble Heights Upper Plaza
  */
-export function buildElarionDistrictBlock(maxAnisotropy: number): GreyboxWorldData {
+export function buildElarionDistrictBlock(
+  maxAnisotropy: number,
+  modelCache = new ModelAssetCache()
+): GreyboxWorldData {
   const group = new THREE.Group();
   group.name = 'Elarion_District_Expanded';
 
@@ -2661,9 +2667,14 @@ export function buildElarionDistrictBlock(maxAnisotropy: number): GreyboxWorldDa
       promptAction: 'Inspect',
       position: [-47.5, 0.16, 5.5],
       radius: 2.8,
+      questInspectTrigger: {
+        questId: 'q_gate_conduit',
+        stageIndex: 0,
+        increment: 2,
+      },
       lines: [
         'Three cyan sight-gauges hum steadily beneath heavy overhead copper mains linking directly to the storage silos.',
-        'North of the substation, a giant copper flywheel spins continuously on the Pump House wall.',
+        'You calibrate the bypass valve and record the pressure reading — ready to synthesize a Stabilized Crystal Core ([B]).',
       ],
     },
     {
@@ -3038,6 +3049,24 @@ export function buildElarionDistrictBlock(maxAnisotropy: number): GreyboxWorldDa
   group.add(pickables.group);
   interactables.push(...pickables.toInteractables());
 
+  const stationsAndLoot = buildWorldStationsAndLoot(modelCache, getCountrysideGroundY);
+  group.add(stationsAndLoot.group);
+  boxColliders.push(...stationsAndLoot.boxColliders);
+  for (const item of stationsAndLoot.interactables) {
+    const stationKind = stationsAndLoot.isCraftingTrigger(item.id);
+    if (stationKind) {
+      interactables.push({ ...item, opensCraftingStation: stationKind });
+    } else {
+      interactables.push(item);
+    }
+  }
+
+  const curatedAssets = buildElarionCuratedAssets(modelCache, getCountrysideGroundY);
+  curatedAssets.group.name = 'Elarion_Curated_3D_Assets_Landmark';
+  group.add(curatedAssets.group);
+  boxColliders.push(...curatedAssets.boxColliders);
+  raycastTargets.push(...curatedAssets.raycastTargets);
+
   const combatDummies: CombatDummySpec[] = [
     {
       id: 'el_dummy_harbourgate',
@@ -3081,6 +3110,9 @@ export function buildElarionDistrictBlock(maxAnisotropy: number): GreyboxWorldDa
     unlockGate: expansion.unlockGate,
     isGateOpen: expansion.isGateOpen,
     collectProp: (id: string) => pickables.collect(id),
+    collectLoot: (id: string) => stationsAndLoot.collectLoot(id),
+    getNearestStation: stationsAndLoot.getNearestStation,
+    isCraftingTrigger: stationsAndLoot.isCraftingTrigger,
     update: (dt: number, playerPosition?: THREE.Vector3) => {
       waterBump.offset.x = (waterBump.offset.x + dt * 0.018) % 1;
       waterBump.offset.y = (waterBump.offset.y + dt * 0.011) % 1;
@@ -3088,11 +3120,15 @@ export function buildElarionDistrictBlock(maxAnisotropy: number): GreyboxWorldDa
       expansion.update(dt);
       countryside.update(dt, playerPosition);
       pickables.update(dt);
+      stationsAndLoot.update(dt);
+      curatedAssets.update(dt);
     },
     dispose: () => {
       vista.dispose();
       countryside.dispose();
       pickables.dispose();
+      stationsAndLoot.dispose();
+      curatedAssets.dispose();
       for (const d of disposables) {
         d.dispose();
       }

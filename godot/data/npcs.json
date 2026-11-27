@@ -1,0 +1,2673 @@
+[
+  {
+    "id": "npc_harbour_worker",
+    "role": "Harbour Worker",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      -6.5,
+      0.16,
+      -23.5
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 4937830,
+    "accentColor": 12746574,
+    "moveSpeed": 1.55,
+    "waypoints": [
+      [
+        -6.5,
+        0.16,
+        -23.5
+      ],
+      [
+        6.5,
+        0.16,
+        -23.5
+      ],
+      [
+        6.5,
+        0.16,
+        -15.5
+      ],
+      [
+        6.5,
+        0.16,
+        -23.5
+      ]
+    ],
+    "dialogueLines": [
+      "Three cargo piers stretch out into Elarion Bay now—West Pier, Central Shipyard Pier, and East Pier.",
+      "Mind the railway viaduct overhead—the freight run from the West refineries barely slows for the curve."
+    ],
+    "randomDialogues": [
+      [
+        "Just finished checking the north parapet lamps along the overlook.",
+        "You can see all the way to the outer breakwater lighthouse when the morning mist lifts."
+      ],
+      [
+        "Hear that rumble? West Boiler Works sent another string of copper tankers across the viaduct.",
+        "Harbour traffic has doubled since House Vaelcrest opened the third pier."
+      ]
+    ],
+    "tunicHex": "#4b5866",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_dock_porter",
+    "role": "Dock Porter",
+    "behavior": "work",
+    "actionKind": "haul",
+    "position": [
+      7.6,
+      0.16,
+      -15.6
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 7033664,
+    "accentColor": 3884111,
+    "dialogueLines": [
+      "Copper-sealed crates go to the Chandlery; bulk grain heads south through the gate into Artisan Market Plaza.",
+      "Every lift crane on the quay runs off refined external mana piped from the West silos."
+    ],
+    "randomDialogues": [
+      [
+        "Feels like these oak crates gain five pounds every flight of stairs up from the quay.",
+        "Good thing the Warehouse Annex hoist saves our backs on the heavy iron."
+      ],
+      [
+        "Vintner Hall down on South Bazaar Boulevard bought half our eastern cargo lot.",
+        "Rest goes straight to the shipwrights on Central Pier."
+      ]
+    ],
+    "tunicHex": "#6b5340",
+    "accentHex": "#3b444f"
+  },
+  {
+    "id": "npc_chandlery_clerk",
+    "role": "Customs Clerk",
+    "behavior": "work",
+    "actionKind": "clipboard",
+    "position": [
+      -13.4,
+      0.18,
+      7.8
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 2702157,
+    "accentColor": 11958862,
+    "dialogueLines": [
+      "House Vaelcrest levies standard harbour dues on raw mana crystal and foreign timber alike.",
+      "If your vessel is moored at the outer piers, check the quay booth below the viaduct for berth clearance."
+    ],
+    "randomDialogues": [
+      [
+        "Stamp, weigh, cross-index—three ledgers for every ship that drops anchor in Elarion.",
+        "Even the West Forge Assay Office sends brass seal-dies here for inspection."
+      ]
+    ],
+    "tunicHex": "#293b4d",
+    "accentHex": "#b67a4e"
+  },
+  {
+    "id": "npc_tavern_barkeep",
+    "role": "Tavern Barkeep",
+    "behavior": "work",
+    "actionKind": "sweep",
+    "position": [
+      13.8,
+      0.18,
+      -3.2
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 8011057,
+    "accentColor": 13936218,
+    "dialogueLines": [
+      "Warm broth and bitter ale—best cure after a twelve-hour shift in the Smelting Hall.",
+      "Check the notice board outside our door if you want the latest shipping and foundry bulletins."
+    ],
+    "randomDialogues": [
+      [
+        "Shipwrights from Central Pier drank half a cask before noon celebrating a clean keel launch.",
+        "Keep your boots dry and pull up a stool whenever the rain squalls roll in."
+      ],
+      [
+        "Suncoast vintages arrived fresh from Vintner Hall this morning—brighter stuff than sailor grog!"
+      ]
+    ],
+    "tunicHex": "#7a3d31",
+    "accentHex": "#d4a65a"
+  },
+  {
+    "id": "npc_trade_merchant",
+    "role": "Merchant",
+    "behavior": "work",
+    "actionKind": "announce",
+    "position": [
+      7.6,
+      0.16,
+      9
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 3890249,
+    "accentColor": 14063162,
+    "dialogueLines": [
+      "Fine brass fittings, oiled canvas, and Vaelcrest harbour charts—step right up to the Trade House!",
+      "Head south through the City Gate if you want the open-air stalls at Artisan Market Plaza."
+    ],
+    "randomDialogues": [
+      [
+        "Prices on precision horology gears dropped this week since Foundry Row boosted output!",
+        "Even scholars from the Conservatory come down here for copper wire."
+      ]
+    ],
+    "tunicHex": "#3b5c49",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_plaza_resident_a",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      22.2,
+      0.16,
+      3
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 6441845,
+    "accentColor": 13214570,
+    "dialogueLines": [
+      "Copperwell Square stays peaceful enough, even when the western refinery vents roar.",
+      "The cistern fountain draws clean pressure from the district conduit line."
+    ],
+    "randomDialogues": [
+      [
+        "Look at the flower boxes along the Apothecary this season—sun-gold blooms all along the cornice.",
+        "The whole neighbourhood looks twice as bright after festival bunting went up."
+      ]
+    ],
+    "tunicHex": "#624b75",
+    "accentHex": "#c9a36a"
+  },
+  {
+    "id": "npc_plaza_resident_b",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      23.3,
+      0.16,
+      3.1
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 3959646,
+    "accentColor": 14063162,
+    "dialogueLines": [
+      "My sister studies up at the new Aetheric Conservatory—climb the East concourse steps to walk the Academic Courtyard.",
+      "From there the grand limestone stairway climbs all the way to House Vaelcrest Council Hall."
+    ],
+    "randomDialogues": [
+      [
+        "You should walk down South Bazaar Boulevard if you have time—the Weaver Guild hung teal silks everywhere."
+      ]
+    ],
+    "tunicHex": "#3c6b5e",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_courtyard_worker",
+    "role": "Resident",
+    "behavior": "patrol",
+    "actionKind": "haul",
+    "position": [
+      -24.2,
+      0.16,
+      2.5
+    ],
+    "facingYaw": 0,
+    "tunicColor": 6049604,
+    "accentColor": 9402982,
+    "moveSpeed": 1.4,
+    "waypoints": [
+      [
+        -24.2,
+        0.16,
+        2.5
+      ],
+      [
+        -24.2,
+        0.16,
+        13.5
+      ],
+      [
+        -13.5,
+        0.16,
+        13.5
+      ],
+      [
+        -13.5,
+        0.16,
+        2.75
+      ],
+      [
+        -22,
+        0.16,
+        2.75
+      ]
+    ],
+    "dialogueLines": [
+      "We cut through the covered alley to reach Harbourgate Lane faster during shift change.",
+      "Shared pump pressure drops whenever the Smelting Hall draws a full crucible charge."
+    ],
+    "randomDialogues": [
+      [
+        "Hauling spare pipe couplings from the tenement pump over to Foundry Row.",
+        "Watch your step on the cobbles near the alley arch."
+      ]
+    ],
+    "tunicHex": "#5c4f44",
+    "accentHex": "#8f7a66"
+  },
+  {
+    "id": "npc_city_guard",
+    "role": "City Guard",
+    "behavior": "patrol",
+    "actionKind": "watch",
+    "position": [
+      -5.8,
+      0.16,
+      14.2
+    ],
+    "facingYaw": 0,
+    "tunicColor": 2502973,
+    "accentColor": 11958862,
+    "moveSpeed": 1.65,
+    "waypoints": [
+      [
+        -5.8,
+        0.16,
+        14.2
+      ],
+      [
+        -5.8,
+        0.16,
+        -6
+      ],
+      [
+        5.8,
+        0.16,
+        -6
+      ],
+      [
+        5.8,
+        0.16,
+        14.2
+      ],
+      [
+        20.5,
+        0.16,
+        14.2
+      ],
+      [
+        5.8,
+        0.16,
+        14.2
+      ]
+    ],
+    "dialogueLines": [
+      "All five quarters are open—three Harbour Piers north, Boiler Works & West Forge west, Bazaar Boulevard south, Academic & Noble Plaza east.",
+      "Keep clear of pressurized mana manifolds unless you hold a guild seal."
+    ],
+    "randomDialogues": [
+      [
+        "Quiet patrol so far—most trouble today was a runaway melon cart in Market Plaza.",
+        "Hold E near any guild sign or monument if you want full civic records."
+      ]
+    ],
+    "tunicHex": "#26313d",
+    "accentHex": "#b67a4e"
+  },
+  {
+    "id": "npc_harbourmaster",
+    "role": "Harbourmaster",
+    "behavior": "work",
+    "actionKind": "clipboard",
+    "position": [
+      12.1,
+      -0.3,
+      -39
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 2044740,
+    "accentColor": 7260889,
+    "dialogueLines": [
+      "Welcome to Grand Harbour Quay. All three piers are active—West Pier, Central Shipyard Pier, and East Pier.",
+      "Every ton of cargo logged here feeds the freight viaduct above us or the Chandlery up Harbourgate Lane."
+    ],
+    "randomDialogues": [
+      [
+        "Mariners Guildhall on the far east quay handles deep-sea pilot licenses now.",
+        "Shipwright Drydock on the far west edge is fitting three new copper keels."
+      ]
+    ],
+    "tunicHex": "#1f3344",
+    "accentHex": "#6ecad9"
+  },
+  {
+    "id": "npc_quay_tallyman",
+    "role": "Dock Porter",
+    "behavior": "patrol",
+    "actionKind": "haul",
+    "position": [
+      -10,
+      -0.3,
+      -44
+    ],
+    "facingYaw": 0,
+    "tunicColor": 5720893,
+    "accentColor": 11958862,
+    "moveSpeed": 1.5,
+    "waypoints": [
+      [
+        -10,
+        -0.3,
+        -44
+      ],
+      [
+        -10,
+        -0.3,
+        -52.5
+      ],
+      [
+        4,
+        -0.3,
+        -52.5
+      ],
+      [
+        4,
+        -0.3,
+        -44
+      ]
+    ],
+    "dialogueLines": [
+      "Watch the crane boom swings along the sea wall—the mana-driven slews run steady all afternoon.",
+      "Outbound merchantman clears the breakwater once the customs manifest is stamped."
+    ],
+    "randomDialogues": [
+      [
+        "Sorting oak planking for the Central Shipyard crews—keep the pier deck clear!"
+      ]
+    ],
+    "tunicHex": "#574b3d",
+    "accentHex": "#b67a4e"
+  },
+  {
+    "id": "npc_pier_lookout",
+    "role": "Harbour Worker",
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      20.2,
+      -0.3,
+      -84.5
+    ],
+    "facingYaw": 0,
+    "tunicColor": 3886174,
+    "accentColor": 7260889,
+    "dialogueLines": [
+      "From the East Pier beacon you can watch outbound vessels catch the tide beyond the stone breakwaters.",
+      "The merchantman moored beside us is loading sealed cyan mana canisters bound for the southern straits."
+    ],
+    "randomDialogues": [
+      [
+        "Sea breeze hits clean out here—no foundry soot reaches past the viaduct."
+      ]
+    ],
+    "tunicHex": "#3b4c5e",
+    "accentHex": "#6ecad9"
+  },
+  {
+    "id": "npc_west_pier_docker",
+    "role": "Dock Porter",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      -22.8,
+      -0.3,
+      -66
+    ],
+    "facingYaw": 3.141592653589793,
+    "tunicColor": 5720124,
+    "accentColor": 10907206,
+    "moveSpeed": 1.45,
+    "waypoints": [
+      [
+        -22.8,
+        -0.3,
+        -66
+      ],
+      [
+        -22.8,
+        -0.3,
+        -90.5
+      ],
+      [
+        -32.8,
+        -0.3,
+        -90.5
+      ],
+      [
+        -32.8,
+        -0.3,
+        -66
+      ]
+    ],
+    "dialogueLines": [
+      "Mind the mooring lines along West Pier—crews are offloading oak timber and raw copper ingots.",
+      "West Pier Warehouse holds bonded bulk ore before it moves west to the Refinery Hall."
+    ],
+    "tunicHex": "#57483c",
+    "accentHex": "#a66e46"
+  },
+  {
+    "id": "npc_central_pier_shipwright",
+    "role": "Engineer",
+    "behavior": "work",
+    "actionKind": "forge",
+    "position": [
+      -2.5,
+      -0.3,
+      -72
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 4535596,
+    "accentColor": 12746574,
+    "dialogueLines": [
+      "Forging bronze rudder pintles right on Central Shipyard Pier for the brigantine berthed beside us!",
+      "External mana keeps every shipwright’s rivet brazier glowing steady even in harbour winds."
+    ],
+    "randomDialogues": [
+      [
+        "Clang-clang-temper! One clean hull bracket down, twelve more before evening bell."
+      ]
+    ],
+    "tunicHex": "#45352c",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_central_pier_rigger",
+    "role": "Harbour Worker",
+    "behavior": "patrol",
+    "actionKind": "haul",
+    "position": [
+      2,
+      -0.3,
+      -67
+    ],
+    "facingYaw": 0,
+    "tunicColor": 2908270,
+    "accentColor": 14063162,
+    "moveSpeed": 1.45,
+    "waypoints": [
+      [
+        2,
+        -0.3,
+        -67
+      ],
+      [
+        2,
+        -0.3,
+        -80
+      ],
+      [
+        -2,
+        -0.3,
+        -80
+      ],
+      [
+        -2,
+        -0.3,
+        -67
+      ]
+    ],
+    "dialogueLines": [
+      "Fresh hemp cordage and brass blocks going out to the Central Pier anchor monument!",
+      "That old iron anchor at the pier head was salvaged from House Vaelcrest’s very first flagship."
+    ],
+    "tunicHex": "#2c606e",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_mariners_quartermaster",
+    "role": "Customs Clerk",
+    "behavior": "work",
+    "actionKind": "clipboard",
+    "position": [
+      68,
+      -0.3,
+      -41
+    ],
+    "facingYaw": 3.141592653589793,
+    "tunicColor": 2506575,
+    "accentColor": 7260889,
+    "dialogueLines": [
+      "Welcome to Mariners Guildhall at the eastern end of the quay.",
+      "Sea-pilots draw coastal tide tables and external-mana compass seals from our hall."
+    ],
+    "tunicHex": "#263f4f",
+    "accentHex": "#6ecad9"
+  },
+  {
+    "id": "npc_drydock_sweeper",
+    "role": "Harbour Worker",
+    "behavior": "work",
+    "actionKind": "sweep",
+    "position": [
+      -72,
+      -0.3,
+      -41
+    ],
+    "facingYaw": 3.141592653589793,
+    "tunicColor": 5391933,
+    "accentColor": 10907206,
+    "dialogueLines": [
+      "Sweeping oak shavings clear of the Shipwright Drydock apron before the next tide-gate opens.",
+      "Nothing catches a stray spark faster than dry pine sawdust near a mana-stoked forge."
+    ],
+    "tunicHex": "#52463d",
+    "accentHex": "#a66e46"
+  },
+  {
+    "id": "npc_conduit_engineer",
+    "role": "Engineer",
+    "behavior": "work",
+    "actionKind": "clipboard",
+    "position": [
+      -46.2,
+      0.16,
+      6.8
+    ],
+    "facingYaw": 3.141592653589793,
+    "tunicColor": 3880242,
+    "accentColor": 5413294,
+    "dialogueLines": [
+      "This substation steps down external mana pressure from the four storage silos before feeding Harbourgate lamps.",
+      "Walk north past the twin silos and copper flywheel to take the ramp right down onto the Quay."
+    ],
+    "tunicHex": "#3b3532",
+    "accentHex": "#5299ae"
+  },
+  {
+    "id": "npc_smeltery_smith",
+    "role": "Engineer",
+    "behavior": "work",
+    "actionKind": "forge",
+    "position": [
+      -73.5,
+      0.18,
+      3.2
+    ],
+    "facingYaw": 3.141592653589793,
+    "tunicColor": 4534312,
+    "accentColor": 13730379,
+    "dialogueLines": [
+      "Mana-stoked crucibles reach tempering heat in half the time of coal—and leave zero soot on Vaelcrest bronze.",
+      "Careful near the hearth mouth; raw crucible coils run hot enough to melt iron tongs."
+    ],
+    "randomDialogues": [
+      [
+        "Every viaduct rail overhead started as raw ore in this very hall!"
+      ]
+    ],
+    "tunicHex": "#453028",
+    "accentHex": "#d1824b"
+  },
+  {
+    "id": "npc_refinery_patrol",
+    "role": "Harbour Worker",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      -61,
+      0.16,
+      18.5
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 4869716,
+    "accentColor": 11958862,
+    "moveSpeed": 1.55,
+    "waypoints": [
+      [
+        -61,
+        0.16,
+        18.5
+      ],
+      [
+        -88.5,
+        0.16,
+        18.5
+      ],
+      [
+        -88.5,
+        0.16,
+        12.2
+      ],
+      [
+        -61,
+        0.16,
+        12.2
+      ]
+    ],
+    "dialogueLines": [
+      "Refinery Avenue keeps wagons rolling from Boiler Works and Smelting Hall all the way down Foundry Row.",
+      "The Pump House flywheel never stops turning while the eastern harbour cranes are drawing load."
+    ],
+    "tunicHex": "#4a4e54",
+    "accentHex": "#b67a4e"
+  },
+  {
+    "id": "npc_west_forge_assayer",
+    "role": "Engineer",
+    "behavior": "work",
+    "actionKind": "forge",
+    "position": [
+      -53,
+      0.18,
+      31.4
+    ],
+    "facingYaw": 0,
+    "tunicColor": 5189416,
+    "accentColor": 14256718,
+    "dialogueLines": [
+      "Step inside the West Forge & Assay Office! Every copper ingot from the Smelting Hall gets stamped for purity here.",
+      "You can inspect our assay counter and live brazier hearth right inside."
+    ],
+    "randomDialogues": [
+      [
+        "Purity tests keep guild merchants honest—House Vaelcrest accepts zero brittle slag in bridge iron!"
+      ]
+    ],
+    "tunicHex": "#4f2f28",
+    "accentHex": "#d98a4e"
+  },
+  {
+    "id": "npc_boiler_engineer",
+    "role": "Engineer",
+    "behavior": "work",
+    "actionKind": "clipboard",
+    "position": [
+      -114,
+      0.16,
+      -5.5
+    ],
+    "facingYaw": 3.141592653589793,
+    "tunicColor": 2831936,
+    "accentColor": 7260889,
+    "dialogueLines": [
+      "Heavy Boiler Works feeds both the western viaduct pumps and the Assay Guildhouse down across Refinery Ave.",
+      "Those twin silos beside us hold enough condensed mana to run the district for a fortnight."
+    ],
+    "tunicHex": "#2b3640",
+    "accentHex": "#6ecad9"
+  },
+  {
+    "id": "npc_assay_hauler",
+    "role": "Dock Porter",
+    "behavior": "patrol",
+    "actionKind": "haul",
+    "position": [
+      -105,
+      0.16,
+      19.5
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 6179128,
+    "accentColor": 14063162,
+    "moveSpeed": 1.5,
+    "waypoints": [
+      [
+        -105,
+        0.16,
+        19.5
+      ],
+      [
+        -62,
+        0.16,
+        19.5
+      ],
+      [
+        -62,
+        0.16,
+        23
+      ],
+      [
+        -105,
+        0.16,
+        23
+      ]
+    ],
+    "dialogueLines": [
+      "Moving assayed brass bars from the West Forge out to the Assay Guildhouse!",
+      "Refinery Avenue stretches twice as far west now that the Boiler Works opened."
+    ],
+    "tunicHex": "#5e4938",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_yard_sweeper",
+    "role": "Resident",
+    "behavior": "work",
+    "actionKind": "sweep",
+    "position": [
+      -29.5,
+      0.16,
+      4
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 5195326,
+    "accentColor": 8023133,
+    "dialogueLines": [
+      "Keeping the Worker Courtyard cobbles neat around the water pump.",
+      "Folks hang flower boxes out on every sill once spring winds warm the bay."
+    ],
+    "tunicHex": "#4f463e",
+    "accentHex": "#7a6c5d"
+  },
+  {
+    "id": "npc_apothecary_herbalist",
+    "role": "Merchant",
+    "behavior": "idle",
+    "actionKind": "browse",
+    "position": [
+      25.5,
+      0.16,
+      -4.5
+    ],
+    "facingYaw": 0,
+    "tunicColor": 3892049,
+    "accentColor": 14063162,
+    "dialogueLines": [
+      "Tinctures, willow-bark salves, and sea-salt poultices—fresh from the Conservatory gardens!",
+      "Step into Copperwell Square whenever you need rest beside the fountain."
+    ],
+    "tunicHex": "#3b6351",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_market_clothier",
+    "role": "Merchant",
+    "behavior": "work",
+    "actionKind": "announce",
+    "position": [
+      -10.5,
+      0.16,
+      66.5
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 8010054,
+    "accentColor": 14063162,
+    "dialogueLines": [
+      "Dyed wool, sea-cloak canvas, and brass-buckled belts—fresh off the Weaver Guild looms!",
+      "Ten stalls open across Artisan Market Plaza today—crimson, emerald, and sea-blue canopies all stocked!"
+    ],
+    "randomDialogues": [
+      [
+        "Gold-threaded trim straight from South Bazaar Boulevard—come have a look!"
+      ]
+    ],
+    "tunicHex": "#7a3946",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_market_grocer",
+    "role": "Merchant",
+    "behavior": "work",
+    "actionKind": "announce",
+    "position": [
+      10.5,
+      0.16,
+      59.5
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 3893572,
+    "accentColor": 15906616,
+    "dialogueLines": [
+      "Orchard apples and kiln-baked loaves straight from the inland rail sidings!",
+      "Leave room on the main cobbles when the freight carters bring in fresh spice barrels."
+    ],
+    "tunicHex": "#3b6944",
+    "accentHex": "#f2b738"
+  },
+  {
+    "id": "npc_market_browser",
+    "role": "Resident",
+    "behavior": "patrol",
+    "actionKind": "browse",
+    "position": [
+      -3.5,
+      0.16,
+      56
+    ],
+    "facingYaw": 0,
+    "tunicColor": 4934499,
+    "accentColor": 13214570,
+    "moveSpeed": 1.35,
+    "waypoints": [
+      [
+        -3.5,
+        0.16,
+        56
+      ],
+      [
+        -3.5,
+        0.16,
+        76
+      ],
+      [
+        3.5,
+        0.16,
+        76
+      ],
+      [
+        3.5,
+        0.16,
+        56
+      ]
+    ],
+    "dialogueLines": [
+      "Every trade guild in Elarion keeps a stall south of the City Gate—and the South Arcade now opens right onto South Bazaar Boulevard!",
+      "Walk south past the obelisk to visit the Weaver Guildhall and Vintner Cellars."
+    ],
+    "tunicHex": "#4b4b63",
+    "accentHex": "#c9a36a"
+  },
+  {
+    "id": "npc_market_potter",
+    "role": "Merchant",
+    "behavior": "patrol",
+    "actionKind": "browse",
+    "position": [
+      22,
+      0.16,
+      63
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 9391675,
+    "accentColor": 15124618,
+    "moveSpeed": 1.2,
+    "waypoints": [
+      [
+        22,
+        0.16,
+        63
+      ],
+      [
+        22,
+        0.16,
+        72.5
+      ],
+      [
+        24.5,
+        0.16,
+        72.5
+      ],
+      [
+        24.5,
+        0.16,
+        63
+      ]
+    ],
+    "dialogueLines": [
+      "Glazed amphorae, copper-rimmed urns, and painted flower planters for courtyard gardens!",
+      "Check our dyed cloth and pottery display table beside the outer arcade."
+    ],
+    "tunicHex": "#8f4e3b",
+    "accentHex": "#e6c88a"
+  },
+  {
+    "id": "npc_weaver_artisan",
+    "role": "Merchant",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      -18.5,
+      0.16,
+      98
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 2919577,
+    "accentColor": 14063162,
+    "dialogueLines": [
+      "Welcome to South Bazaar Boulevard and the Weaver’s Guildhall!",
+      "Our looms dye every bolt in harbour teal, crimson ochre, and sea-violet before shipping across Aincendra."
+    ],
+    "randomDialogues": [
+      [
+        "Even the festive bunting draped across Harbourgate Lane came off our guild looms this morning."
+      ]
+    ],
+    "tunicHex": "#2c8c99",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_vintner_steward",
+    "role": "Merchant",
+    "behavior": "work",
+    "actionKind": "haul",
+    "position": [
+      18.5,
+      0.16,
+      102
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 7220537,
+    "accentColor": 14063162,
+    "dialogueLines": [
+      "Vintner’s Guildhall stores oak-aged suncoast casks bound for both Salt & Brass Tavern and Noble Heights banquets!",
+      "Try our spiced cider reserve whenever the autumn trade fleets drop anchor."
+    ],
+    "tunicHex": "#6e2d39",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_boulevard_crier",
+    "role": "Resident",
+    "behavior": "work",
+    "actionKind": "announce",
+    "position": [
+      7.2,
+      0.16,
+      94
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 3497085,
+    "accentColor": 15906616,
+    "dialogueLines": [
+      "Hear ye! All gates of South Bazaar Boulevard stand open—Weaver’s silks west, Vintner’s casks east!",
+      "Festival lanterns stay lit all night from the Harbour Quay to the Terminus Gate!"
+    ],
+    "tunicHex": "#355c7d",
+    "accentHex": "#f2b738"
+  },
+  {
+    "id": "npc_boulevard_guard",
+    "role": "City Guard",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      -7,
+      0.16,
+      86
+    ],
+    "facingYaw": 0,
+    "tunicColor": 2502973,
+    "accentColor": 11958862,
+    "moveSpeed": 1.6,
+    "waypoints": [
+      [
+        -7,
+        0.16,
+        86
+      ],
+      [
+        -7,
+        0.16,
+        113
+      ],
+      [
+        7,
+        0.16,
+        113
+      ],
+      [
+        7,
+        0.16,
+        86
+      ]
+    ],
+    "dialogueLines": [
+      "South Terminus Gate secures the inland caravan road into Elarion.",
+      "Between Artisan Market Plaza and South Bazaar Boulevard, trade volume hits record highs every week."
+    ],
+    "tunicHex": "#26313d",
+    "accentHex": "#b67a4e"
+  },
+  {
+    "id": "npc_academic_scholar",
+    "role": "Scholar",
+    "behavior": "work",
+    "actionKind": "clipboard",
+    "position": [
+      59.5,
+      1.76,
+      23
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 3819353,
+    "accentColor": 13214570,
+    "dialogueLines": [
+      "This brass astrolabe calibrates Elarion’s harbour beacons against high-altitude mana currents.",
+      "North stands our new Aetheric Conservatory; south stand the Observatory Tower, Grand Archive, and Cartography Hall."
+    ],
+    "tunicHex": "#3a4759",
+    "accentHex": "#c9a36a"
+  },
+  {
+    "id": "npc_archive_researcher",
+    "role": "Scholar",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      53,
+      1.76,
+      13.5
+    ],
+    "facingYaw": 0,
+    "tunicColor": 3097426,
+    "accentColor": 10468561,
+    "moveSpeed": 1.35,
+    "waypoints": [
+      [
+        53,
+        1.76,
+        13.5
+      ],
+      [
+        68.5,
+        1.76,
+        13.5
+      ],
+      [
+        68.5,
+        1.76,
+        35
+      ],
+      [
+        53,
+        1.76,
+        35
+      ]
+    ],
+    "dialogueLines": [
+      "The Archive Hall preserves centuries of House Vaelcrest maritime charters and mana-refining treatises.",
+      "Down at the South Cartography Hall, scholars chart every sea route beyond the breakwaters."
+    ],
+    "tunicHex": "#2f4352",
+    "accentHex": "#9fbcd1"
+  },
+  {
+    "id": "npc_conservatory_botanist",
+    "role": "Scholar",
+    "behavior": "patrol",
+    "actionKind": "browse",
+    "position": [
+      60,
+      1.76,
+      2.5
+    ],
+    "facingYaw": 1.5707963267948966,
+    "tunicColor": 3432779,
+    "accentColor": 7260889,
+    "moveSpeed": 1.25,
+    "waypoints": [
+      [
+        60,
+        1.76,
+        2.5
+      ],
+      [
+        76,
+        1.76,
+        2.5
+      ],
+      [
+        76,
+        1.76,
+        0.2
+      ],
+      [
+        60,
+        1.76,
+        0.2
+      ]
+    ],
+    "dialogueLines": [
+      "Our glass-domed Aetheric Conservatory cultivates medicinal coastal flora under warmed external-mana skylights.",
+      "We supply the Apothecary down in Copperwell Square with fresh balm and dye blossoms."
+    ],
+    "tunicHex": "#34614b",
+    "accentHex": "#6ecad9"
+  },
+  {
+    "id": "npc_noble_sentinel",
+    "role": "City Guard",
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      89,
+      5.2,
+      18.5
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 1910838,
+    "accentColor": 13935710,
+    "dialogueLines": [
+      "You stand on Noble Heights Civic Plaza—crowned by House Vaelcrest Council Hall, the Manor Wing, and Chancery Rotunda.",
+      "Look west from the balustrade—every district of Elarion unfolds from the Council columns down to the sea."
+    ],
+    "tunicHex": "#1d2836",
+    "accentHex": "#d4a45e"
+  },
+  {
+    "id": "npc_vaelcrest_chancellor",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      96.5,
+      5.2,
+      24.5
+    ],
+    "facingYaw": -1.5707963267948966,
+    "tunicColor": 4992572,
+    "accentColor": 13935710,
+    "dialogueLines": [
+      "Welcome to House Vaelcrest Civic Plaza. The Chancery Rotunda south of us ratifies all trade charters for Elarion.",
+      "Between our three harbour piers, western foundries, southern bazaars, and eastern scholars, the city thrives."
+    ],
+    "randomDialogues": [
+      [
+        "From this 5.2-metre terrace, watch how the viaduct freight feeds the entire bayfront economy."
+      ]
+    ],
+    "tunicHex": "#4c2e3c",
+    "accentHex": "#d4a45e"
+  },
+  {
+    "id": "npc_vaelcrest_commander_brenna",
+    "role": "Heavy Infantry",
+    "heavyArmor": true,
+    "behavior": "interact",
+    "actionKind": "watch",
+    "position": [
+      195.2,
+      5.2,
+      15.2
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 2371644,
+    "accentColor": 14461004,
+    "initialDialogueNodeId": "castle_halt",
+    "dialogueTree": [
+      {
+        "id": "castle_halt",
+        "npcReaction": "salute",
+        "lines": [
+          "Halt at Castle Vaelcrest’s Western Gatehouse! I am Commander Brenna of the House Vaelcrest Guard.",
+          "I rose from common dock-ward stock on merit alone—here, discipline and capability open every gate. State your business within the citadel."
+        ],
+        "choices": [
+          {
+            "label": "Request admission to the Three-Council Rotunda & War Room",
+            "nextNodeId": "castle_grant",
+            "npcReaction": "nod"
+          },
+          {
+            "label": "Inquire about House Vaelcrest’s governance and councils",
+            "nextNodeId": "castle_lore",
+            "npcReaction": "point"
+          },
+          {
+            "label": "Step back toward Council Heights Station",
+            "closeDialogue": true,
+            "npcReaction": "salute"
+          }
+        ]
+      },
+      {
+        "id": "castle_lore",
+        "npcReaction": "point",
+        "lines": [
+          "The Patriarch holds hereditary sovereignty as our Warrior Lord, while Lord Caelen administers the daily workings of courts, treasury, and rail.",
+          "Descendant rulers founded the Council of Law, Council of Authority, and Council of Elders so capable citizens govern alongside House Vaelcrest."
+        ],
+        "choices": [
+          {
+            "label": "Grant me clearance — unbar the Citadel Gatehouse",
+            "nextNodeId": "castle_open",
+            "npcReaction": "salute",
+            "playerEmote": "salute",
+            "unlockGateId": "vaelcrest_castle_gate"
+          },
+          {
+            "label": "Thank you, Commander",
+            "closeDialogue": true,
+            "npcReaction": "nod"
+          }
+        ]
+      },
+      {
+        "id": "castle_grant",
+        "npcReaction": "salute",
+        "lines": [
+          "By order of Lord Caelen Vaelcrest, citizens in good standing are welcome in the Outer Bailey, Great Hall, Courts, and North Battlements. Confirm your pledge:"
+        ],
+        "choices": [
+          {
+            "label": "Present Vaelcrest Civic Pass & enter the Citadel (+15 Vaelcrest Rep)",
+            "nextNodeId": "castle_open",
+            "npcReaction": "salute",
+            "playerEmote": "salute",
+            "unlockGateId": "vaelcrest_castle_gate",
+            "questBranch": {
+              "questId": "q_council_conspiracy",
+              "stageIndex": 1,
+              "label": "Granted Citadel Access by Commander Brenna",
+              "faction": "vaelcrest",
+              "repDelta": 15
+            }
+          },
+          {
+            "label": "Enter quietly as an observer",
+            "nextNodeId": "castle_open",
+            "npcReaction": "nod",
+            "playerEmote": "wave",
+            "unlockGateId": "vaelcrest_castle_gate"
+          }
+        ]
+      },
+      {
+        "id": "castle_open",
+        "npcReaction": "wave",
+        "lines": [
+          "Gatehouse bolts drawn! Beyond the arch lie the Knight Training Yard, Great Hall of the Three Councils, Patriarch War Room, and North Railgun Ramparts."
+        ],
+        "choices": [
+          {
+            "label": "Cross the Citadel threshold",
+            "closeDialogue": true,
+            "npcReaction": "salute"
+          }
+        ]
+      }
+    ],
+    "tunicHex": "#24303c",
+    "accentHex": "#dca84c"
+  },
+  {
+    "id": "npc_vaelcrest_sentry_south",
+    "role": "Heavy Infantry",
+    "heavyArmor": true,
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      195.4,
+      5.2,
+      22.8
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 2371644,
+    "accentColor": 3902582,
+    "tunicHex": "#24303c",
+    "accentHex": "#3b8c76"
+  },
+  {
+    "id": "npc_patriarch_vaelcrest",
+    "role": "Harbourmaster",
+    "heavyArmor": true,
+    "behavior": "interact",
+    "actionKind": "announce",
+    "position": [
+      263.2,
+      5.24,
+      59
+    ],
+    "facingYaw": 1.57,
+    "tunicColor": 5512738,
+    "accentColor": 14461004,
+    "initialDialogueNodeId": "patriarch_greet",
+    "dialogueTree": [
+      {
+        "id": "patriarch_greet",
+        "npcReaction": "nod",
+        "lines": [
+          "You stand before the War Table of House Vaelcrest. Eight centuries ago our founders bridged coastal harbour and highland pass with disciplined steel.",
+          "True strength rests on external-mana artillery, trained commoner levies, and a realm where any citizen can rise by merit."
+        ],
+        "choices": [
+          {
+            "label": "Ask about Elarion’s coastal defence strategy",
+            "nextNodeId": "patriarch_strategy",
+            "npcReaction": "point"
+          },
+          {
+            "label": "Ask about Lord Caelen’s daily administration",
+            "nextNodeId": "patriarch_heir",
+            "npcReaction": "nod"
+          },
+          {
+            "label": "Offer a warrior’s salute and depart",
+            "closeDialogue": true,
+            "npcReaction": "salute",
+            "playerEmote": "salute"
+          }
+        ]
+      },
+      {
+        "id": "patriarch_strategy",
+        "npcReaction": "point",
+        "lines": [
+          "See the northern sea-cliff pins on the relief table: our twin-rail mana batteries interlock with Harbour breakwaters while the rail viaducts feed foundry ammunition uninterrupted."
+        ],
+        "choices": [
+          {
+            "label": "Formidable logistics, Lord Patriarch",
+            "closeDialogue": true,
+            "npcReaction": "salute"
+          }
+        ]
+      },
+      {
+        "id": "patriarch_heir",
+        "npcReaction": "nod",
+        "lines": [
+          "My son Caelen handles day-to-day treasury tariffs, council decrees, and harbour charters in the Residence Wing north of the Rotunda—leaving me free to keep watch over the realm’s sword."
+        ],
+        "choices": [
+          {
+            "label": "I will seek Lord Caelen in the Residence Wing",
+            "closeDialogue": true,
+            "npcReaction": "nod"
+          }
+        ]
+      }
+    ],
+    "tunicHex": "#541e22",
+    "accentHex": "#dca84c"
+  },
+  {
+    "id": "npc_lord_caelen_vaelcrest",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      268,
+      5.24,
+      -19
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 1985884,
+    "accentColor": 14461004,
+    "initialDialogueNodeId": "caelen_greet",
+    "dialogueTree": [
+      {
+        "id": "caelen_greet",
+        "npcReaction": "bow",
+        "lines": [
+          "Welcome to the Residence Wing. I am Caelen Vaelcrest—between harbour tariff dispatches and Mana-Rail expansion charters, the ink rarely dries here.",
+          "My father anchors our military resolve while I oversee the Three Councils’ daily coordination across agriculture, mining, and maritime trade."
+        ],
+        "choices": [
+          {
+            "label": "Discuss expanding Elarion’s Mana-Rail corridors",
+            "nextNodeId": "caelen_rail",
+            "npcReaction": "nod"
+          },
+          {
+            "label": "Take leave respectfully",
+            "closeDialogue": true,
+            "npcReaction": "bow",
+            "playerEmote": "wave"
+          }
+        ]
+      },
+      {
+        "id": "caelen_rail",
+        "npcReaction": "point",
+        "lines": [
+          "Council Heights Station outside our gatehouse already links directly to Harbour Quay and Grand Exchange. Soon our inland spurs will reach the furthest mining fiefs."
+        ],
+        "choices": [
+          {
+            "label": "Carry on your work, Lord Caelen",
+            "closeDialogue": true,
+            "npcReaction": "nod"
+          }
+        ]
+      }
+    ],
+    "tunicHex": "#1e4d5c",
+    "accentHex": "#dca84c"
+  },
+  {
+    "id": "npc_council_administrator",
+    "role": "Harbourmaster",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      255,
+      5.24,
+      18.5
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 2308173,
+    "accentColor": 15120476,
+    "randomDialogues": [
+      [
+        "Here beneath the copper cupola sit the Council of Law, the Council of Authority, and the Council of Elders."
+      ],
+      [
+        "Our founder ruled by martial charter alone; later Vaelcrest generations raised these councils so capable commoners share the helm of governance."
+      ]
+    ],
+    "tunicHex": "#23384d",
+    "accentHex": "#e6b85c"
+  },
+  {
+    "id": "npc_magister_law",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      275.5,
+      5.24,
+      9
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 1985884,
+    "accentColor": 8250096,
+    "randomDialogues": [
+      [
+        "Council of Law codifies maritime prize courts, guild charters, and equal trial rights for commoner and noble alike."
+      ]
+    ],
+    "tunicHex": "#1e4d5c",
+    "accentHex": "#7de2f0"
+  },
+  {
+    "id": "npc_councilor_authority",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "announce",
+    "position": [
+      275.5,
+      5.24,
+      26
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 7087143,
+    "accentColor": 15120476,
+    "randomDialogues": [
+      [
+        "Council of Authority directs garrison rotations, shipyard foundry quotas, and coastal railgun capacitor reserves."
+      ]
+    ],
+    "tunicHex": "#6c2427",
+    "accentHex": "#e6b85c"
+  },
+  {
+    "id": "npc_chief_magistrate",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      217.5,
+      5.24,
+      69.5
+    ],
+    "facingYaw": 0,
+    "tunicColor": 2634304,
+    "accentColor": 14461004,
+    "randomDialogues": [
+      [
+        "In Vaelcrest Courts, guild masters and common mariners alike receive swift, written judgment under the Charter of Law."
+      ]
+    ],
+    "tunicHex": "#283240",
+    "accentHex": "#dca84c"
+  },
+  {
+    "id": "npc_treasury_bursar",
+    "role": "Customs Clerk",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      231,
+      5.24,
+      62.5
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 3099460,
+    "accentColor": 14857295,
+    "randomDialogues": [
+      [
+        "Bullion ingots and stabilized mana cores inside this vault back every note issued by the Vaelcrest Reserve Bank in the Merchant Quarter."
+      ]
+    ],
+    "tunicHex": "#2f4b44",
+    "accentHex": "#e2b44f"
+  },
+  {
+    "id": "npc_citadel_knight_a",
+    "role": "Heavy Infantry",
+    "heavyArmor": true,
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      216,
+      5.2,
+      12
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 2503230,
+    "accentColor": 13935694,
+    "tunicHex": "#26323e",
+    "accentHex": "#d4a44e"
+  },
+  {
+    "id": "npc_citadel_knight_b",
+    "role": "Heavy Infantry",
+    "heavyArmor": true,
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      216,
+      5.2,
+      25
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 2503230,
+    "accentColor": 13935694,
+    "tunicHex": "#26323e",
+    "accentHex": "#d4a44e"
+  },
+  {
+    "id": "npc_rampart_gunner",
+    "role": "Heavy Infantry",
+    "heavyArmor": true,
+    "behavior": "patrol",
+    "actionKind": "watch",
+    "position": [
+      242,
+      11.4,
+      -36.8
+    ],
+    "facingYaw": 3.141592653589793,
+    "tunicColor": 2371644,
+    "accentColor": 8250096,
+    "moveSpeed": 1.5,
+    "waypoints": [
+      [
+        220,
+        11.4,
+        -36.8
+      ],
+      [
+        292,
+        11.4,
+        -36.8
+      ]
+    ],
+    "tunicHex": "#24303c",
+    "accentHex": "#7de2f0"
+  },
+  {
+    "id": "npc_palace_gardener",
+    "role": "Resident",
+    "behavior": "work",
+    "actionKind": "sweep",
+    "position": [
+      182,
+      5.2,
+      0
+    ],
+    "facingYaw": 0.9,
+    "tunicColor": 5073735,
+    "accentColor": 12746574,
+    "tunicHex": "#4d6b47",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_palace_courtyard_gardener",
+    "role": "Resident",
+    "behavior": "work",
+    "actionKind": "sweep",
+    "position": [
+      236,
+      5.2,
+      -24
+    ],
+    "facingYaw": -0.9,
+    "tunicColor": 5073735,
+    "accentColor": 8250096,
+    "tunicHex": "#4d6b47",
+    "accentHex": "#7de2f0"
+  },
+  {
+    "id": "npc_canal_bridge_guard",
+    "role": "City Guard",
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      -4.5,
+      2.6,
+      137
+    ],
+    "facingYaw": 0.4,
+    "tunicColor": 3095369,
+    "accentColor": 10134704,
+    "randomDialogues": [
+      [
+        "Central Grand Arch keeps external-mana barges gliding into Elarion’s Merchant Quarter."
+      ],
+      [
+        "Eight centuries of Vaelcrest engineering hold these locks level in every tide."
+      ]
+    ],
+    "tunicHex": "#2f3b49",
+    "accentHex": "#9aa4b0"
+  },
+  {
+    "id": "npc_canal_stroller",
+    "role": "Resident",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      -20,
+      0.16,
+      159
+    ],
+    "facingYaw": 1.57,
+    "tunicColor": 7032634,
+    "accentColor": 12746574,
+    "moveSpeed": 1.5,
+    "waypoints": [
+      [
+        -20,
+        0.16,
+        159
+      ],
+      [
+        28,
+        0.16,
+        159
+      ],
+      [
+        28,
+        0.16,
+        162
+      ],
+      [
+        -20,
+        0.16,
+        162
+      ]
+    ],
+    "tunicHex": "#6b4f3a",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_east_bridge_clerk",
+    "role": "Customs Clerk",
+    "behavior": "work",
+    "actionKind": "clipboard",
+    "position": [
+      106,
+      2.6,
+      137
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 3099460,
+    "accentColor": 14063162,
+    "tunicHex": "#2f4b44",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_temple_warden",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "announce",
+    "position": [
+      -204,
+      1.6,
+      -10
+    ],
+    "facingYaw": 0,
+    "tunicColor": 15129284,
+    "accentColor": 14063162,
+    "randomDialogues": [
+      [
+        "Welcome to Elarion’s Temple Quarter. Artisans, mariners, and scholars keep vigil beside the Sanctuary Basin."
+      ],
+      [
+        "Our stone nave has stood beside Vaelcrest Harbour for centuries through storm and prosperity alike."
+      ]
+    ],
+    "tunicHex": "#e6dac4",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_temple_seeker_a",
+    "role": "Resident",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      -184,
+      1.6,
+      -14
+    ],
+    "facingYaw": 3.14,
+    "tunicColor": 12088894,
+    "accentColor": 15782544,
+    "moveSpeed": 1.35,
+    "waypoints": [
+      [
+        -184,
+        1.6,
+        -14
+      ],
+      [
+        -184,
+        1.6,
+        -27
+      ],
+      [
+        -212,
+        1.6,
+        -27
+      ],
+      [
+        -212,
+        1.6,
+        -14
+      ]
+    ],
+    "tunicHex": "#b8763e",
+    "accentHex": "#f0d290"
+  },
+  {
+    "id": "npc_temple_sweeper",
+    "role": "Harbour Worker",
+    "behavior": "work",
+    "actionKind": "sweep",
+    "position": [
+      -170,
+      0.16,
+      -8
+    ],
+    "facingYaw": -0.6,
+    "tunicColor": 5659750,
+    "accentColor": 12746574,
+    "tunicHex": "#565c66",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_outer_foundry_chief",
+    "role": "Engineer",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      -168,
+      0.16,
+      54
+    ],
+    "facingYaw": 1.57,
+    "tunicColor": 3880240,
+    "accentColor": 7260889,
+    "randomDialogues": [
+      [
+        "Those condenser towers cool external-mana turbines driving our mechanical mills and munitions lines."
+      ],
+      [
+        "Raw ore arrives by mana-powered railway from the mining territories inland."
+      ]
+    ],
+    "tunicHex": "#3b3530",
+    "accentHex": "#6ecad9"
+  },
+  {
+    "id": "npc_outer_foundry_smith",
+    "role": "Engineer",
+    "behavior": "work",
+    "actionKind": "forge",
+    "position": [
+      -174,
+      0.16,
+      62
+    ],
+    "facingYaw": 0.4,
+    "tunicColor": 4535597,
+    "accentColor": 14254661,
+    "tunicHex": "#45352d",
+    "accentHex": "#d98245"
+  },
+  {
+    "id": "npc_outer_foundry_porter",
+    "role": "Dock Porter",
+    "behavior": "patrol",
+    "actionKind": "haul",
+    "position": [
+      -146,
+      0.16,
+      48
+    ],
+    "facingYaw": 0,
+    "tunicColor": 5391675,
+    "accentColor": 9268819,
+    "moveSpeed": 1.45,
+    "waypoints": [
+      [
+        -146,
+        0.16,
+        48
+      ],
+      [
+        -146,
+        0.16,
+        94
+      ],
+      [
+        -146,
+        0.16,
+        48
+      ]
+    ],
+    "tunicHex": "#52453b",
+    "accentHex": "#8d6e53"
+  },
+  {
+    "id": "npc_exchange_herald",
+    "role": "Merchant",
+    "behavior": "interact",
+    "actionKind": "announce",
+    "position": [
+      -5,
+      0.16,
+      206
+    ],
+    "facingYaw": 0.8,
+    "tunicColor": 9386032,
+    "accentColor": 15777388,
+    "randomDialogues": [
+      [
+        "Across Grand Exchange Square stand the Vaelcrest Reserve Bank, its Maritime Clocktower, and overseas brokerage houses!"
+      ],
+      [
+        "West lies the Civic Polytechnic where any diligent citizen may master engineering or governance."
+      ]
+    ],
+    "tunicHex": "#8f3830",
+    "accentHex": "#f0be6c"
+  },
+  {
+    "id": "npc_merchant_financier",
+    "role": "Merchant",
+    "behavior": "work",
+    "actionKind": "browse",
+    "position": [
+      -12.5,
+      0.16,
+      178
+    ],
+    "facingYaw": 1.57,
+    "tunicColor": 3107670,
+    "accentColor": 15119450,
+    "tunicHex": "#2f6b56",
+    "accentHex": "#e6b45a"
+  },
+  {
+    "id": "npc_merchant_broker",
+    "role": "Merchant",
+    "behavior": "work",
+    "actionKind": "converse",
+    "position": [
+      12.5,
+      0.16,
+      200
+    ],
+    "facingYaw": -1.57,
+    "tunicColor": 3889272,
+    "accentColor": 13935694,
+    "tunicHex": "#3b5878",
+    "accentHex": "#d4a44e"
+  },
+  {
+    "id": "npc_exchange_patrol_a",
+    "role": "City Guard",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      -26,
+      0.16,
+      200
+    ],
+    "facingYaw": 1.57,
+    "tunicColor": 2766146,
+    "accentColor": 11958862,
+    "moveSpeed": 1.65,
+    "waypoints": [
+      [
+        -26,
+        0.16,
+        200
+      ],
+      [
+        26,
+        0.16,
+        200
+      ],
+      [
+        26,
+        0.16,
+        224
+      ],
+      [
+        -26,
+        0.16,
+        224
+      ]
+    ],
+    "tunicHex": "#2a3542",
+    "accentHex": "#b67a4e"
+  },
+  {
+    "id": "npc_exchange_walker_b",
+    "role": "Resident",
+    "behavior": "patrol",
+    "actionKind": "browse",
+    "position": [
+      4.5,
+      0.16,
+      190
+    ],
+    "facingYaw": 0,
+    "tunicColor": 7559488,
+    "accentColor": 5025983,
+    "moveSpeed": 1.4,
+    "waypoints": [
+      [
+        4.5,
+        0.16,
+        190
+      ],
+      [
+        4.5,
+        0.16,
+        275
+      ],
+      [
+        -4.5,
+        0.16,
+        275
+      ],
+      [
+        -4.5,
+        0.16,
+        190
+      ]
+    ],
+    "tunicHex": "#735940",
+    "accentHex": "#4cb0bf"
+  },
+  {
+    "id": "npc_southgate_captain",
+    "role": "Heavy Infantry",
+    "heavyArmor": true,
+    "behavior": "interact",
+    "actionKind": "watch",
+    "position": [
+      4.2,
+      0.16,
+      325.5
+    ],
+    "facingYaw": 3.141592653589793,
+    "tunicColor": 2371644,
+    "accentColor": 13935694,
+    "initialDialogueNodeId": "gate_halt",
+    "dialogueTree": [
+      {
+        "id": "gate_halt",
+        "npcReaction": "salute",
+        "lines": [
+          "Halt, citizen! Captain Vane of the Vaelcrest Heavy Infantry holds the Overland Bastion Gate.",
+          "Beyond these oak doors lie the green forests and wild meadows of the Vaelcrest Domain—home to wandering deer, wolves, and mana-evolved beasts."
+        ],
+        "choices": [
+          {
+            "label": "Request clearance to open the Bastion Gate",
+            "nextNodeId": "gate_grant",
+            "npcReaction": "nod"
+          },
+          {
+            "label": "Ask about the evolved beasts outside Elarion",
+            "nextNodeId": "wilds_report",
+            "npcReaction": "point"
+          },
+          {
+            "label": "Stay within city walls for now",
+            "closeDialogue": true,
+            "npcReaction": "salute"
+          }
+        ]
+      },
+      {
+        "id": "wilds_report",
+        "npcReaction": "point",
+        "lines": [
+          "Scouts report peaceful woodland stags, boars, and coastal hawks alongside mana-adapted Dire Boars, Raptor-Drakes, and Colossus Stags.",
+          "They remain calm in their glades, though Vault-ready logs and winding dirt trails await any explorer."
+        ],
+        "choices": [
+          {
+            "label": "Open the Bastion Gate — I am ready to explore",
+            "nextNodeId": "gate_opened",
+            "npcReaction": "salute",
+            "playerEmote": "salute",
+            "unlockGateId": "south_bastion_gate"
+          },
+          {
+            "label": "Return to the Merchant Quarter",
+            "closeDialogue": true,
+            "npcReaction": "nod"
+          }
+        ]
+      },
+      {
+        "id": "gate_grant",
+        "npcReaction": "salute",
+        "lines": [
+          "You carry yourself well and bear Vaelcrest steel. Before we unbar the Overland Gate, declare which Charter shall regulate the Emerald Wilds ley-conduits:"
+        ],
+        "choices": [
+          {
+            "label": "Pledge to Mana-Works Guild (Overclock Conduit Charter +25 Rep)",
+            "nextNodeId": "gate_opened",
+            "npcReaction": "salute",
+            "playerEmote": "salute",
+            "unlockGateId": "south_bastion_gate",
+            "questBranch": {
+              "questId": "q_gate_conduit",
+              "stageIndex": 2,
+              "label": "Aligned with Mana-Works Guild",
+              "faction": "manaworks",
+              "repDelta": 25
+            }
+          },
+          {
+            "label": "Pledge to Aetheric Purists (Preserve Wild Ley-Shrines +25 Rep)",
+            "nextNodeId": "gate_opened",
+            "npcReaction": "bow",
+            "playerEmote": "salute",
+            "unlockGateId": "south_bastion_gate",
+            "questBranch": {
+              "questId": "q_gate_conduit",
+              "stageIndex": 2,
+              "label": "Aligned with Aetheric Purists",
+              "faction": "purists",
+              "repDelta": 25
+            }
+          },
+          {
+            "label": "Pledge to House Vaelcrest Crown Guard (+25 Rep)",
+            "nextNodeId": "gate_opened",
+            "npcReaction": "salute",
+            "playerEmote": "salute",
+            "unlockGateId": "south_bastion_gate",
+            "questBranch": {
+              "questId": "q_gate_conduit",
+              "stageIndex": 2,
+              "label": "Sworn to House Vaelcrest",
+              "faction": "vaelcrest",
+              "repDelta": 25
+            }
+          }
+        ]
+      },
+      {
+        "id": "gate_opened",
+        "npcReaction": "wave",
+        "lines": [
+          "The Bastion Gate is unlocked and swinging wide! Follow the southern dirt road out into the Vaelcrest wilds."
+        ],
+        "choices": [
+          {
+            "label": "Step out into the Vaelcrest Domain",
+            "closeDialogue": true,
+            "npcReaction": "salute"
+          }
+        ]
+      }
+    ],
+    "tunicHex": "#24303c",
+    "accentHex": "#d4a44e"
+  },
+  {
+    "id": "npc_southgate_warden",
+    "role": "Heavy Infantry",
+    "heavyArmor": true,
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      -9.5,
+      0.16,
+      327
+    ],
+    "facingYaw": 0.25,
+    "tunicColor": 2371644,
+    "accentColor": 12746574,
+    "randomDialogues": [
+      [
+        "Speak with Captain Vane at the eastern pillar whenever you need the Bastion Gate unbarred."
+      ],
+      [
+        "Our tower shields and mana-halberds keep the wild forest edge secure around the clock."
+      ]
+    ],
+    "tunicHex": "#24303c",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_southgate_sentry_east",
+    "role": "Heavy Infantry",
+    "heavyArmor": true,
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      9.5,
+      0.16,
+      327
+    ],
+    "facingYaw": -0.25,
+    "tunicColor": 2371644,
+    "accentColor": 12746574,
+    "tunicHex": "#24303c",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_east_garden_scholar",
+    "role": "Scholar",
+    "behavior": "patrol",
+    "actionKind": "patrol",
+    "position": [
+      176,
+      0.16,
+      182
+    ],
+    "facingYaw": 1,
+    "tunicColor": 2834514,
+    "accentColor": 7260889,
+    "moveSpeed": 1.4,
+    "waypoints": [
+      [
+        176,
+        0.16,
+        182
+      ],
+      [
+        236,
+        0.16,
+        182
+      ],
+      [
+        236,
+        0.16,
+        224
+      ],
+      [
+        176,
+        0.16,
+        224
+      ]
+    ],
+    "tunicHex": "#2b4052",
+    "accentHex": "#6ecad9"
+  },
+  {
+    "id": "npc_east_estate_merchant",
+    "role": "Merchant",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      232,
+      0.16,
+      222
+    ],
+    "facingYaw": -0.8,
+    "tunicColor": 7223880,
+    "accentColor": 14063162,
+    "tunicHex": "#6e3a48",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_metro_citizen_0",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      -38,
+      0.16,
+      212
+    ],
+    "facingYaw": 0,
+    "tunicColor": 6056048,
+    "accentColor": 12746574,
+    "tunicHex": "#5c6870",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_metro_citizen_1",
+    "role": "Merchant",
+    "behavior": "interact",
+    "actionKind": "browse",
+    "position": [
+      38,
+      0.16,
+      212
+    ],
+    "facingYaw": 1.1,
+    "tunicColor": 8865082,
+    "accentColor": 15120476,
+    "tunicHex": "#87453a",
+    "accentHex": "#e6b85c"
+  },
+  {
+    "id": "npc_metro_citizen_2",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "idle",
+    "position": [
+      -68,
+      0.16,
+      206
+    ],
+    "facingYaw": 2.2,
+    "tunicColor": 5202253,
+    "accentColor": 14063162,
+    "tunicHex": "#4f614d",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_metro_citizen_3",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      68,
+      0.16,
+      218
+    ],
+    "facingYaw": 3.3000000000000003,
+    "tunicColor": 2966100,
+    "accentColor": 10468561,
+    "tunicHex": "#2d4254",
+    "accentHex": "#9fbcd1"
+  },
+  {
+    "id": "npc_metro_citizen_4",
+    "role": "Dock Porter",
+    "behavior": "interact",
+    "actionKind": "haul",
+    "position": [
+      -118,
+      0.16,
+      206
+    ],
+    "facingYaw": 4.4,
+    "tunicColor": 5851708,
+    "accentColor": 11043421,
+    "tunicHex": "#594a3c",
+    "accentHex": "#a8825d"
+  },
+  {
+    "id": "npc_metro_citizen_5",
+    "role": "City Guard",
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      118,
+      0.16,
+      218
+    ],
+    "facingYaw": 5.5,
+    "tunicColor": 3029317,
+    "accentColor": 10134704,
+    "tunicHex": "#2e3945",
+    "accentHex": "#9aa4b0"
+  },
+  {
+    "id": "npc_metro_citizen_6",
+    "role": "Engineer",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      -190,
+      0.16,
+      18.5
+    ],
+    "facingYaw": 0.3168146928204143,
+    "tunicColor": 4340276,
+    "accentColor": 7260889,
+    "tunicHex": "#423a34",
+    "accentHex": "#6ecad9"
+  },
+  {
+    "id": "npc_metro_citizen_7",
+    "role": "Engineer",
+    "behavior": "interact",
+    "actionKind": "forge",
+    "position": [
+      -232,
+      0.16,
+      18.5
+    ],
+    "facingYaw": 1.4168146928204148,
+    "tunicColor": 3878698,
+    "accentColor": 14254661,
+    "tunicHex": "#3b2f2a",
+    "accentHex": "#d98245"
+  },
+  {
+    "id": "npc_metro_citizen_8",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      -154,
+      0.16,
+      -24
+    ],
+    "facingYaw": 2.5168146928204145,
+    "tunicColor": 13208138,
+    "accentColor": 15916992,
+    "tunicHex": "#c98a4a",
+    "accentHex": "#f2dfc0"
+  },
+  {
+    "id": "npc_metro_citizen_9",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "idle",
+    "position": [
+      -212,
+      1.6,
+      -20
+    ],
+    "facingYaw": 3.616814692820414,
+    "tunicColor": 14735042,
+    "accentColor": 11958862,
+    "tunicHex": "#e0d6c2",
+    "accentHex": "#b67a4e"
+  },
+  {
+    "id": "npc_metro_citizen_10",
+    "role": "City Guard",
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      152,
+      5.2,
+      18.5
+    ],
+    "facingYaw": 4.716814692820414,
+    "tunicColor": 3095369,
+    "accentColor": 13935694,
+    "tunicHex": "#2f3b49",
+    "accentHex": "#d4a44e"
+  },
+  {
+    "id": "npc_metro_citizen_11",
+    "role": "City Guard",
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      186,
+      5.2,
+      56
+    ],
+    "facingYaw": 5.816814692820415,
+    "tunicColor": 3095369,
+    "accentColor": 12746574,
+    "tunicHex": "#2f3b49",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_metro_citizen_12",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "idle",
+    "position": [
+      144,
+      0.16,
+      159
+    ],
+    "facingYaw": 0.6336293856408286,
+    "tunicColor": 6377310,
+    "accentColor": 14063162,
+    "tunicHex": "#614f5e",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_metro_citizen_13",
+    "role": "Merchant",
+    "behavior": "interact",
+    "actionKind": "announce",
+    "position": [
+      -14,
+      0.16,
+      212
+    ],
+    "facingYaw": 1.7336293856408282,
+    "tunicColor": 8011827,
+    "accentColor": 15120476,
+    "tunicHex": "#7a4033",
+    "accentHex": "#e6b85c"
+  },
+  {
+    "id": "npc_metro_citizen_14",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      14,
+      0.16,
+      212
+    ],
+    "facingYaw": 2.8336293856408297,
+    "tunicColor": 2837081,
+    "accentColor": 8250096,
+    "tunicHex": "#2b4a59",
+    "accentHex": "#7de2f0"
+  },
+  {
+    "id": "npc_metro_citizen_15",
+    "role": "Scholar",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      -42,
+      0.16,
+      232
+    ],
+    "facingYaw": 3.9336293856408275,
+    "tunicColor": 3557982,
+    "accentColor": 13935694,
+    "tunicHex": "#364a5e",
+    "accentHex": "#d4a44e"
+  },
+  {
+    "id": "npc_metro_citizen_16",
+    "role": "Customs Clerk",
+    "behavior": "interact",
+    "actionKind": "clipboard",
+    "position": [
+      42,
+      0.16,
+      232
+    ],
+    "facingYaw": 5.033629385640829,
+    "tunicColor": 3360573,
+    "accentColor": 15120476,
+    "tunicHex": "#33473d",
+    "accentHex": "#e6b85c"
+  },
+  {
+    "id": "npc_metro_citizen_17",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "browse",
+    "position": [
+      -92,
+      0.16,
+      224
+    ],
+    "facingYaw": 6.13362938564083,
+    "tunicColor": 7033666,
+    "accentColor": 12746574,
+    "tunicHex": "#6b5342",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_metro_citizen_18",
+    "role": "Merchant",
+    "behavior": "interact",
+    "actionKind": "browse",
+    "position": [
+      92,
+      0.16,
+      224
+    ],
+    "facingYaw": 0.950444078461242,
+    "tunicColor": 5138000,
+    "accentColor": 14063162,
+    "tunicHex": "#4e6650",
+    "accentHex": "#d6963a"
+  },
+  {
+    "id": "npc_metro_citizen_19",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      -16,
+      0.16,
+      280
+    ],
+    "facingYaw": 2.0504440784612434,
+    "tunicColor": 5391675,
+    "accentColor": 8250096,
+    "tunicHex": "#52453b",
+    "accentHex": "#7de2f0"
+  },
+  {
+    "id": "npc_metro_citizen_20",
+    "role": "City Guard",
+    "behavior": "idle",
+    "actionKind": "watch",
+    "position": [
+      16,
+      0.16,
+      280
+    ],
+    "facingYaw": 3.1504440784612413,
+    "tunicColor": 2766146,
+    "accentColor": 13935694,
+    "tunicHex": "#2a3542",
+    "accentHex": "#d4a44e"
+  },
+  {
+    "id": "npc_metro_citizen_21",
+    "role": "Engineer",
+    "behavior": "interact",
+    "actionKind": "forge",
+    "position": [
+      -162,
+      0.16,
+      82
+    ],
+    "facingYaw": 4.250444078461243,
+    "tunicColor": 4010796,
+    "accentColor": 14254661,
+    "tunicHex": "#3d332c",
+    "accentHex": "#d98245"
+  },
+  {
+    "id": "npc_metro_citizen_22",
+    "role": "Dock Porter",
+    "behavior": "interact",
+    "actionKind": "haul",
+    "position": [
+      -196,
+      0.16,
+      78
+    ],
+    "facingYaw": 5.350444078461244,
+    "tunicColor": 5391675,
+    "accentColor": 10134704,
+    "tunicHex": "#52453b",
+    "accentHex": "#9aa4b0"
+  },
+  {
+    "id": "npc_metro_citizen_23",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "idle",
+    "position": [
+      192,
+      0.16,
+      212
+    ],
+    "facingYaw": 0.16725877128165578,
+    "tunicColor": 6056048,
+    "accentColor": 13935694,
+    "tunicHex": "#5c6870",
+    "accentHex": "#d4a44e"
+  },
+  {
+    "id": "npc_metro_citizen_24",
+    "role": "Merchant",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      244,
+      0.16,
+      212
+    ],
+    "facingYaw": 1.2672587712816572,
+    "tunicColor": 7223880,
+    "accentColor": 15120476,
+    "tunicHex": "#6e3a48",
+    "accentHex": "#e6b85c"
+  },
+  {
+    "id": "npc_metro_citizen_25",
+    "role": "Dock Porter",
+    "behavior": "interact",
+    "actionKind": "sweep",
+    "position": [
+      -95,
+      0.16,
+      159
+    ],
+    "facingYaw": 2.3672587712816586,
+    "tunicColor": 4870745,
+    "accentColor": 12746574,
+    "tunicHex": "#4a5259",
+    "accentHex": "#c27f4e"
+  },
+  {
+    "id": "npc_metro_citizen_26",
+    "role": "Resident",
+    "behavior": "interact",
+    "actionKind": "converse",
+    "position": [
+      48,
+      0.16,
+      159
+    ],
+    "facingYaw": 3.4672587712816565,
+    "tunicColor": 7559488,
+    "accentColor": 7260889,
+    "tunicHex": "#735940",
+    "accentHex": "#6ecad9"
+  }
+]

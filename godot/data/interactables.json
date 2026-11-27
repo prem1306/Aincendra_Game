@@ -1,0 +1,1337 @@
+{
+  "interactables": [
+    {
+      "id": "int_notice_board",
+      "title": "Harbourgate Notice Board",
+      "subtitle": "Public Bulletins · Harbourgate Lane",
+      "category": "Notice",
+      "promptAction": "Read",
+      "position": [
+        9.05,
+        0.16,
+        1.6
+      ],
+      "radius": 2.6,
+      "lines": [
+        "SHIPPING LEDGER: Three merchant hulls berthed across West, Central Shipyard, and East Piers; outbound tide opens at dusk.",
+        "FOUNDRY NOTICE: West Forge & Assay Office now open on Refinery Avenue for ingot stamping and furnace tours.",
+        "BAZAAR BULLETIN: Southgate Arcade now opens straight onto South Bazaar Boulevard—visit the Weaver and Vintner Guildhalls."
+      ]
+    },
+    {
+      "id": "int_conduit_manifold",
+      "title": "Mana Conduit Manifold",
+      "subtitle": "Aetheric Conduit & Horology Workshop",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        -9.2,
+        0.16,
+        -4.2
+      ],
+      "radius": 2.5,
+      "lines": [
+        "Heavy iron housing fitted with braided copper feed-pipes and a glowing cyan pressure sight-glass.",
+        "Regulates external mana drawn from the West Industrial Quarter to power Harbourgate street lamps and precision workshop lathes."
+      ]
+    },
+    {
+      "id": "int_chandlery_ledger",
+      "title": "Chandlery Customs Counter",
+      "subtitle": "Vaelcrest Customs & Chandlery",
+      "category": "Commerce",
+      "promptAction": "Inspect",
+      "position": [
+        -13.8,
+        0.18,
+        7.6
+      ],
+      "radius": 2.6,
+      "lines": [
+        "Stamped brass seals, coil-rope manifests, and copper-lined ledgers line the timber counter.",
+        "Merchants register hull drafts and bonded warehouse space here before ascending toward Copperwell Square."
+      ]
+    },
+    {
+      "id": "int_tavern_bar",
+      "title": "The Salt & Brass Taproom",
+      "subtitle": "Sailors Taproom · Harbourgate Lane",
+      "category": "Commerce",
+      "promptAction": "Inspect",
+      "position": [
+        13.8,
+        0.18,
+        -3
+      ],
+      "radius": 2.7,
+      "lines": [
+        "Warm hearth smoke and polished copper taps welcome dockworkers, carters, and merchant crews off the quays.",
+        "Chalked above the bar: \"House Vaelcrest Harbor Toll Paid — No Live Mana Coils Beside the Hearth.\""
+      ]
+    },
+    {
+      "id": "int_copperwell_fountain",
+      "title": "Copperwell Cistern Fountain",
+      "subtitle": "Copperwell Public Square",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        25.5,
+        0.16,
+        3
+      ],
+      "radius": 3.4,
+      "lines": [
+        "An octagonal sandstone basin crowned with a copper bowl and a suspended cyan mana-regulator crystal.",
+        "External mana keeps groundwater circulating cleanly for the surrounding apothecary, bookbinder, and townhouse blocks."
+      ]
+    },
+    {
+      "id": "int_courtyard_pump",
+      "title": "Courtyard Iron Water Pump",
+      "subtitle": "Worker Tenement Courtyard",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        -26,
+        0.16,
+        1
+      ],
+      "radius": 2.6,
+      "lines": [
+        "A well-worn cast-iron hand pump set into a sunken sandstone trough, serving dozens of tenement households.",
+        "Rust stains and stacked cargo barrels mark the daily rhythm of the working-class quarter behind Harbourgate Lane."
+      ]
+    },
+    {
+      "id": "int_harbour_manifest",
+      "title": "Quay Customs Manifest Desk",
+      "subtitle": "Grand Harbour Quay Booth",
+      "category": "Commerce",
+      "promptAction": "Read",
+      "position": [
+        13.4,
+        -0.3,
+        -39
+      ],
+      "radius": 2.7,
+      "lines": [
+        "QUAY BERTH LOG: West Pier unloading oak timber; Central Shipyard Pier fitting brigantine rudders; East Pier loading mana canisters.",
+        "VIADUCT FREIGHT: Elevated mana locomotive runs continuously between Mariners Guildhall and Heavy Boiler Works."
+      ]
+    },
+    {
+      "id": "int_viaduct_pillar",
+      "title": "Mana-Railway Viaduct Arch",
+      "subtitle": "Grand Harbour Infrastructure",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        -5,
+        -0.3,
+        -32.4
+      ],
+      "radius": 3.2,
+      "lines": [
+        "Massive dressed-stone piers support the 5.8-metre rail deck carrying external-mana freight trains above the harbourfront.",
+        "A copper central conductor rail runs between the iron tracks, feeding traction power directly to passing locomotives."
+      ]
+    },
+    {
+      "id": "int_west_pier_mooring",
+      "title": "West Pier Merchantman Berth",
+      "subtitle": "West Cargo Pier · Grand Harbour",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        -33.6,
+        -0.3,
+        -76
+      ],
+      "radius": 3.2,
+      "lines": [
+        "Deep-draft timber merchantman moored fast to iron bollards, fitted with a glowing cyan stern mana-propulsion fin.",
+        "Crane crews swing copper-banded cargo crates directly between the pier apron and the ship hold."
+      ]
+    },
+    {
+      "id": "int_central_anchor_monument",
+      "title": "Flagship Anchor Monument",
+      "subtitle": "Central Shipyard Pier · Grand Harbour",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        0,
+        -0.3,
+        -82.5
+      ],
+      "radius": 3.2,
+      "lines": [
+        "A two-ton wrought-iron bower anchor with copper cross-stock mounted beside coils of tarred hemp cable.",
+        "Commemorates House Vaelcrest’s opening of the Central Shipyard Pier and expanded Elarion drydocks."
+      ]
+    },
+    {
+      "id": "int_east_pier_beacon",
+      "title": "East Pier Harbour Beacon",
+      "subtitle": "East Cargo Pier · Grand Harbour",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        22,
+        -0.3,
+        -87.5
+      ],
+      "radius": 3.4,
+      "lines": [
+        "Sandstone signal tower housing a high-output cyan mana lantern that guides vessels past Elarion’s outer breakwaters.",
+        "From the pier head, incoming tall-masted cargo ships tack steadily across the bay."
+      ]
+    },
+    {
+      "id": "int_substation_gauge",
+      "title": "Industrial Mana Substation",
+      "subtitle": "West Industrial Quarter",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        -47.5,
+        0.16,
+        5.5
+      ],
+      "radius": 2.8,
+      "questInspectTrigger": {
+        "questId": "q_gate_conduit",
+        "stageIndex": 0,
+        "increment": 2
+      },
+      "lines": [
+        "Three cyan sight-gauges hum steadily beneath heavy overhead copper mains linking directly to the storage silos.",
+        "You calibrate the bypass valve and record the pressure reading — ready to synthesize a Stabilized Crystal Core ([B])."
+      ]
+    },
+    {
+      "id": "int_industrial_silos",
+      "title": "External Mana Storage Silos",
+      "subtitle": "West Refinery Yard",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        -44.2,
+        0.16,
+        -15.5
+      ],
+      "radius": 3.6,
+      "lines": [
+        "Four riveted iron pressure cylinders banded with copper ribs hold refined liquid-state external mana.",
+        "Pressurized overhead mains feed both Heavy Boiler Works to the west and the Grand Harbour cranes north."
+      ]
+    },
+    {
+      "id": "int_smeltery_crucible",
+      "title": "Mana-Heated Crucible Furnace",
+      "subtitle": "Smelting Hall · Industrial Quarter",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        -75,
+        0.18,
+        0.5
+      ],
+      "radius": 3.2,
+      "lines": [
+        "Radiant heat pours from an arched brick furnace stoked by focused external-mana coils rather than coal.",
+        "Refined bronze and Vaelcrest iron ingots cast here forge viaduct rails, crane sheaves, and astrolabe rings."
+      ]
+    },
+    {
+      "id": "int_west_forge_assay",
+      "title": "West Forge & Assay Bench",
+      "subtitle": "Accessible Assay Office · Refinery Ave",
+      "category": "Commerce",
+      "promptAction": "Inspect",
+      "position": [
+        -57.8,
+        0.18,
+        30.5
+      ],
+      "radius": 3,
+      "lines": [
+        "Precision copper balance pans, hallmark punches, and warm hearth tongs sit ready for grading smelted ingots.",
+        "Only bars carrying the Vaelcrest purity stamp qualify for high-pressure viaduct and mana-silo castings."
+      ]
+    },
+    {
+      "id": "int_south_market_obelisk",
+      "title": "Southgate Market Obelisk",
+      "subtitle": "Artisan Market Plaza",
+      "category": "Landmark",
+      "promptAction": "Read",
+      "position": [
+        0,
+        0.16,
+        66
+      ],
+      "radius": 3.2,
+      "lines": [
+        "Carved sandstone market standard marking the heart of Elarion’s ten-stall open-air bazaar.",
+        "Pass south through the arched gallery below to enter the Weaver and Vintner halls on South Bazaar Boulevard."
+      ]
+    },
+    {
+      "id": "int_weaver_guildhall",
+      "title": "Weaver’s Guild Silk Display",
+      "subtitle": "South Bazaar Boulevard · West",
+      "category": "Commerce",
+      "promptAction": "Inspect",
+      "position": [
+        -17.2,
+        0.16,
+        102.5
+      ],
+      "radius": 3,
+      "lines": [
+        "Bolts of teal, crimson, and saffron cloth sit beside hammered copper dye-urns outside the Weaver’s Guildhall.",
+        "Sea-windproof wool woven here outfits both Vaelcrest sailors and Noble Heights diplomats."
+      ]
+    },
+    {
+      "id": "int_vintner_guildhall",
+      "title": "Vintner’s Guild Reserve Casks",
+      "subtitle": "South Bazaar Boulevard · East",
+      "category": "Commerce",
+      "promptAction": "Inspect",
+      "position": [
+        17.5,
+        0.16,
+        101
+      ],
+      "radius": 3,
+      "lines": [
+        "Iron-hooped oak casks branded with the Suncoast grape seal await cartage up Harbourgate Lane.",
+        "Thick brick cellar walls keep vintages cool even beneath midday sun."
+      ]
+    },
+    {
+      "id": "int_academic_conservatory",
+      "title": "Aetheric Botany Conservatory",
+      "subtitle": "Academic Courtyard · North Wing",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        67,
+        1.76,
+        1.5
+      ],
+      "radius": 3.2,
+      "lines": [
+        "A copper-ribbed glass atrium crowning limestone halls where coastal herbs and dye-blossoms grow year-round.",
+        "Gentle external-mana lamps warm the upper glass dome through harbour fog."
+      ]
+    },
+    {
+      "id": "int_academic_astrolabe",
+      "title": "Aetheric Brass Astrolabe",
+      "subtitle": "Academic Quarter Courtyard",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        62.5,
+        1.76,
+        23
+      ],
+      "radius": 3.5,
+      "lines": [
+        "Three concentric copper-and-iron armillary rings orbit a suspended cyan mana crystal above an octagonal limestone plinth.",
+        "Scholars use it to align harbour navigation beacons and measure regional aetheric tide shifts."
+      ]
+    },
+    {
+      "id": "int_observatory_tower",
+      "title": "Academic Observatory & Archive",
+      "subtitle": "Academic Quarter Courtyard",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        62,
+        1.76,
+        36.6
+      ],
+      "radius": 3.2,
+      "lines": [
+        "A copper-domed limestone tower crowned with an iron celestial spyglass overlooking Elarion Bay.",
+        "Beside it stand the Grand Archive Hall and South Cartography Hall housing regional sea charts."
+      ]
+    },
+    {
+      "id": "int_cartography_hall",
+      "title": "South Cartography Hall",
+      "subtitle": "Academic Courtyard · South Wing",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        67,
+        1.76,
+        68.5
+      ],
+      "radius": 3.2,
+      "lines": [
+        "Windowed limestone drafting hall where guild cartographers survey soundings, breakwater depths, and rail spurs."
+      ]
+    },
+    {
+      "id": "int_vaelcrest_council_crest",
+      "title": "House Vaelcrest Council Crest",
+      "subtitle": "Noble Heights Upper Plaza",
+      "category": "Landmark",
+      "promptAction": "Read",
+      "position": [
+        100.8,
+        5.2,
+        18.5
+      ],
+      "radius": 3,
+      "lines": [
+        "An engraved limestone stele inlaid with the copper crest of House Vaelcrest before the colonnade of the Council Dome Hall.",
+        "Flanked north by Lord Vaelcrest’s Manor Wing and south by the Chancery & Diplomatic Rotunda."
+      ]
+    },
+    {
+      "id": "int_noble_overlook_balustrade",
+      "title": "Noble Heights City Overlook",
+      "subtitle": "Noble Heights Terrace · 5.2m Elevation",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        83.2,
+        5.2,
+        28
+      ],
+      "radius": 2.8,
+      "lines": [
+        "From the elevated limestone balustrade, all five districts of Elarion spread out in clear relief:",
+        "Three Harbour piers and viaduct north, Boiler Works & West Forge west, Market & Bazaar Boulevard south, Academic towers below."
+      ]
+    },
+    {
+      "id": "int_three_councils_hall",
+      "title": "Three-Council Rotunda & Lecterns",
+      "subtitle": "Castle Vaelcrest · Great Hall",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        268,
+        5.2,
+        18.5
+      ],
+      "radius": 4.2,
+      "lines": [
+        "Seat of the Council of Law, the Council of Authority, and the quarterly Council of Elders beneath House Vaelcrest’s copper dome.",
+        "Though founded after the first Warrior Lord’s era, the councils allow talented commoners to rise to mayors, ministers, and commanders."
+      ]
+    },
+    {
+      "id": "int_war_room_map",
+      "title": "Domain Strategic Relief Map",
+      "subtitle": "Castle Vaelcrest · Patriarch War Room",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        269,
+        5.2,
+        54.8
+      ],
+      "radius": 4,
+      "lines": [
+        "A carved scale relief of the entire 230,000 km² Vaelcrest Domain—showing Elarion’s bay, inland rail corridors, agricultural valleys, and mountain strongholds."
+      ]
+    },
+    {
+      "id": "int_coastal_railgun_battery",
+      "title": "North Sea-Cliff Mana-Railgun Battery",
+      "subtitle": "Castle Vaelcrest · Rampart Battlements (11.4m)",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        256,
+        11.4,
+        -35.8
+      ],
+      "radius": 4,
+      "lines": [
+        "Twin-rail external-mana cannon emplacements sweep across Elarion Bay, backed by glowing capacitor coils and the Aetheric Communication Spire."
+      ]
+    },
+    {
+      "id": "int_knight_training_yard",
+      "title": "House Vaelcrest Knight Training Yard",
+      "subtitle": "Castle Vaelcrest · Outer Bailey",
+      "category": "Landmark",
+      "promptAction": "Read",
+      "position": [
+        215,
+        5.2,
+        31
+      ],
+      "radius": 3.4,
+      "lines": [
+        "Commoner recruits and noble squires spar side by side beneath the crimson Vaelcrest banner—advancement here depends strictly on skill and valor."
+      ]
+    },
+    {
+      "id": "int_grand_canal_bridge",
+      "title": "Grand Canal Lock Bridge",
+      "subtitle": "Central Waterway Artery",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        0,
+        2.6,
+        137
+      ],
+      "radius": 3.6,
+      "lines": [
+        "Three stone arch bridges span Elarion’s Grand Canal basin, linking harbour refineries directly to the Merchant Quarter.",
+        "External-mana cargo barges carry refined crystals and machined goods inland toward the railway freight yards."
+      ]
+    },
+    {
+      "id": "int_temple_quarter_sanctuary",
+      "title": "Temple Quarter Nave & Basin",
+      "subtitle": "Temple Quarter · NW Terrace",
+      "category": "Landmark",
+      "promptAction": "Read",
+      "position": [
+        -194,
+        1.6,
+        -13
+      ],
+      "radius": 3.6,
+      "lines": [
+        "A gabled stone sanctuary with a copper bell-steeple and carved stone cloisters frames Elarion’s reflection basin.",
+        "Built over generations by harbour stonewrights, the sanctuary welcomes citizens from every fief in the Domain."
+      ]
+    },
+    {
+      "id": "int_outer_foundry_cooling",
+      "title": "Mana Works Condenser Towers",
+      "subtitle": "Industrial Quarter & Mana Works",
+      "category": "Infrastructure",
+      "promptAction": "Inspect",
+      "position": [
+        -238,
+        0.16,
+        54
+      ],
+      "radius": 4,
+      "lines": [
+        "Paired 34-meter cooling towers regulate pressure for Elarion’s heavy machinery, munitions foundries, and mana storage tanks."
+      ]
+    },
+    {
+      "id": "int_trade_exchange_square",
+      "title": "Grand Exchange Square & Compass Fountain",
+      "subtitle": "Heart of the Merchant Quarter",
+      "category": "Landmark",
+      "promptAction": "Read",
+      "position": [
+        0,
+        0.16,
+        206.5
+      ],
+      "radius": 4.2,
+      "lines": [
+        "This open maritime plaza and brass compass monument anchor Elarion’s banking, shipping finance, and overseas trade.",
+        "Westward lie residential neighbourhoods and civic schools; eastward stand the Reserve Bank Clocktower and Clearing House."
+      ]
+    },
+    {
+      "id": "int_southgate_highway",
+      "title": "Domain Overland Bastion Gate",
+      "subtitle": "Highway & Rail Link to Vaelcrest Domain",
+      "category": "Infrastructure",
+      "promptAction": "Read",
+      "position": [
+        0,
+        0.16,
+        324
+      ],
+      "radius": 3.8,
+      "lines": [
+        "Twin rampart towers and mana barrier pylons stand at the inland gateway connecting Elarion to agricultural plains, mines, and highlands."
+      ]
+    },
+    {
+      "id": "rail_kiosk_harbour",
+      "title": "Grand Harbour Viaduct Terminal",
+      "subtitle": "Coastal Viaduct Line · Ticket Terminal",
+      "category": "Infrastructure",
+      "promptAction": "Mana-Rail",
+      "position": [
+        6.4,
+        -0.3,
+        -27.2
+      ],
+      "radius": 3.1,
+      "labelHeight": 2.55,
+      "opensRailStationId": "harbour",
+      "lines": [
+        "Elevated copper-conductor deck overlooking the three cargo piers and shipyards."
+      ]
+    },
+    {
+      "id": "rail_kiosk_temple",
+      "title": "Temple Quarter Cloister Stop",
+      "subtitle": "Coastal Viaduct Line · Ticket Terminal",
+      "category": "Infrastructure",
+      "promptAction": "Mana-Rail",
+      "position": [
+        -168,
+        0.16,
+        5.5
+      ],
+      "radius": 3.1,
+      "labelHeight": 2.55,
+      "opensRailStationId": "temple",
+      "lines": [
+        "North-west sanctuary platform linking cathedral stone cloisters to the harbour viaduct."
+      ]
+    },
+    {
+      "id": "rail_kiosk_manaworks",
+      "title": "Mana Works & Freight Yard",
+      "subtitle": "Inland Exchange Spur · Ticket Terminal",
+      "category": "Infrastructure",
+      "promptAction": "Mana-Rail",
+      "position": [
+        -178,
+        0.16,
+        114.5
+      ],
+      "radius": 3.1,
+      "labelHeight": 2.55,
+      "opensRailStationId": "manaworks",
+      "lines": [
+        "Heavy traction switching yard beneath the twin condenser towers and rolling mill."
+      ]
+    },
+    {
+      "id": "rail_kiosk_merchant",
+      "title": "Grand Exchange Terminus",
+      "subtitle": "Inland Exchange Spur · Ticket Terminal",
+      "category": "Infrastructure",
+      "promptAction": "Mana-Rail",
+      "position": [
+        -18.5,
+        0.16,
+        198
+      ],
+      "radius": 3.1,
+      "labelHeight": 2.55,
+      "opensRailStationId": "merchant",
+      "lines": [
+        "Central passenger exchange beside the Reserve Bank Clocktower and Compass Fountain."
+      ]
+    },
+    {
+      "id": "rail_kiosk_councils",
+      "title": "Council Heights Express Station",
+      "subtitle": "Coastal Viaduct Line · Ticket Terminal",
+      "category": "Infrastructure",
+      "promptAction": "Mana-Rail",
+      "position": [
+        186,
+        5.2,
+        13.5
+      ],
+      "radius": 3.1,
+      "labelHeight": 2.55,
+      "opensRailStationId": "councils",
+      "lines": [
+        "Upper terrace express terminus serving the Three Councils Assembly Hall and Citadel."
+      ]
+    },
+    {
+      "id": "rail_kiosk_bastion",
+      "title": "Bastion Overland Railhead",
+      "subtitle": "Inland Exchange Spur · Ticket Terminal",
+      "category": "Infrastructure",
+      "promptAction": "Mana-Rail",
+      "position": [
+        -13.5,
+        0.16,
+        315.5
+      ],
+      "radius": 3.1,
+      "labelHeight": 2.55,
+      "opensRailStationId": "bastion",
+      "lines": [
+        "Southern domain gateway departing toward agricultural plains, mines, and emerald wilds."
+      ]
+    },
+    {
+      "id": "pick_harbourgate_mana_shard",
+      "title": "Aetheric Mana Shard",
+      "subtitle": "Harbourgate Lane · Unrefined Conduit Crystal",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "A palm-sized cyan conduit crystal dropped beside the Harbourgate lantern curb, humming with external mana."
+      ],
+      "position": [
+        5.2,
+        0.16,
+        23.5
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_chandlery_cargo_seal",
+      "title": "Vaelcrest Customs Seal",
+      "subtitle": "Vaelcrest Chandlery · Bonded Brass Coffer",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "An official wax-stamped customs coffer clearing dry-dock timber for the Central Shipyard Pier."
+      ],
+      "position": [
+        -8.2,
+        0.16,
+        6.2
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_copperwell_herb_satchel",
+      "title": "Apothecary Herb Satchel",
+      "subtitle": "Copperwell Square · Clinic Field Kit",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "A woven satchel packed with dried coastal sea-fennel and a stoppered tonic phial."
+      ],
+      "position": [
+        22.4,
+        0.16,
+        4.6
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_quay_dispatch_scroll",
+      "title": "Harbourmaster Dispatch",
+      "subtitle": "Grand Harbour Quay · Sealed Pier Orders",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Rolled parchment bearing tide-gate timings for the West and East Cargo Piers."
+      ],
+      "position": [
+        -4.2,
+        -0.3,
+        -44
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_shipyard_astrolabe",
+      "title": "Shipwright Brass Astrolabe",
+      "subtitle": "Central Shipyard Pier · Navigation Instrument",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "A calibrated twin-ring brass astrolabe used to align brigantine compass binnacles."
+      ],
+      "position": [
+        3.4,
+        -0.3,
+        -72
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_refinery_copper_ingot",
+      "title": "Assayed Copper Ingot Stack",
+      "subtitle": "Refinery Avenue · Foundry Lot #14",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Three freshly cast copper-bronze ingots stamped for the elevated viaduct conductor rail."
+      ],
+      "position": [
+        -48.5,
+        0.16,
+        23
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_smeltery_mana_core",
+      "title": "Refined Crucible Mana Core",
+      "subtitle": "Smelting Hall · West Industrial Quarter",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "A high-output aetheric core stabilized in a cast-iron collar for furnace ignition."
+      ],
+      "position": [
+        -71,
+        0.18,
+        5.5
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_market_guild_seal",
+      "title": "Bazaar Guild Charter Box",
+      "subtitle": "Artisan Market Plaza · Southgate",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Stallholder dues chest sealed in crimson wax for the Weaver and Vintner guilds."
+      ],
+      "position": [
+        6.8,
+        0.16,
+        63
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_academic_armillary",
+      "title": "Calibration Armillary Ring",
+      "subtitle": "Academic Courtyard · Observatory Terrace",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Precision scholarly armillary instrument tuned to Elarion’s harbour beacons."
+      ],
+      "position": [
+        57.5,
+        1.76,
+        18.5
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_noble_chancery_scroll",
+      "title": "Chancery Diplomatic Folio",
+      "subtitle": "Noble Heights Plaza · Upper Terrace",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Gilded diplomatic dispatches bound for House Vaelcrest’s Council Dome Hall."
+      ],
+      "position": [
+        92,
+        5.2,
+        19.5
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_council_folio",
+      "title": "Three-Council Charter Roll",
+      "subtitle": "Castle Vaelcrest · Great Hall",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Gilded legislative folio countersigned by the Council of Law and Council of Authority."
+      ],
+      "position": [
+        284,
+        5.2,
+        17.5
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_treasury_bullion_seal",
+      "title": "Royal Treasury Reserve Signet",
+      "subtitle": "Castle Vaelcrest · Treasury Vault",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Heavy brass reserve seal locking Crown bullion shipments to the Vaelcrest Reserve Bank."
+      ],
+      "position": [
+        232,
+        5.2,
+        68.5
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_canal_bridge_manifest",
+      "title": "Canal Freight Lock Ledger",
+      "subtitle": "Central Canal Bridge · Crest",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Dispatch tallying external-mana barge shipments bound for Elarion’s Merchant Quarter."
+      ],
+      "position": [
+        3.2,
+        2.6,
+        137
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_temple_sanctuary_prism",
+      "title": "Sanctuary Chime Prism",
+      "subtitle": "Temple Quarter · Reflection Basin",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "A resonant pale-blue crystal calibrated to chime quietly across the sanctuary cloisters."
+      ],
+      "position": [
+        -184.5,
+        1.6,
+        -20
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_outer_foundry_ingot",
+      "title": "Railgun Alloy Forging",
+      "subtitle": "Mana Works · Rolling Mill",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "High-density copper-steel bar cast for Citadel railgun barrels and railway axles."
+      ],
+      "position": [
+        -174,
+        0.16,
+        46
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_exchange_charter_seal",
+      "title": "Reserve Bank Bullion Seal",
+      "subtitle": "Merchant Quarter · Exchange Square",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Stamped maritime lending coffer certifying overseas investment credit in Elarion."
+      ],
+      "position": [
+        5.5,
+        0.16,
+        205.5
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_polytechnic_satchel",
+      "title": "Civic Field Survey Kit",
+      "subtitle": "West Residential · Guild School",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Satchel packed with field notebooks and apothecary tonics issued to civic apprentices."
+      ],
+      "position": [
+        -36,
+        0.16,
+        240
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_clearinghouse_astrolabe",
+      "title": "Exchange Meridian Chronometer",
+      "subtitle": "East Merchant Ward · Clearing House",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Precision chronometer synchronizing maritime shipping ledgers with inland rail departures."
+      ],
+      "position": [
+        35,
+        0.16,
+        240
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "pick_bastion_mana_cell",
+      "title": "Barrier Pylon Capacitor",
+      "subtitle": "Overland Bastion Rampart",
+      "category": "Item",
+      "promptAction": "Pick Up",
+      "lines": [
+        "Sealed external-mana capacitor cell powering Elarion’s southern defensive barrier pylons."
+      ],
+      "position": [
+        9.5,
+        0.16,
+        326
+      ],
+      "radius": 2.8,
+      "labelHeight": 1.05,
+      "pickable": true
+    },
+    {
+      "id": "station_alchemy_copperwell",
+      "title": "Copperwell Alchemist Bench",
+      "subtitle": "Alchemy Bench · Tonics & Phials",
+      "category": "Commerce",
+      "promptAction": "Craft",
+      "position": [
+        19.5,
+        0.16,
+        7.5
+      ],
+      "radius": 3.4,
+      "labelHeight": 2.1,
+      "lines": [
+        "Step close to the Copperwell Alchemist Bench and press [B] to unlock ALCHEMY crafting recipes."
+      ],
+      "opensCraftingStation": "alchemy"
+    },
+    {
+      "id": "station_forge_smelting",
+      "title": "Smelting Hall Runesmith Forge",
+      "subtitle": "Runesmith Forge · Weapons & Armor",
+      "category": "Commerce",
+      "promptAction": "Craft",
+      "position": [
+        -72,
+        0.18,
+        4
+      ],
+      "radius": 3.4,
+      "labelHeight": 2.1,
+      "lines": [
+        "Step close to the Smelting Hall Runesmith Forge and press [B] to unlock FORGE crafting recipes."
+      ],
+      "opensCraftingStation": "forge"
+    },
+    {
+      "id": "station_anvil_westforge",
+      "title": "West Forge Runesmith Anvil",
+      "subtitle": "Runesmith Forge · Weapons & Armor",
+      "category": "Commerce",
+      "promptAction": "Craft",
+      "position": [
+        -52,
+        0.18,
+        30
+      ],
+      "radius": 3.4,
+      "labelHeight": 2.1,
+      "lines": [
+        "Step close to the West Forge Runesmith Anvil and press [B] to unlock FORGE crafting recipes."
+      ],
+      "opensCraftingStation": "forge"
+    },
+    {
+      "id": "station_alchemy_conservatory",
+      "title": "Conservatory Aether Bench",
+      "subtitle": "Alchemy Bench · Tonics & Phials",
+      "category": "Commerce",
+      "promptAction": "Craft",
+      "position": [
+        64,
+        1.76,
+        6
+      ],
+      "radius": 3.4,
+      "labelHeight": 2.1,
+      "lines": [
+        "Step close to the Conservatory Aether Bench and press [B] to unlock ALCHEMY crafting recipes."
+      ],
+      "opensCraftingStation": "alchemy"
+    },
+    {
+      "id": "station_shrine_temple",
+      "title": "Temple Quarter Ley-Shrine",
+      "subtitle": "Ley-Shrine · Relics & Synthesis",
+      "category": "Commerce",
+      "promptAction": "Craft",
+      "position": [
+        -192,
+        0.16,
+        -12
+      ],
+      "radius": 3.4,
+      "labelHeight": 2.1,
+      "lines": [
+        "Step close to the Temple Quarter Ley-Shrine and press [B] to unlock SHRINE crafting recipes."
+      ],
+      "opensCraftingStation": "shrine"
+    },
+    {
+      "id": "station_shrine_wilds",
+      "title": "Emerald Glade Ley-Shrine",
+      "subtitle": "Ley-Shrine · Relics & Synthesis",
+      "category": "Commerce",
+      "promptAction": "Craft",
+      "position": [
+        -76,
+        1.2165282685656298,
+        456
+      ],
+      "radius": 3.4,
+      "labelHeight": 2.1,
+      "lines": [
+        "Step close to the Emerald Glade Ley-Shrine and press [B] to unlock SHRINE crafting recipes."
+      ],
+      "opensCraftingStation": "shrine"
+    },
+    {
+      "id": "landmark_ley_portal",
+      "title": "Ancient Vaelcrest Ley-Portal",
+      "subtitle": "Emerald Wilds · Epicenter",
+      "category": "Landmark",
+      "promptAction": "Inspect",
+      "position": [
+        0,
+        1.9560730727118165,
+        542
+      ],
+      "radius": 4.5,
+      "labelHeight": 4.2,
+      "lines": [
+        "A towering runic arch humming with raw Aetheric current. Vanquish the Crystal Wyrm guarding this threshold to restore the Emerald Wilds."
+      ]
+    },
+    {
+      "id": "loot_chest_harbour",
+      "title": "Mariner Supply Chest",
+      "subtitle": "Lootable Cache",
+      "category": "Item",
+      "promptAction": "Open",
+      "position": [
+        -14,
+        0.16,
+        15
+      ],
+      "radius": 2.75,
+      "labelHeight": 1.25,
+      "pickable": true,
+      "lines": [
+        "Mariner Supply Chest"
+      ]
+    },
+    {
+      "id": "loot_mana_substation",
+      "title": "Condenser Mana Cluster",
+      "subtitle": "Gatherable Resource",
+      "category": "Item",
+      "promptAction": "Harvest",
+      "position": [
+        -41,
+        0.16,
+        7.5
+      ],
+      "radius": 2.75,
+      "labelHeight": 1.25,
+      "pickable": true,
+      "lines": [
+        "Condenser Mana Cluster"
+      ]
+    },
+    {
+      "id": "loot_ore_foundry",
+      "title": "Refinery Iron & Copper Cache",
+      "subtitle": "Gatherable Resource",
+      "category": "Item",
+      "promptAction": "Harvest",
+      "position": [
+        -68,
+        0.16,
+        17.5
+      ],
+      "radius": 2.75,
+      "labelHeight": 1.25,
+      "pickable": true,
+      "lines": [
+        "Refinery Iron & Copper Cache"
+      ]
+    },
+    {
+      "id": "loot_herb_conservatory",
+      "title": "Conservatory Botanical Planter",
+      "subtitle": "Gatherable Resource",
+      "category": "Item",
+      "promptAction": "Harvest",
+      "position": [
+        62,
+        1.76,
+        -1.5
+      ],
+      "radius": 2.75,
+      "labelHeight": 1.25,
+      "pickable": true,
+      "lines": [
+        "Conservatory Botanical Planter"
+      ]
+    },
+    {
+      "id": "loot_chest_exchange",
+      "title": "Guild Reserve Strongbox",
+      "subtitle": "Lootable Cache",
+      "category": "Item",
+      "promptAction": "Open",
+      "position": [
+        26,
+        0.16,
+        212
+      ],
+      "radius": 2.75,
+      "labelHeight": 1.25,
+      "pickable": true,
+      "lines": [
+        "Guild Reserve Strongbox"
+      ]
+    },
+    {
+      "id": "loot_mana_wilds_gate",
+      "title": "Wilds Ley-Fissure Crystal",
+      "subtitle": "Gatherable Resource",
+      "category": "Item",
+      "promptAction": "Harvest",
+      "position": [
+        16,
+        0.541329266706123,
+        362
+      ],
+      "radius": 2.75,
+      "labelHeight": 1.25,
+      "pickable": true,
+      "lines": [
+        "Wilds Ley-Fissure Crystal"
+      ]
+    },
+    {
+      "id": "loot_chest_wilds_glade",
+      "title": "Runesmith Trail Chest",
+      "subtitle": "Lootable Cache",
+      "category": "Item",
+      "promptAction": "Open",
+      "position": [
+        -68,
+        1.8423902761616224,
+        452
+      ],
+      "radius": 2.75,
+      "labelHeight": 1.25,
+      "pickable": true,
+      "lines": [
+        "Runesmith Trail Chest"
+      ]
+    }
+  ],
+  "combatDummies": [
+    {
+      "id": "el_dummy_harbourgate",
+      "name": "Watch Post Training Dummy",
+      "position": [
+        -6.8,
+        0.16,
+        26
+      ],
+      "facingYaw": 0.72,
+      "maxHp": 150
+    },
+    {
+      "id": "el_dummy_courtyard",
+      "name": "Courtyard Sparring Dummy",
+      "position": [
+        -22.5,
+        0.16,
+        3.8
+      ],
+      "facingYaw": 1.2,
+      "maxHp": 150
+    },
+    {
+      "id": "el_dummy_copperwell",
+      "name": "Vaelcrest Guard Dummy",
+      "position": [
+        20.8,
+        0.16,
+        -2.5
+      ],
+      "facingYaw": -0.9,
+      "maxHp": 220,
+      "armored": true
+    },
+    {
+      "id": "el_dummy_citadel_north",
+      "name": "House Vaelcrest Knight Dummy",
+      "position": [
+        222,
+        5.2,
+        34
+      ],
+      "facingYaw": -1.57,
+      "maxHp": 260,
+      "armored": true
+    },
+    {
+      "id": "el_dummy_citadel_south",
+      "name": "Domain Lancer Dummy",
+      "position": [
+        232,
+        5.2,
+        40
+      ],
+      "facingYaw": -2.2,
+      "maxHp": 220,
+      "armored": true
+    },
+    {
+      "id": "el_dummy_southgate_post",
+      "name": "Bastion Gate Watch Dummy",
+      "position": [
+        -14,
+        0.16,
+        318
+      ],
+      "facingYaw": 0.4,
+      "maxHp": 180
+    }
+  ]
+}

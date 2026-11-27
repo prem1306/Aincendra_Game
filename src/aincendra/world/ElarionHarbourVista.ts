@@ -79,6 +79,7 @@ export function buildElarionHarbourVista(): HarbourVistaHandle {
     roughness: 0.28,
     metalness: 0.06,
   });
+  const matCopperPatina = new THREE.MeshStandardMaterial({ color: 0x3b8c76, roughness: 0.36, metalness: 0.56 });
   const matDistantCity = new THREE.MeshStandardMaterial({ color: 0x3a434e, roughness: 0.92, metalness: 0.04 });
   const matSteam = new THREE.MeshStandardMaterial({
     color: 0xd8dfe6,
@@ -96,6 +97,7 @@ export function buildElarionHarbourVista(): HarbourVistaHandle {
     matLimestone,
     matIron,
     matCopper,
+    matCopperPatina,
     matTimber,
     matDarkTimber,
     matSail,
@@ -647,6 +649,35 @@ export function buildElarionHarbourVista(): HarbourVistaHandle {
   }
   indGroup.add(flywheelPivot);
 
+  // Giant Spherical Riveted Mana-Condenser Tank & Elevated Catwalk (Industrial Skyline focal icon)
+  {
+    const sphereX = -114.0;
+    const sphereZ = -31.0;
+    const pedGeo = new THREE.CylinderGeometry(4.2, 5.4, 9.0, 14);
+    const bulbGeo = new THREE.SphereGeometry(6.8, 18, 12);
+    const eqRingGeo = new THREE.TorusGeometry(6.95, 0.28, 8, 22);
+    const catwalkGeo = new THREE.CylinderGeometry(7.8, 7.8, 0.28, 16, 1, true);
+    const flueGeo = new THREE.CylinderGeometry(0.95, 1.15, 22.0, 10);
+    disposables.push(pedGeo, bulbGeo, eqRingGeo, catwalkGeo, flueGeo);
+
+    const ped = new THREE.Mesh(pedGeo, matDarkBrick);
+    ped.position.set(sphereX, 4.5, sphereZ);
+    const bulb = new THREE.Mesh(bulbGeo, matIron);
+    bulb.position.set(sphereX, 13.8, sphereZ);
+    const eqRing = new THREE.Mesh(eqRingGeo, matCopper);
+    eqRing.rotation.x = Math.PI / 2;
+    eqRing.position.set(sphereX, 13.8, sphereZ);
+    const manaRing = new THREE.Mesh(eqRingGeo, matManaGlow);
+    manaRing.rotation.x = Math.PI / 2;
+    manaRing.scale.setScalar(0.76);
+    manaRing.position.set(sphereX, 18.2, sphereZ);
+    const catwalk = new THREE.Mesh(catwalkGeo, matCopper);
+    catwalk.position.set(sphereX, 14.0, sphereZ);
+    const flue = new THREE.Mesh(flueGeo, matIron);
+    flue.position.set(sphereX + 4.8, 18.0, sphereZ - 2.0);
+    indGroup.add(ped, bulb, eqRing, manaRing, catwalk, flue);
+  }
+
   const chimneySpecs: Array<{ x: number; z: number; h: number; r: number; isMana: boolean }> = [
     { x: -73, z: -24, h: 24, r: 1.1, isMana: false },
     { x: -82, z: -23, h: 28, r: 1.2, isMana: false },
@@ -720,6 +751,93 @@ export function buildElarionHarbourVista(): HarbourVistaHandle {
   distantInst.computeBoundingSphere();
   group.add(distantInst);
 
+  // Twin Harbour Breakwater Entrance Beacons & Grand Lighthouse Copper Cupola (Screenshots 1 & 3)
+  {
+    const beaconBaseGeo = new THREE.CylinderGeometry(2.6, 3.2, 12.0, 8);
+    const beaconCapGeo = new THREE.ConeGeometry(2.9, 6.4, 8);
+    const beaconGlowGeo = new THREE.BoxGeometry(1.6, 1.8, 1.6);
+    disposables.push(beaconBaseGeo, beaconCapGeo, beaconGlowGeo);
+
+    for (const bx of [-88, 80]) {
+      const bBase = new THREE.Mesh(beaconBaseGeo, matLimestone);
+      bBase.position.set(bx, 6.2, -192);
+      const bGlow = new THREE.Mesh(beaconGlowGeo, matAmberLight);
+      bGlow.position.set(bx, 13.0, -192);
+      const bCap = new THREE.Mesh(beaconCapGeo, matCopperPatina);
+      bCap.position.set(bx, 17.0, -192);
+      group.add(bBase, bGlow, bCap);
+    }
+
+    // Grand Harbour Lighthouse Cupola & Beacon atop [74, 30, -194]
+    const lhLantern = new THREE.Mesh(beaconGlowGeo, matAmberLight);
+    lhLantern.scale.setScalar(2.4);
+    lhLantern.position.set(74, 31.8, -194);
+    const lhCap = new THREE.Mesh(beaconCapGeo, matCopperPatina);
+    lhCap.scale.setScalar(1.7);
+    lhCap.position.set(74, 38.6, -194);
+    group.add(lhLantern, lhCap);
+  }
+
+  // Patrolling Vaelcrest Mana Airship / Dirigible over Harbour Bay
+  const airshipGroup = new THREE.Group();
+  airshipGroup.name = 'Vaelcrest_Mana_Airship_Landmark';
+  const airshipPropellers: THREE.Mesh[] = [];
+  {
+    const hullGeo = new THREE.CapsuleGeometry(6.8, 22.0, 8, 16);
+    hullGeo.rotateZ(Math.PI / 2);
+    const bandAirGeo = new THREE.TorusGeometry(6.95, 0.34, 8, 20);
+    const gondGeo = new THREE.BoxGeometry(12.0, 3.2, 3.8);
+    const finGeo = new THREE.BoxGeometry(5.6, 4.4, 0.35);
+    const propGeo = new THREE.BoxGeometry(0.22, 3.4, 0.45);
+    disposables.push(hullGeo, bandAirGeo, gondGeo, finGeo, propGeo);
+
+    const envelope = new THREE.Mesh(hullGeo, matSail);
+    envelope.position.y = 4.8;
+    airshipGroup.add(envelope);
+
+    for (const bx of [-6.5, 0, 6.5]) {
+      const band = new THREE.Mesh(bandAirGeo, bx === 0 ? matManaGlow : matCopper);
+      band.rotation.y = Math.PI / 2;
+      band.position.set(bx, 4.8, 0);
+      airshipGroup.add(band);
+    }
+
+    const gondola = new THREE.Mesh(gondGeo, matDarkTimber);
+    gondola.position.set(0, -3.6, 0);
+    const trim = new THREE.Mesh(new THREE.BoxGeometry(12.2, 0.45, 4.0), matCopper);
+    trim.position.set(0, -2.0, 0);
+    const sternLight = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.2, 1.8), matAmberLight);
+    sternLight.position.set(-6.2, -3.5, 0);
+    disposables.push(trim.geometry, sternLight.geometry);
+    airshipGroup.add(gondola, trim, sternLight);
+
+    // Tail fins
+    const vFin = new THREE.Mesh(finGeo, matCopperPatina);
+    vFin.position.set(-13.8, 7.6, 0);
+    const hFin = new THREE.Mesh(finGeo, matCopperPatina);
+    hFin.rotation.x = Math.PI / 2;
+    hFin.position.set(-13.8, 4.8, 0);
+    airshipGroup.add(vFin, hFin);
+
+    for (const pz of [-2.4, 2.4]) {
+      const prop = new THREE.Mesh(propGeo, matCopper);
+      prop.position.set(-5.2, -3.4, pz);
+      airshipGroup.add(prop);
+      airshipPropellers.push(prop);
+    }
+
+    airshipGroup.position.set(0, 60, -135);
+    group.add(airshipGroup);
+  }
+
+  // Animated Locomotive Exhaust Steam Trail (6 instanced puffs following train stack)
+  const trainSteamGeo = new THREE.DodecahedronGeometry(0.68, 0);
+  disposables.push(trainSteamGeo);
+  const trainSteamCount = 6;
+  const trainSteamInst = new THREE.InstancedMesh(trainSteamGeo, matSteam, trainSteamCount);
+  trainSteamInst.frustumCulled = false;
+  group.add(trainSteamInst);
+
   // Forested Vaelcrest Domain Highland Ridges framing the distant West/South/East horizon
   const ridgeSpecs: Array<[number, number, number, number, number]> = [];
   for (let i = 0; i < 40; i++) {
@@ -757,6 +875,33 @@ export function buildElarionHarbourVista(): HarbourVistaHandle {
       trainX = -98;
     }
     trainGroup.position.x = trainX;
+
+    // Locomotive stack steam trail
+    for (let i = 0; i < trainSteamCount; i++) {
+      const phase = ((simTime * 0.95 + i / trainSteamCount) % 1 + 1) % 1;
+      const sx = trainX + 2.75 - phase * 9.5;
+      const sy = deckY + 4.2 + phase * 5.2;
+      const sz = viaductZ + Math.sin(simTime * 2 + i) * 0.45;
+      const sc = (0.45 + phase * 1.65) * Math.sin(phase * Math.PI);
+      dummy.position.set(sx, sy, sz);
+      dummy.rotation.set(simTime + i, simTime * 0.5, 0);
+      dummy.scale.setScalar(Math.max(0.01, sc));
+      dummy.updateMatrix();
+      trainSteamInst.setMatrixAt(i, dummy.matrix);
+    }
+    trainSteamInst.instanceMatrix.needsUpdate = true;
+
+    // Patrolling Mana Airship cruising gently over Elarion Bay
+    const airAngle = simTime * 0.085;
+    const ax = Math.cos(airAngle) * 145;
+    const az = -132 + Math.sin(airAngle) * 38;
+    const nextAx = Math.cos(airAngle + 0.05) * 145;
+    const nextAz = -132 + Math.sin(airAngle + 0.05) * 38;
+    airshipGroup.position.set(ax, 60 + Math.sin(simTime * 0.7) * 1.8, az);
+    airshipGroup.rotation.y = Math.atan2(-(nextAz - az), nextAx - ax);
+    for (const p of airshipPropellers) {
+      p.rotation.x += clampedDt * 14.0;
+    }
 
     flywheelPivot.rotation.x += clampedDt * 0.9;
 

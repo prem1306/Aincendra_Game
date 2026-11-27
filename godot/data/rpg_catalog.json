@@ -1,0 +1,998 @@
+{
+  "items": {
+    "mana_shard": {
+      "id": "mana_shard",
+      "name": "Aetheric Mana Shard",
+      "category": "material",
+      "description": "Crystallized ley-energy condensed in Elarion conduits and wild fissures.",
+      "value": 14
+    },
+    "copper_ingot": {
+      "id": "copper_ingot",
+      "name": "Assayed Copper Ingot",
+      "category": "material",
+      "description": "High-conductivity Vaelcrest copper forged for mana rails and runeblades.",
+      "value": 12
+    },
+    "iron_ore": {
+      "id": "iron_ore",
+      "name": "Tempered Iron Ore",
+      "category": "material",
+      "description": "Dense coastal iron mined along the Vaelcrest highland ridges.",
+      "value": 10
+    },
+    "aether_herb": {
+      "id": "aether_herb",
+      "name": "Sea-Fennel & Sage",
+      "category": "material",
+      "description": "Botanical reagents used in district clinics and field alchemy.",
+      "value": 9
+    },
+    "crystal_core": {
+      "id": "crystal_core",
+      "name": "Stabilized Crystal Core",
+      "category": "material",
+      "description": "High-output core salvaged from industrial conduits and furnace constructs.",
+      "value": 32
+    },
+    "wyrm_scale": {
+      "id": "wyrm_scale",
+      "name": "Wyrm Resonant Scale",
+      "category": "material",
+      "description": "Iridescent crystalline plating shed by the Emerald Wilds Crystal Wyrm.",
+      "value": 65
+    },
+    "vitality_elixir": {
+      "id": "vitality_elixir",
+      "name": "Vitality Elixir",
+      "category": "consumable",
+      "description": "Restores 45 HP immediately. Hotkey: [Q].",
+      "value": 18,
+      "healHp": 45
+    },
+    "aether_draught": {
+      "id": "aether_draught",
+      "name": "Aether Draught",
+      "category": "consumable",
+      "description": "Restores 45 Mana and stabilizes conduit flow. Hotkey: [5].",
+      "value": 18,
+      "restoreMana": 45
+    },
+    "coolant_phial": {
+      "id": "coolant_phial",
+      "name": "Cryo-Coolant Phial",
+      "category": "consumable",
+      "description": "Drops Thermal Heat by 60% and clears Thermal Burnout.",
+      "value": 22,
+      "coolHeat": 60
+    },
+    "overclock_tonic": {
+      "id": "overclock_tonic",
+      "name": "Overclock Tonic",
+      "category": "consumable",
+      "description": "Boosts melee & spell power by 30% and restores 25 Mana for 12s.",
+      "value": 30,
+      "restoreMana": 25,
+      "overclockBoost": true
+    },
+    "vaelcrest_sabre": {
+      "id": "vaelcrest_sabre",
+      "name": "Vaelcrest Training Sabre",
+      "category": "weapon",
+      "description": "Standard copper-hilted guard sabre with a thin mana-etched fuller.",
+      "value": 25,
+      "attackBonus": 0,
+      "spellBonus": 0
+    },
+    "volt_edge_sabre": {
+      "id": "volt_edge_sabre",
+      "name": "Volt-Edge Runeblade",
+      "category": "weapon",
+      "description": "Runesmithed copper-steel sabre channeling +10 melee & +8 spell damage.",
+      "value": 75,
+      "attackBonus": 10,
+      "spellBonus": 8
+    },
+    "aether_reaver": {
+      "id": "aether_reaver",
+      "name": "Aether-Core Reaver",
+      "category": "weapon",
+      "description": "Masterwork magitech blade forged with a crystal core (+20 attack, +16 spell).",
+      "value": 140,
+      "attackBonus": 20,
+      "spellBonus": 16
+    },
+    "harbour_coat": {
+      "id": "harbour_coat",
+      "name": "Mariner Greatcoat",
+      "category": "armor",
+      "description": "Salt-treated woollen greatcoat worn across Elarion Bay.",
+      "value": 20,
+      "armorBonus": 0,
+      "maxHpBonus": 0
+    },
+    "copper_brigandine": {
+      "id": "copper_brigandine",
+      "name": "Copper-Riveted Brigandine",
+      "category": "armor",
+      "description": "Reinforced dockguard coat (+6 armor, +25 Max HP).",
+      "value": 70,
+      "armorBonus": 6,
+      "maxHpBonus": 25
+    },
+    "runic_cuirass": {
+      "id": "runic_cuirass",
+      "name": "Vaelcrest Runic Cuirass",
+      "category": "armor",
+      "description": "Spell-warded steel plate (+14 armor, +55 Max HP, +20 Max Mana).",
+      "value": 150,
+      "armorBonus": 14,
+      "maxHpBonus": 55,
+      "maxManaBonus": 20
+    },
+    "capacitor_coil": {
+      "id": "capacitor_coil",
+      "name": "Guild Capacitor Coil",
+      "category": "relic",
+      "description": "Braided mana-works focus (+10 spell power, +20 Max Mana).",
+      "value": 85,
+      "spellBonus": 10,
+      "maxManaBonus": 20
+    },
+    "wyrm_heart_seal": {
+      "id": "wyrm_heart_seal",
+      "name": "Crystal Wyrm Heartstone",
+      "category": "relic",
+      "description": "Resonant apex trophy (+18 spell power, +12 attack, +35 Max HP & Mana).",
+      "value": 220,
+      "attackBonus": 12,
+      "spellBonus": 18,
+      "maxHpBonus": 35,
+      "maxManaBonus": 35
+    }
+  },
+  "recipes": [
+    {
+      "id": "rcp_vitality_elixir",
+      "outputItemId": "vitality_elixir",
+      "outputQty": 2,
+      "station": "field",
+      "craftTimeLabel": "Instant Field Brew",
+      "ingredients": [
+        {
+          "itemId": "aether_herb",
+          "qty": 1
+        }
+      ],
+      "crownCost": 4
+    },
+    {
+      "id": "rcp_aether_draught",
+      "outputItemId": "aether_draught",
+      "outputQty": 2,
+      "station": "field",
+      "craftTimeLabel": "Instant Condensation",
+      "ingredients": [
+        {
+          "itemId": "mana_shard",
+          "qty": 1
+        }
+      ],
+      "crownCost": 4
+    },
+    {
+      "id": "rcp_coolant_phial",
+      "outputItemId": "coolant_phial",
+      "outputQty": 2,
+      "station": "alchemy",
+      "craftTimeLabel": "Alchemy Bench",
+      "ingredients": [
+        {
+          "itemId": "aether_herb",
+          "qty": 1
+        },
+        {
+          "itemId": "mana_shard",
+          "qty": 1
+        }
+      ],
+      "crownCost": 6
+    },
+    {
+      "id": "rcp_overclock_tonic",
+      "outputItemId": "overclock_tonic",
+      "outputQty": 1,
+      "station": "alchemy",
+      "craftTimeLabel": "Alchemy Bench",
+      "ingredients": [
+        {
+          "itemId": "mana_shard",
+          "qty": 2
+        },
+        {
+          "itemId": "aether_herb",
+          "qty": 1
+        }
+      ],
+      "crownCost": 10
+    },
+    {
+      "id": "rcp_crystal_core",
+      "outputItemId": "crystal_core",
+      "outputQty": 1,
+      "station": "field",
+      "craftTimeLabel": "Conduit Synthesis",
+      "ingredients": [
+        {
+          "itemId": "mana_shard",
+          "qty": 2
+        },
+        {
+          "itemId": "copper_ingot",
+          "qty": 1
+        }
+      ],
+      "crownCost": 8
+    },
+    {
+      "id": "rcp_volt_edge_sabre",
+      "outputItemId": "volt_edge_sabre",
+      "outputQty": 1,
+      "station": "forge",
+      "craftTimeLabel": "Runesmith Forge",
+      "ingredients": [
+        {
+          "itemId": "copper_ingot",
+          "qty": 2
+        },
+        {
+          "itemId": "iron_ore",
+          "qty": 1
+        },
+        {
+          "itemId": "mana_shard",
+          "qty": 1
+        }
+      ],
+      "crownCost": 22
+    },
+    {
+      "id": "rcp_aether_reaver",
+      "outputItemId": "aether_reaver",
+      "outputQty": 1,
+      "station": "forge",
+      "craftTimeLabel": "Masterwork Forge",
+      "ingredients": [
+        {
+          "itemId": "copper_ingot",
+          "qty": 2
+        },
+        {
+          "itemId": "crystal_core",
+          "qty": 1
+        },
+        {
+          "itemId": "iron_ore",
+          "qty": 2
+        }
+      ],
+      "crownCost": 45
+    },
+    {
+      "id": "rcp_copper_brigandine",
+      "outputItemId": "copper_brigandine",
+      "outputQty": 1,
+      "station": "forge",
+      "craftTimeLabel": "Armourer Anvil",
+      "ingredients": [
+        {
+          "itemId": "iron_ore",
+          "qty": 2
+        },
+        {
+          "itemId": "copper_ingot",
+          "qty": 1
+        }
+      ],
+      "crownCost": 18
+    },
+    {
+      "id": "rcp_runic_cuirass",
+      "outputItemId": "runic_cuirass",
+      "outputQty": 1,
+      "station": "forge",
+      "craftTimeLabel": "Masterwork Forge",
+      "ingredients": [
+        {
+          "itemId": "iron_ore",
+          "qty": 3
+        },
+        {
+          "itemId": "crystal_core",
+          "qty": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "qty": 2
+        }
+      ],
+      "crownCost": 50
+    },
+    {
+      "id": "rcp_capacitor_coil",
+      "outputItemId": "capacitor_coil",
+      "outputQty": 1,
+      "station": "shrine",
+      "craftTimeLabel": "Ley-Shrine Focus",
+      "ingredients": [
+        {
+          "itemId": "crystal_core",
+          "qty": 1
+        },
+        {
+          "itemId": "copper_ingot",
+          "qty": 2
+        }
+      ],
+      "crownCost": 25
+    },
+    {
+      "id": "rcp_wyrm_heart_seal",
+      "outputItemId": "wyrm_heart_seal",
+      "outputQty": 1,
+      "station": "shrine",
+      "craftTimeLabel": "Ancient Ley-Altar",
+      "ingredients": [
+        {
+          "itemId": "wyrm_scale",
+          "qty": 1
+        },
+        {
+          "itemId": "crystal_core",
+          "qty": 1
+        }
+      ],
+      "crownCost": 40
+    }
+  ],
+  "quests": {
+    "q_gate_conduit": {
+      "id": "q_gate_conduit",
+      "title": "The Gate & The Conduit",
+      "giver": "Captain Vane & Chief Artificer Rowan",
+      "district": "South Bastion Gate · Mana Works",
+      "summary": "Stabilize the Mana-Silo manifold to unlock the South Bastion Gate into the Emerald Wilds. Choose whether to empower the Mana-Works Guild or the Aetheric Purists.",
+      "stages": [
+        {
+          "id": "inspect_silo",
+          "description": "Gather 2 Mana Shards or inspect the Industrial Mana Substation (-47, 5).",
+          "targetCount": 2
+        },
+        {
+          "id": "craft_core",
+          "description": "Synthesize a Stabilized Crystal Core (press [B] Crafting).",
+          "targetCount": 1
+        },
+        {
+          "id": "deliver_choice",
+          "description": "Speak with Captain Vane at South Bastion Gate (0, 326) to choose alignment & open the gate.",
+          "targetCount": 1
+        }
+      ],
+      "rewardCrowns": 60,
+      "rewardXp": 120,
+      "rewardItemId": "capacitor_coil"
+    },
+    "q_smelting_ashes": {
+      "id": "q_smelting_ashes",
+      "title": "Ashes of the Smelting Hall",
+      "giver": "Master Forger Bram",
+      "district": "West Industrial Quarter",
+      "summary": "Corrupted Sentinels prowl the freight yards. Defeat them and forge an enchanted blade at a Runesmith Forge.",
+      "stages": [
+        {
+          "id": "defeat_sentinels",
+          "description": "Defeat 2 hostile Sentinels or Constructs across Elarion.",
+          "targetCount": 2
+        },
+        {
+          "id": "forge_blade",
+          "description": "Craft a Volt-Edge Runeblade or Copper Brigandine at a Forge.",
+          "targetCount": 1
+        }
+      ],
+      "rewardCrowns": 75,
+      "rewardXp": 150
+    },
+    "q_emerald_shadows": {
+      "id": "q_emerald_shadows",
+      "title": "Shadows in the Emerald Wilds",
+      "giver": "Scholar Lyra",
+      "district": "Vaelcrest Countryside",
+      "summary": "Beyond the Bastion Gate, corrupted ley-lines have awakened Rogue Mages, a Furnace Golem, and the Aetheric Crystal Wyrm.",
+      "stages": [
+        {
+          "id": "clear_wilds",
+          "description": "Defeat 3 corrupted foes in the Vaelcrest Wilds.",
+          "targetCount": 3
+        },
+        {
+          "id": "slay_wyrm",
+          "description": "Vanquish the Aetheric Crystal Wyrm at the Ancient Ley-Portal (South Wilds).",
+          "targetCount": 1
+        }
+      ],
+      "rewardCrowns": 200,
+      "rewardXp": 350,
+      "rewardItemId": "wyrm_scale"
+    },
+    "q_council_conspiracy": {
+      "id": "q_council_conspiracy",
+      "title": "The Three-Council Ledger",
+      "giver": "Harbourmaster & Chancery",
+      "district": "Grand Harbour · Noble Heights",
+      "summary": "Recover 3 field dispatches or seals across Elarion’s piers and squares, then decide how to settle the Reserve Bank tariff dispute.",
+      "stages": [
+        {
+          "id": "gather_seals",
+          "description": "Collect 3 field relics or dispatches across Elarion.",
+          "targetCount": 3
+        },
+        {
+          "id": "settle_charter",
+          "description": "Speak with Captain Vane or a District Clerk to file your Council verdict.",
+          "targetCount": 1
+        }
+      ],
+      "rewardCrowns": 95,
+      "rewardXp": 140
+    }
+  },
+  "questOrder": [
+    "q_gate_conduit",
+    "q_smelting_ashes",
+    "q_emerald_shadows",
+    "q_council_conspiracy"
+  ],
+  "spells": {
+    "arc_bolt": {
+      "id": "arc_bolt",
+      "hotkey": "1",
+      "name": "Arc Bolt",
+      "school": "Voltaic",
+      "manaCost": 16,
+      "heatGain": 18,
+      "cooldown": 1.1,
+      "baseDamage": 34,
+      "range": 26,
+      "description": "Fires a lightning bolt. Consumes Capacitor Charge for +45% arc surge.",
+      "accentHex": "#6ee3f5"
+    },
+    "pyre_nova": {
+      "id": "pyre_nova",
+      "hotkey": "2",
+      "name": "Pyre Nova",
+      "school": "Pyre",
+      "manaCost": 26,
+      "heatGain": 30,
+      "cooldown": 4.2,
+      "baseDamage": 48,
+      "radius": 5.8,
+      "description": "Erupts a radial mana-flame blast around you, staggering nearby foes.",
+      "accentHex": "#f59e0b"
+    },
+    "chrono_ward": {
+      "id": "chrono_ward",
+      "hotkey": "3",
+      "name": "Chrono Ward",
+      "school": "Chrono",
+      "manaCost": 22,
+      "heatGain": 18,
+      "cooldown": 7,
+      "baseDamage": 0,
+      "radius": 4.5,
+      "description": "4.5s Aether Shield (-45% damage taken) that chills & slows attackers.",
+      "accentHex": "#a78bfa"
+    },
+    "ley_lance": {
+      "id": "ley_lance",
+      "hotkey": "4",
+      "name": "Ley-Siphon Lance",
+      "school": "Aether",
+      "manaCost": 32,
+      "heatGain": 26,
+      "cooldown": 5.5,
+      "baseDamage": 62,
+      "range": 22,
+      "description": "Piercing arcane lance that drains +18 HP on impact.",
+      "accentHex": "#34d399"
+    }
+  },
+  "spellOrder": [
+    "arc_bolt",
+    "pyre_nova",
+    "chrono_ward",
+    "ley_lance"
+  ],
+  "manaRail": {
+    "allLinePassPrice": 18,
+    "lines": {
+      "coastal-viaduct": {
+        "name": "Coastal Viaduct Line",
+        "color": "#6ecad9",
+        "glowColor": "#a6f0fb"
+      },
+      "inland-spur": {
+        "name": "Inland Exchange Spur",
+        "color": "#d29c6b",
+        "glowColor": "#f5cfa0"
+      }
+    },
+    "stations": [
+      {
+        "id": "harbour",
+        "name": "Grand Harbour Viaduct Terminal",
+        "shortName": "Harbour Quay",
+        "district": "Grand Harbour Quay",
+        "line": "coastal-viaduct",
+        "lineLabel": "Coastal Viaduct Line",
+        "dropOff": [
+          2,
+          0.16,
+          -23.5
+        ],
+        "kioskPos": [
+          6.4,
+          -0.3,
+          -27.2
+        ],
+        "kioskYaw": 0,
+        "mapX": 380,
+        "mapY": 78,
+        "summary": "Elevated copper-conductor deck overlooking the three cargo piers and shipyards."
+      },
+      {
+        "id": "temple",
+        "name": "Temple Quarter Cloister Stop",
+        "shortName": "Temple Cloister",
+        "district": "Temple Quarter Sanctuary",
+        "line": "coastal-viaduct",
+        "lineLabel": "Coastal Viaduct Line",
+        "dropOff": [
+          -174,
+          0.16,
+          4
+        ],
+        "kioskPos": [
+          -168,
+          0.16,
+          5.5
+        ],
+        "kioskYaw": -1.5707963267948966,
+        "mapX": 152,
+        "mapY": 102,
+        "summary": "North-west sanctuary platform linking cathedral stone cloisters to the harbour viaduct."
+      },
+      {
+        "id": "manaworks",
+        "name": "Mana Works & Freight Yard",
+        "shortName": "Mana Freight Depot",
+        "district": "Industrial Quarter & Mana Works",
+        "line": "inland-spur",
+        "lineLabel": "Inland Exchange Spur",
+        "dropOff": [
+          -186,
+          0.16,
+          114.5
+        ],
+        "kioskPos": [
+          -178,
+          0.16,
+          114.5
+        ],
+        "kioskYaw": 0,
+        "mapX": 128,
+        "mapY": 212,
+        "summary": "Heavy traction switching yard beneath the twin condenser towers and rolling mill."
+      },
+      {
+        "id": "merchant",
+        "name": "Grand Exchange Terminus",
+        "shortName": "Grand Exchange",
+        "district": "Merchant Quarter",
+        "line": "inland-spur",
+        "lineLabel": "Inland Exchange Spur",
+        "dropOff": [
+          -14,
+          0.16,
+          200
+        ],
+        "kioskPos": [
+          -18.5,
+          0.16,
+          198
+        ],
+        "kioskYaw": 1.5707963267948966,
+        "mapX": 380,
+        "mapY": 288,
+        "summary": "Central passenger exchange beside the Reserve Bank Clocktower and Compass Fountain."
+      },
+      {
+        "id": "councils",
+        "name": "Council Heights Express Station",
+        "shortName": "Council Heights",
+        "district": "Administrative & Noble Heights",
+        "line": "coastal-viaduct",
+        "lineLabel": "Coastal Viaduct Line",
+        "dropOff": [
+          192,
+          5.2,
+          18.5
+        ],
+        "kioskPos": [
+          186,
+          5.2,
+          13.5
+        ],
+        "kioskYaw": 0,
+        "mapX": 626,
+        "mapY": 118,
+        "summary": "Upper terrace express terminus serving the Three Councils Assembly Hall and Citadel."
+      },
+      {
+        "id": "bastion",
+        "name": "Bastion Overland Railhead",
+        "shortName": "Bastion Gate",
+        "district": "Domain Overland Bastion Gate",
+        "line": "inland-spur",
+        "lineLabel": "Inland Exchange Spur",
+        "dropOff": [
+          -8.5,
+          0.16,
+          314
+        ],
+        "kioskPos": [
+          -13.5,
+          0.16,
+          315.5
+        ],
+        "kioskYaw": 1.5707963267948966,
+        "mapX": 380,
+        "mapY": 386,
+        "summary": "Southern domain gateway departing toward agricultural plains, mines, and emerald wilds."
+      }
+    ],
+    "segments": [
+      {
+        "id": "seg_temple_harbour",
+        "from": "temple",
+        "to": "harbour",
+        "line": "coastal-viaduct",
+        "fare": 2,
+        "distanceMeters": 185,
+        "legTitle": "West Quay Viaduct Span",
+        "points": [
+          [
+            152,
+            102
+          ],
+          [
+            212,
+            78
+          ],
+          [
+            380,
+            78
+          ]
+        ]
+      },
+      {
+        "id": "seg_harbour_councils",
+        "from": "harbour",
+        "to": "councils",
+        "line": "coastal-viaduct",
+        "fare": 3,
+        "distanceMeters": 210,
+        "legTitle": "East Harbour & Citadel Grade",
+        "points": [
+          [
+            380,
+            78
+          ],
+          [
+            548,
+            78
+          ],
+          [
+            626,
+            118
+          ]
+        ]
+      },
+      {
+        "id": "seg_temple_manaworks",
+        "from": "temple",
+        "to": "manaworks",
+        "line": "inland-spur",
+        "fare": 2,
+        "distanceMeters": 130,
+        "legTitle": "Refinery Substation Grade",
+        "points": [
+          [
+            152,
+            102
+          ],
+          [
+            128,
+            148
+          ],
+          [
+            128,
+            212
+          ]
+        ]
+      },
+      {
+        "id": "seg_manaworks_merchant",
+        "from": "manaworks",
+        "to": "merchant",
+        "line": "inland-spur",
+        "fare": 3,
+        "distanceMeters": 225,
+        "legTitle": "Grand Canal Aqueduct Span",
+        "points": [
+          [
+            128,
+            212
+          ],
+          [
+            196,
+            250
+          ],
+          [
+            310,
+            288
+          ],
+          [
+            380,
+            288
+          ]
+        ]
+      },
+      {
+        "id": "seg_merchant_councils",
+        "from": "merchant",
+        "to": "councils",
+        "line": "inland-spur",
+        "fare": 3,
+        "distanceMeters": 280,
+        "legTitle": "East Canal Switchback Ascent",
+        "points": [
+          [
+            380,
+            288
+          ],
+          [
+            524,
+            260
+          ],
+          [
+            598,
+            192
+          ],
+          [
+            626,
+            118
+          ]
+        ]
+      },
+      {
+        "id": "seg_merchant_bastion",
+        "from": "merchant",
+        "to": "bastion",
+        "line": "inland-spur",
+        "fare": 2,
+        "distanceMeters": 125,
+        "legTitle": "Overland Boulevard Express",
+        "points": [
+          [
+            380,
+            288
+          ],
+          [
+            380,
+            386
+          ]
+        ]
+      }
+    ]
+  },
+  "enemyArchetypes": {
+    "sentinel": {
+      "model": "dark_sentinel",
+      "height": 2.15,
+      "hp": 115,
+      "poise": 60,
+      "speed": 4.1,
+      "radius": 0.75,
+      "aggro": 18,
+      "xp": 48,
+      "crowns": 16,
+      "lootItemId": "iron_ore",
+      "lootQty": 1
+    },
+    "ley-mage": {
+      "model": "ley_mage",
+      "height": 1.92,
+      "hp": 90,
+      "poise": 45,
+      "speed": 3.4,
+      "radius": 0.68,
+      "aggro": 22,
+      "xp": 55,
+      "crowns": 20,
+      "lootItemId": "mana_shard",
+      "lootQty": 2
+    },
+    "furnace-golem": {
+      "model": "furnace_golem",
+      "height": 2.85,
+      "hp": 210,
+      "poise": 110,
+      "speed": 2.5,
+      "radius": 1.05,
+      "aggro": 19,
+      "xp": 90,
+      "crowns": 32,
+      "lootItemId": "crystal_core",
+      "lootQty": 1
+    },
+    "crystal-wyrm": {
+      "model": "crystal_wyrm",
+      "height": 4.4,
+      "hp": 540,
+      "poise": 180,
+      "speed": 4.6,
+      "radius": 1.85,
+      "aggro": 32,
+      "xp": 280,
+      "crowns": 120,
+      "lootItemId": "wyrm_scale",
+      "lootQty": 2
+    }
+  },
+  "enemySpawns": [
+    {
+      "id": "enm_sentinel_foundry",
+      "name": "Corrupted Sentinel",
+      "archetype": "sentinel",
+      "position": [
+        -46,
+        0.16,
+        38
+      ],
+      "isBoss": false,
+      "isWilds": false
+    },
+    {
+      "id": "enm_sentinel_freight",
+      "name": "Freight-Yard Sentinel",
+      "archetype": "sentinel",
+      "position": [
+        -144,
+        0.16,
+        52
+      ],
+      "isBoss": false,
+      "isWilds": false
+    },
+    {
+      "id": "enm_golem_smelting",
+      "name": "Furnace Golem",
+      "archetype": "furnace-golem",
+      "position": [
+        -102,
+        0.16,
+        22
+      ],
+      "isBoss": false,
+      "isWilds": false
+    },
+    {
+      "id": "enm_mage_academic",
+      "name": "Rogue Ley-Mage",
+      "archetype": "ley-mage",
+      "position": [
+        72,
+        0.16,
+        74
+      ],
+      "isBoss": false,
+      "isWilds": false
+    },
+    {
+      "id": "enm_sentinel_citadel",
+      "name": "Citadel Ward Sentinel",
+      "archetype": "sentinel",
+      "position": [
+        152,
+        0.16,
+        68
+      ],
+      "isBoss": false,
+      "isWilds": false
+    },
+    {
+      "id": "enm_mage_merchant",
+      "name": "Aether Siphoner",
+      "archetype": "ley-mage",
+      "position": [
+        -46,
+        0.16,
+        206
+      ],
+      "isBoss": false,
+      "isWilds": false
+    },
+    {
+      "id": "enm_sentinel_southroad",
+      "name": "Bastion Road Sentinel",
+      "archetype": "sentinel",
+      "position": [
+        52,
+        0.16,
+        245
+      ],
+      "isBoss": false,
+      "isWilds": false
+    },
+    {
+      "id": "enm_wilds_sentinel",
+      "name": "Blighted Sentinel",
+      "archetype": "sentinel",
+      "position": [
+        -18,
+        2.669,
+        382
+      ],
+      "isBoss": false,
+      "isWilds": true
+    },
+    {
+      "id": "enm_wilds_mage",
+      "name": "Wilds Ley-Conduit Mage",
+      "archetype": "ley-mage",
+      "position": [
+        26,
+        0.807,
+        424
+      ],
+      "isBoss": false,
+      "isWilds": true
+    },
+    {
+      "id": "enm_wilds_golem",
+      "name": "Overclocked Furnace Golem",
+      "archetype": "furnace-golem",
+      "position": [
+        -42,
+        1.043,
+        468
+      ],
+      "isBoss": false,
+      "isWilds": true
+    },
+    {
+      "id": "boss_crystal_wyrm",
+      "name": "Aetheric Crystal Wyrm",
+      "archetype": "crystal-wyrm",
+      "position": [
+        0,
+        1.847,
+        522
+      ],
+      "isBoss": true,
+      "isWilds": true
+    }
+  ]
+}

@@ -9,6 +9,7 @@ interface ElarionMinimapProps {
   cameraMode: CameraMode;
   areaName: string;
   southGateOpen?: boolean;
+  castleGateOpen?: boolean;
   onTeleport?: (x: number, y: number, z: number) => void;
 }
 
@@ -104,6 +105,14 @@ function buildStaticElarionMapCanvas(): HTMLCanvasElement {
     ctx.stroke();
   }
 
+  // Agricultural Heartland Plot patchwork on the southern domain meadows
+  rect(-240, 356, -145, 406, '#5c6b35', '#767a5c');
+  rect(-140, 356, -48, 406, '#396231', '#6e755a');
+  rect(-250, 515, -135, 580, '#443728', '#6e6a59');
+  rect(48, 356, 150, 416, '#5c6b35', '#767a5c');
+  rect(155, 356, 255, 416, '#396231', '#6e755a');
+  rect(145, 548, 260, 615, '#443728', '#6e6a59');
+
   // Metropolis mainland landmass south of Harbour Quay / Temple / Citadel
   rect(-294, -44, 310, 336, '#181e26');
 
@@ -134,18 +143,19 @@ function buildStaticElarionMapCanvas(): HTMLCanvasElement {
   rect(-288, 154, 305, 166, '#3b414a');
   rect(-190, 166, 190, 336, '#363b43', '#525b66');
 
-  // East Administrative & Noble Heights (y = 5.20 -> lower landing -> East Residential Estates)
+  // East Administrative & Noble Heights + Castle Vaelcrest Footprint
   rect(135.5, -40, 305, 88, '#6f695d', '#a69c88');
+  rect(200, -39.5, 304, 86.5, '#595348', '#b8ab92'); // Castle Curtain Rampart enclosure
   rect(112, 88, 305, 120, '#444b54');
   rect(175, 166, 302, 328, '#304338', '#4f6d5c'); // Residential Estates & Gardens
-  rect(174, -19, 206, -3, '#24687a'); // Palace Reflecting Pool
+  rect(218, -26, 236, -12, '#24687a'); // Castle Cliff Reflecting Pool
 
   // 5. Cobble Road Arteries & 3 Walkable Stone Canal Bridges
   rect(-4.5, -22, 4.5, 120, '#4d545e'); // Harbourgate -> Merchant Plaza -> Canal
   rect(-286, 15, 38.5, 22, '#4d545e');  // Mana Works Blvd -> Foundry Row
   rect(-151, 22, -141, 120, '#4d545e'); // West Industrial Spur
   rect(100, 58, 112, 120, '#4d545e');   // East Canal Bridge Connector
-  rect(136, 14.5, 228, 22.5, '#7e7668'); // Citadel Promenade
+  rect(136, 14.5, 244, 22.5, '#7e7668'); // Citadel Promenade & Bailey Boulevard
   rect(-8, 166, 8, 336, '#505761');     // Grand Overland Boulevard
   rect(-180, 204, 180, 220, '#505761'); // Exchange Cross Boulevard
 
@@ -182,10 +192,32 @@ function buildStaticElarionMapCanvas(): HTMLCanvasElement {
     [-221, 87, -167, 107, '#4a3931'], // Mana-Rail Freight Depot
     [-75, 241, -37, 267, '#4c5763'],  // Civic Polytechnic School
     [37, 241, 75, 267, '#4c5763'],    // Vaelcrest Reserve Bank & Clocktower
-    [229, -11, 287, 49, '#9c8c72'],   // Three-Council Assembly Palace
+    // Castle Vaelcrest Wings (Residence, Great Hall & Three Councils, War Room, Courts & Treasury)
+    [244, -33, 294, -5, '#3b8c76'],   // House Vaelcrest Residence Wing (Copper Roof)
+    [242, -4, 294, 38, '#3b8c76'],    // Great Hall & Three-Council Rotunda
+    [244, 40, 294, 78, '#7c3932'],    // Patriarch War Room
+    [212, 50, 240, 79, '#857c6a'],    // Courts & Domain Treasury
+    [198, 2.5, 206, 12.5, '#9c8c72'], // North Gatehouse Tower
+    [198, 24.5, 206, 34.5, '#9c8c72'],// South Gatehouse Tower
   ];
   for (const [x0, z0, x1, z1, customFill] of landmarks) {
     rect(x0, z0, x1, z1, customFill ?? '#212932', '#4c5763');
+  }
+
+  // Castle Vaelcrest 4 Corner Copper-Capped Bastions
+  for (const [bx, bz] of [
+    [201.5, -37.5],
+    [302.0, -37.5],
+    [201.5, 84.5],
+    [302.0, 84.5],
+  ]) {
+    ctx.beginPath();
+    ctx.arc(toX(bx), toY(bz), 5.6 * pxPerMeter, 0, Math.PI * 2);
+    ctx.fillStyle = '#3b8c76';
+    ctx.fill();
+    ctx.strokeStyle = '#dca84c';
+    ctx.lineWidth = 1.0;
+    ctx.stroke();
   }
 
   // Twin Mana Condenser Towers
@@ -305,6 +337,7 @@ export function ElarionMinimap({
   cameraMode,
   areaName,
   southGateOpen = false,
+  castleGateOpen = false,
   onTeleport,
 }: ElarionMinimapProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -371,6 +404,12 @@ export function ElarionMinimap({
     ctx.fillStyle = southGateOpen ? '#78cf70' : '#d4844a';
     ctx.fillRect(gateX - 12 * basePxPerM, gateY - 1.5, 24 * basePxPerM, 3);
 
+    // Live Castle Vaelcrest Gatehouse bar indicator at (202, 18.5)
+    const cGateX = baseOffX + (202 - MAP_MIN_X) * basePxPerM;
+    const cGateY = baseOffY + (18.5 - MAP_MIN_Z) * basePxPerM;
+    ctx.fillStyle = castleGateOpen ? '#78cf70' : '#d4844a';
+    ctx.fillRect(cGateX - 1.5, cGateY - 6 * basePxPerM, 3, 12 * basePxPerM);
+
     if (zoomed) {
       ctx.strokeStyle = 'rgba(182, 122, 78, 0.18)';
       ctx.lineWidth = 0.5;
@@ -434,7 +473,7 @@ export function ElarionMinimap({
     ctx.strokeRect(0.5, 0.5, CANVAS_SIZE - 1, CANVAS_SIZE - 1);
 
     ctx.restore();
-  }, [position.x, position.z, yaw, cameraYaw, cameraMode, viewMode, southGateOpen, staticMapCanvas]);
+  }, [position.x, position.z, yaw, cameraYaw, cameraMode, viewMode, southGateOpen, castleGateOpen, staticMapCanvas]);
 
   const cycleViewMode = () => {
     setViewMode((prev) => (prev === 'city' ? 'zoom' : prev === 'zoom' ? 'domain' : 'city'));

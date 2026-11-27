@@ -11,6 +11,9 @@ import type {
   DummyStatusReadout,
   FloatingCombatPopup,
 } from '../core/types';
+import type { SpellId } from '../rpg/rpgTypes';
+import { EffekseerStyleVfx } from './EffekseerStyleVfx';
+import type { EnemyDropEvent, EnemyHitOutcome, EnemyManager } from './EnemyManager';
 
 const _playerFwd = new THREE.Vector3();
 const _toDummy = new THREE.Vector3();
@@ -104,6 +107,7 @@ export class CombatSystem {
   private readonly popups: DamagePopupRuntime[] = [];
   private readonly bolts: BoltRuntime[] = [];
   private readonly disposables: Array<{ dispose: () => void }> = [];
+  private readonly effekseerVfx = new EffekseerStyleVfx();
 
   private readonly matWood: THREE.MeshStandardMaterial;
   private readonly matIron: THREE.MeshStandardMaterial;
@@ -139,6 +143,19 @@ export class CombatSystem {
   private readonly sparkVelocities: Float32Array;
   private sparkLife = 0;
 
+  private readonly waveMesh: THREE.Mesh;
+  private readonly waveMat: THREE.MeshBasicMaterial;
+  private waveTimer = 0;
+  private waveDuration = 0.45;
+  private waveMaxRadius = 6;
+
+  private readonly beamMesh: THREE.Mesh;
+  private readonly beamMat: THREE.MeshBasicMaterial;
+  private beamTimer = 0;
+
+  private readonly wardMesh: THREE.Mesh;
+  private readonly wardMat: THREE.MeshBasicMaterial;
+
   private comboCount = 0;
   private comboDecayTimer = 0;
   private totalHits = 0;
@@ -150,6 +167,7 @@ export class CombatSystem {
   constructor() {
     this.group.name = 'Aincendra_Combat_System';
     this.group.add(this.dummiesGroup);
+    this.group.add(this.effekseerVfx.group);
 
     this.matWood = new THREE.MeshStandardMaterial({ color: 0x5c3e2a, roughness: 0.82, metalness: 0.04 });
     this.matIron = new THREE.MeshStandardMaterial({ color: 0x2f3640, roughness: 0.44, metalness: 0.82 });
@@ -269,6 +287,49 @@ export class CombatSystem {
     this.sparkPoints.visible = false;
     this.group.add(this.sparkPoints);
     this.disposables.push(this.sparkGeo, this.sparkMat);
+
+    // Expanding AoE Spell / Exothermic Vent Wave Ring
+    const waveGeo = new THREE.RingGeometry(0.86, 1.0, 40);
+    waveGeo.rotateX(-Math.PI / 2);
+    this.waveMat = new THREE.MeshBasicMaterial({
+      color: 0xf59e0b,
+      transparent: true,
+      opacity: 0,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+    });
+    this.waveMesh = new THREE.Mesh(waveGeo, this.waveMat);
+    this.waveMesh.visible = false;
+    this.group.add(this.waveMesh);
+    this.disposables.push(waveGeo, this.waveMat);
+
+    // Arc Bolt / Ley-Lance 3D Beam Cylinder
+    const beamGeo = new THREE.CylinderGeometry(0.11, 0.11, 1.0, 8);
+    beamGeo.rotateX(Math.PI / 2);
+    this.beamMat = new THREE.MeshBasicMaterial({
+      color: 0x6ee3f5,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+    });
+    this.beamMesh = new THREE.Mesh(beamGeo, this.beamMat);
+    this.beamMesh.visible = false;
+    this.group.add(this.beamMesh);
+    this.disposables.push(beamGeo, this.beamMat);
+
+    // Chrono Ward Protective Aura Dome
+    const wardGeo = new THREE.SphereGeometry(1.18, 16, 12);
+    this.wardMat = new THREE.MeshBasicMaterial({
+      color: 0xa78bfa,
+      transparent: true,
+      opacity: 0.22,
+      wireframe: true,
+      depthWrite: false,
+    });
+    this.wardMesh = new THREE.Mesh(wardGeo, this.wardMat);
+    this.wardMesh.visible = false;
+    this.group.add(this.wardMesh);
+    this.disposables.push(wardGeo, this.wardMat);
   }
 
   public getComboCount(): number {
@@ -299,6 +360,57 @@ export class CombatSystem {
     slot.mesh.lookAt(origin.x + dir.x, origin.y + dir.y, origin.z + dir.z);
     slot.mesh.visible = true;
     this.spawnSparks(origin, dir.x, dir.z, true);
+  }
+
+  public spawnVfxBurst(pos: THREE.Vector3, colorHex: number, scale = 4.5, moteCount = 12): void {
+    this.effekseerVfx.spawnBurst(pos, colorHex, scale, moteCount);
+  }
+
+  public spawnSpellVisual(
+    spellId: SpellId | 'vent',
+    origin: THREE.Vector3,
+    targetPos?: THREE.Vector3 | null,
+    facingYaw = 0
+  ): void {
+    if (spellId === 'pyre_nova' || spellId === 'vent') {
+      const colHex = spellId === 'pyre_nova' ? 0xf97316 : 0x38bdf8;
+      this.waveMat.color.setHex(colHex);
+      this.waveMesh.position.set(origin.x, origin.y + 0.12, origin.z);
+      this.waveMaxRadius = spellId === 'pyre_nova' ? 6.0 : 6.8;
+      this.waveDuration = 0.45;
+      this.waveTimer = this.waveDuration;
+      this.waveMesh.scale.setScalar(0.5);
+      this.waveMesh.visible = true;
+      this.spawnSparks(origin.clone().add(new THREE.Vector3(0, 1.0, 0)), 0, 1, true);
+      this.effekseerVfx.spawnBurst(origin, colHex, spellId === 'pyre_nova' ? 6.2 : 7.0, 14);
+    } else if (spellId === 'arc_bolt' || spellId === 'ley_lance') {
+      const start = new THREE.Vector3(origin.x, origin.y + 1.25, origin.z);
+      const end = targetPos
+        ? new THREE.Vector3(targetPos.x, targetPos.y + 1.15, targetPos.z)
+        : new THREE.Vector3(
+            origin.x + Math.sin(facingYaw) * 18,
+            origin.y + 1.2,
+            origin.z + Math.cos(facingYaw) * 18
+          );
+      const dist = Math.max(1.0, start.distanceTo(end));
+      const beamHex = spellId === 'arc_bolt' ? 0x6ee3f5 : 0x34d399;
+      this.beamMat.color.setHex(beamHex);
+      this.beamMesh.position.copy(start).lerp(end, 0.5);
+      this.beamMesh.scale.set(spellId === 'ley_lance' ? 1.6 : 1.0, spellId === 'ley_lance' ? 1.6 : 1.0, dist);
+      this.beamMesh.lookAt(end);
+      this.beamTimer = 0.28;
+      this.beamMesh.visible = true;
+      this.spawnSparks(end, Math.sin(facingYaw), Math.cos(facingYaw), true);
+      this.effekseerVfx.spawnBurst(end, beamHex, spellId === 'ley_lance' ? 4.8 : 3.6, 10);
+    } else if (spellId === 'chrono_ward') {
+      this.waveMat.color.setHex(0xa78bfa);
+      this.waveMesh.position.set(origin.x, origin.y + 0.14, origin.z);
+      this.waveMaxRadius = 4.6;
+      this.waveDuration = 0.4;
+      this.waveTimer = this.waveDuration;
+      this.waveMesh.visible = true;
+      this.effekseerVfx.spawnBurst(origin, 0xa78bfa, 4.6, 12);
+    }
   }
 
   public clearDummies(): void {
@@ -517,9 +629,45 @@ export class CombatSystem {
     playerHorizSpeed: number,
     cameraMode: CameraMode,
     swing: SwingSnapshot,
-    onHitImpact?: (critical: boolean) => void
-  ): void {
+    onHitImpact?: (critical: boolean, hitEnemy: boolean) => void,
+    enemyManager?: EnemyManager,
+    attackBonus = 0,
+    wardActive = false,
+    dropsOut?: EnemyDropEvent[],
+    spellPower = 0,
+    poiseDamageMult = 1.0
+  ): EnemyHitOutcome {
     const clampedDt = Math.min(dt, 0.05);
+    const totalOutcome: EnemyHitOutcome = {
+      hits: 0,
+      stanceBroken: false,
+      riposteTriggered: false,
+      riposteHeatRelief: 0,
+      riposteCapacitorGain: 0,
+    };
+
+    // Update Spell Wave, Beam & Chrono Ward Dome
+    if (wardActive && cameraMode === 'third-person') {
+      this.wardMesh.visible = true;
+      this.wardMesh.position.set(playerPos.x, playerPos.y + 1.05, playerPos.z);
+      this.wardMesh.rotation.y += clampedDt * 1.4;
+    } else {
+      this.wardMesh.visible = false;
+    }
+
+    if (this.waveTimer > 0) {
+      this.waveTimer = Math.max(0, this.waveTimer - clampedDt);
+      const t = 1 - this.waveTimer / this.waveDuration;
+      this.waveMesh.scale.setScalar(0.5 + t * this.waveMaxRadius);
+      this.waveMat.opacity = (1 - t) * 0.85;
+      if (this.waveTimer === 0) this.waveMesh.visible = false;
+    }
+
+    if (this.beamTimer > 0) {
+      this.beamTimer = Math.max(0, this.beamTimer - clampedDt);
+      this.beamMat.opacity = Math.min(1, this.beamTimer / 0.28);
+      if (this.beamTimer === 0) this.beamMesh.visible = false;
+    }
 
     if (this.comboDecayTimer > 0) {
       this.comboDecayTimer -= clampedDt;
@@ -615,11 +763,65 @@ export class CombatSystem {
       }
     }
 
-    // 3. Melee & Heavy Cleave Hit Detection
+    // 3. Melee & Heavy Cleave Hit Detection (Training Dummies + Live Enemies)
     if (swing.isActiveWindow) {
       _playerFwd.set(Math.sin(swing.facingYaw), 0, Math.cos(swing.facingYaw));
       const range = swing.isHeavy ? HEAVY_RANGE : MELEE_RANGE;
       const minDot = swing.isHeavy ? -0.15 : MELEE_MIN_DOT;
+      const isCritical = swing.isHeavy || swing.comboStep === 3;
+      const baseDmg =
+        (swing.isHeavy ? 56 : swing.comboStep === 1 ? 22 : swing.comboStep === 2 ? 26 : 38) +
+        attackBonus;
+
+      if (enemyManager && dropsOut) {
+        const stanceDmg = Math.round((swing.isHeavy ? 42 : swing.comboStep === 3 ? 28 : 18) * poiseDamageMult);
+        const swingRes = enemyManager.applyMeleeSwing(
+          swing.swingId,
+          playerPos,
+          swing.facingYaw,
+          range,
+          minDot,
+          baseDmg,
+          stanceDmg,
+          22 + attackBonus,
+          spellPower,
+          isCritical,
+          swing.isHeavy ? 10.5 : isCritical ? 8.0 : 5.2,
+          dropsOut
+        );
+        if (swingRes.hits > 0) {
+          totalOutcome.hits += swingRes.hits;
+          if (swingRes.stanceBroken) totalOutcome.stanceBroken = true;
+          if (swingRes.riposteTriggered) {
+            totalOutcome.riposteTriggered = true;
+            totalOutcome.riposteHeatRelief += swingRes.riposteHeatRelief;
+            totalOutcome.riposteCapacitorGain += swingRes.riposteCapacitorGain;
+          }
+          this.comboCount += swingRes.hits;
+          this.comboDecayTimer = 2.8;
+          this.totalHits += swingRes.hits;
+          this.lastDamageDealt = baseDmg;
+          this.telemetryDirty = true;
+          const hitImpactPos = playerPos
+            .clone()
+            .add(new THREE.Vector3(_playerFwd.x * 1.4, 1.15, _playerFwd.z * 1.4));
+          this.spawnSparks(
+            hitImpactPos,
+            _playerFwd.x,
+            _playerFwd.z,
+            isCritical || swingRes.riposteTriggered
+          );
+          if (isCritical || swingRes.riposteTriggered) {
+            this.effekseerVfx.spawnBurst(
+              hitImpactPos,
+              swingRes.riposteTriggered ? 0xfbbf24 : 0x7de2f0,
+              swingRes.riposteTriggered ? 4.8 : 2.8,
+              swingRes.riposteTriggered ? 12 : 6
+            );
+          }
+          onHitImpact?.(isCritical || swingRes.riposteTriggered, true);
+        }
+      }
 
       for (const dummy of this.dummies) {
         if (dummy.downTimer > 0 || dummy.lastHitSwingId === swing.swingId) continue;
@@ -638,14 +840,6 @@ export class CombatSystem {
         if (dist > 0.85 && dot < minDot) continue;
 
         dummy.lastHitSwingId = swing.swingId;
-        const isCritical = swing.isHeavy || swing.comboStep === 3;
-        const baseDmg = swing.isHeavy
-          ? 56
-          : swing.comboStep === 1
-            ? 22
-            : swing.comboStep === 2
-              ? 26
-              : 38;
         const dmg = dummy.spec.armored ? Math.round(baseDmg * 0.85) : baseDmg;
         const label = swing.isHeavy
           ? `-${dmg} CLEAVE!`
@@ -660,12 +854,12 @@ export class CombatSystem {
           swing.isHeavy ? 11.2 : isCritical ? 8.5 : 5.4,
           label,
           isCritical,
-          onHitImpact
+          (crit) => onHitImpact?.(crit, false)
         );
       }
     }
 
-    // 4. Update Mana Sidearm Projectiles
+    // 4. Update Mana Sidearm Projectiles (Dummies + Live Enemies)
     for (const bolt of this.bolts) {
       if (!bolt.active) continue;
       const stepDist = bolt.vel.length() * clampedDt;
@@ -674,29 +868,60 @@ export class CombatSystem {
       bolt.mesh.position.copy(bolt.pos);
 
       let hit = false;
-      for (const dummy of this.dummies) {
-        if (dummy.downTimer > 0) continue;
-        const dx = dummy.spec.position[0] - bolt.pos.x;
-        const dz = dummy.spec.position[2] - bolt.pos.z;
-        if (
-          dx * dx + dz * dz < 0.72 * 0.72 &&
-          bolt.pos.y >= dummy.spec.position[1] &&
-          bolt.pos.y <= dummy.spec.position[1] + 2.05
-        ) {
-          const vLen = Math.max(0.01, Math.hypot(bolt.vel.x, bolt.vel.z));
-          const dmg = dummy.spec.armored ? 28 : 34;
-          this.applyDummyHit(
-            dummy,
-            dmg,
-            bolt.vel.x / vLen,
-            bolt.vel.z / vLen,
-            6.8,
-            `-${dmg} MANA`,
-            true,
-            onHitImpact
-          );
+      if (enemyManager && dropsOut) {
+        const vLen = Math.max(0.01, Math.hypot(bolt.vel.x, bolt.vel.z));
+        const boltDmg = 34 + Math.round(attackBonus * 0.75);
+        const boltRes = enemyManager.applyPointHit(
+          bolt.pos,
+          0.78,
+          boltDmg,
+          Math.round(16 * poiseDamageMult),
+          bolt.vel.x / vLen,
+          bolt.vel.z / vLen,
+          `-${boltDmg} MANA`,
+          true,
+          dropsOut
+        );
+        if (boltRes.hit) {
+          totalOutcome.hits += 1;
+          if (boltRes.stanceBroken) totalOutcome.stanceBroken = true;
+          this.comboCount += 1;
+          this.comboDecayTimer = 2.8;
+          this.totalHits += 1;
+          this.lastDamageDealt = boltDmg;
+          this.telemetryDirty = true;
+          this.spawnSparks(bolt.pos, bolt.vel.x / vLen, bolt.vel.z / vLen, true);
+          this.effekseerVfx.spawnBurst(bolt.pos, 0x7de2f0, 2.4, 6);
+          onHitImpact?.(true, true);
           hit = true;
-          break;
+        }
+      }
+
+      if (!hit) {
+        for (const dummy of this.dummies) {
+          if (dummy.downTimer > 0) continue;
+          const dx = dummy.spec.position[0] - bolt.pos.x;
+          const dz = dummy.spec.position[2] - bolt.pos.z;
+          if (
+            dx * dx + dz * dz < 0.72 * 0.72 &&
+            bolt.pos.y >= dummy.spec.position[1] &&
+            bolt.pos.y <= dummy.spec.position[1] + 2.05
+          ) {
+            const vLen = Math.max(0.01, Math.hypot(bolt.vel.x, bolt.vel.z));
+            const dmg = (dummy.spec.armored ? 28 : 34) + Math.round(attackBonus * 0.5);
+            this.applyDummyHit(
+              dummy,
+              dmg,
+              bolt.vel.x / vLen,
+              bolt.vel.z / vLen,
+              6.8,
+              `-${dmg} MANA`,
+              true,
+              (crit) => onHitImpact?.(crit, false)
+            );
+            hit = true;
+            break;
+          }
         }
       }
 
@@ -767,6 +992,10 @@ export class CombatSystem {
         this.popups.splice(i, 1);
       }
     }
+
+    this.effekseerVfx.update(clampedDt);
+
+    return totalOutcome;
   }
 
   public computeCombatOverlay(
@@ -846,6 +1075,7 @@ export class CombatSystem {
 
   public dispose(): void {
     this.clearDummies();
+    this.effekseerVfx.dispose();
     for (const d of this.disposables) {
       d.dispose();
     }

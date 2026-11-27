@@ -1,9 +1,10 @@
 import type { InputSnapshot, PlayerEmoteKind } from '../core/types';
+import type { SpellId } from '../rpg/rpgTypes';
 
 /**
  * Modular input handler modeled after UE5 Enhanced Input action mapping.
- * Tracks both edge-triggered JumpPressed and continuous JumpHeld for variable jump polish,
- * plus dodge-roll (V), heavy cleave (R), mana sidearm (X), and social emotes (1-3).
+ * Tracks edge-triggered actions (Jump, Attack, Spells 1-4, Vent G, Heal Q, Mana Draught 5)
+ * and continuous intents (Movement, Sprint, Crouch, RMB Guard).
  */
 export class InputManager {
   private readonly element: HTMLElement;
@@ -15,6 +16,10 @@ export class InputManager {
   private heavyAttackQueued = false;
   private firearmQueued = false;
   private dodgeQueued = false;
+  private spellQueued: SpellId | null = null;
+  private ventQueued = false;
+  private healQueued = false;
+  private manaPotionQueued = false;
   private emoteQueued: PlayerEmoteKind | null = null;
   private rightMouseHeld = false;
   private lookDeltaX = 0;
@@ -25,6 +30,7 @@ export class InputManager {
   private lastPointerX = 0;
   private lastPointerY = 0;
   private _pointerLocked = false;
+  private inputEnabled = true;
   private readonly onPointerLockChange?: (locked: boolean) => void;
   private readonly isDialogueOpen?: () => boolean;
 
@@ -43,7 +49,15 @@ export class InputManager {
     return this._pointerLocked;
   }
 
+  public setEnabled(enabled: boolean): void {
+    this.inputEnabled = enabled;
+    if (!enabled) {
+      this.clearAll();
+    }
+  }
+
   public requestPointerLock(): void {
+    if (!this.inputEnabled) return;
     try {
       if (document.pointerLockElement !== this.element && this.element.requestPointerLock) {
         const res = this.element.requestPointerLock() as unknown as Promise<void> | undefined;
@@ -59,6 +73,31 @@ export class InputManager {
   }
 
   public sample(): InputSnapshot {
+    if (!this.inputEnabled) {
+      this.clearAll();
+      return {
+        moveForward: 0,
+        moveRight: 0,
+        sprintHeld: false,
+        crouchActive: false,
+        jumpPressed: false,
+        jumpHeld: false,
+        interactPressed: false,
+        attackPressed: false,
+        heavyAttackPressed: false,
+        firearmPressed: false,
+        dodgePressed: false,
+        spellPressed: null,
+        ventPressed: false,
+        healPressed: false,
+        manaPotionPressed: false,
+        emotePressed: null,
+        guardHeld: false,
+        lookDeltaX: 0,
+        lookDeltaY: 0,
+      };
+    }
+
     const forward = (this.keys.has('KeyW') || this.keys.has('ArrowUp') ? 1 : 0)
       - (this.keys.has('KeyS') || this.keys.has('ArrowDown') ? 1 : 0);
     const right = (this.keys.has('KeyD') || this.keys.has('ArrowRight') ? 1 : 0)
@@ -78,8 +117,12 @@ export class InputManager {
       heavyAttackPressed: this.heavyAttackQueued,
       firearmPressed: this.firearmQueued,
       dodgePressed: this.dodgeQueued,
+      spellPressed: this.spellQueued,
+      ventPressed: this.ventQueued,
+      healPressed: this.healQueued,
+      manaPotionPressed: this.manaPotionQueued,
       emotePressed: this.emoteQueued,
-      guardHeld: this.rightMouseHeld || this.keys.has('KeyQ'),
+      guardHeld: this.rightMouseHeld,
       lookDeltaX: this.lookDeltaX,
       lookDeltaY: this.lookDeltaY,
     };
@@ -91,6 +134,10 @@ export class InputManager {
     this.heavyAttackQueued = false;
     this.firearmQueued = false;
     this.dodgeQueued = false;
+    this.spellQueued = null;
+    this.ventQueued = false;
+    this.healQueued = false;
+    this.manaPotionQueued = false;
     this.emoteQueued = null;
     this.lookDeltaX = 0;
     this.lookDeltaY = 0;
@@ -106,6 +153,10 @@ export class InputManager {
     this.heavyAttackQueued = false;
     this.firearmQueued = false;
     this.dodgeQueued = false;
+    this.spellQueued = null;
+    this.ventQueued = false;
+    this.healQueued = false;
+    this.manaPotionQueued = false;
     this.emoteQueued = null;
     this.rightMouseHeld = false;
     this.lookDeltaX = 0;
@@ -114,6 +165,7 @@ export class InputManager {
   }
 
   private readonly handleKeyDown = (e: KeyboardEvent): void => {
+    if (!this.inputEnabled) return;
     const target = e.target as HTMLElement | null;
     if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
       return;
@@ -142,15 +194,35 @@ export class InputManager {
       this.firearmQueued = true;
     }
 
+    if (e.code === 'KeyG' && !e.repeat) {
+      this.ventQueued = true;
+    }
+
+    if (e.code === 'KeyQ' && !e.repeat) {
+      this.healQueued = true;
+    }
+
     if ((e.code === 'KeyV' || e.code === 'AltLeft') && !e.repeat) {
       if (e.code === 'AltLeft') e.preventDefault();
       this.dodgeQueued = true;
     }
 
     if (!e.repeat && !(this.isDialogueOpen && this.isDialogueOpen())) {
-      if (e.code === 'Digit1') this.emoteQueued = 'wave';
-      else if (e.code === 'Digit2') this.emoteQueued = 'salute';
-      else if (e.code === 'Digit3') this.emoteQueued = 'sit';
+      if (e.code === 'Digit1') this.spellQueued = 'arc_bolt';
+      else if (e.code === 'Digit2') this.spellQueued = 'pyre_nova';
+      else if (e.code === 'Digit3') this.spellQueued = 'chrono_ward';
+      else if (e.code === 'Digit4') this.spellQueued = 'ley_lance';
+      else if (e.code === 'Digit5') this.manaPotionQueued = true;
+      else if (e.code === 'F1') {
+        e.preventDefault();
+        this.emoteQueued = 'wave';
+      } else if (e.code === 'F2') {
+        e.preventDefault();
+        this.emoteQueued = 'salute';
+      } else if (e.code === 'F3') {
+        e.preventDefault();
+        this.emoteQueued = 'sit';
+      }
     }
 
     if (e.code === 'KeyC' && !e.repeat) {
@@ -161,7 +233,6 @@ export class InputManager {
       this.crouchToggled = false;
     }
 
-    // Pressing Shift cleanly exits toggle-crouch so sprint transition is seamless
     if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
       this.crouchToggled = false;
     }
@@ -174,6 +245,7 @@ export class InputManager {
   };
 
   private readonly handlePointerDown = (e: PointerEvent): void => {
+    if (!this.inputEnabled) return;
     if (e.button === 0) {
       if (document.pointerLockElement === this.element) {
         this.attackQueued = true;
@@ -197,6 +269,7 @@ export class InputManager {
   private readonly handlePointerUp = (e: PointerEvent): void => {
     if (e.button === 0) {
       if (
+        this.inputEnabled &&
         this.isDraggingLook &&
         document.pointerLockElement !== this.element &&
         Math.hypot(e.clientX - this.pointerDownX, e.clientY - this.pointerDownY) < 5

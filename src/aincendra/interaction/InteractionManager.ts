@@ -11,6 +11,7 @@ import type {
   PlayerEmoteKind,
 } from '../core/types';
 import type { NpcManager } from '../npc/NpcManager';
+import type { CraftingStationKind, FactionId } from '../rpg/rpgTypes';
 
 const _targetPos = new THREE.Vector3();
 const _anchorPos = new THREE.Vector3();
@@ -106,6 +107,8 @@ export class InteractionManager {
 
   private onCollectProp?: (id: string) => boolean;
   private onOpenRailStation?: (stationId: string) => void;
+  private onOpenCraftingStation?: (station: CraftingStationKind) => void;
+  private onQuestInspect?: (trigger: { questId: string; stageIndex: number; increment?: number }) => void;
   private totalPickablesCount = 0;
   private collectedPickablesCount = 0;
   private recentPickupTitle: string | null = null;
@@ -115,6 +118,16 @@ export class InteractionManager {
 
   public setRailOpenHandler(cb?: (stationId: string) => void): void {
     this.onOpenRailStation = cb;
+  }
+
+  public setCraftingOpenHandler(cb?: (station: CraftingStationKind) => void): void {
+    this.onOpenCraftingStation = cb;
+  }
+
+  public setQuestInspectHandler(
+    cb?: (trigger: { questId: string; stageIndex: number; increment?: number }) => void
+  ): void {
+    this.onQuestInspect = cb;
   }
 
   public setTargets(
@@ -435,6 +448,16 @@ export class InteractionManager {
         return;
       }
 
+      if (target.opensCraftingStation && this.onOpenCraftingStation) {
+        this.closeInspection();
+        this.onOpenCraftingStation(target.opensCraftingStation);
+        return;
+      }
+
+      if (target.questInspectTrigger) {
+        this.onQuestInspect?.(target.questInspectTrigger);
+      }
+
       this.activeInspectionTarget = target;
 
       if (target.dialogueTree && target.dialogueTree.length > 0) {
@@ -476,7 +499,14 @@ export class InteractionManager {
   public selectChoice(
     index: number,
     onUnlockGate?: (gateId: string) => boolean,
-    onPlayerEmote?: (emote: PlayerEmoteKind) => void
+    onPlayerEmote?: (emote: PlayerEmoteKind) => void,
+    onQuestBranch?: (branch: {
+      questId: string;
+      stageIndex: number;
+      label: string;
+      faction: FactionId;
+      repDelta: number;
+    }) => void
   ): void {
     if (!this.activeInspectionTarget || !this.activeNode) return;
     const choice: NpcDialogueChoice | undefined = this.activeNode.choices[index];
@@ -488,6 +518,10 @@ export class InteractionManager {
 
     if (choice.unlockGateId) {
       onUnlockGate?.(choice.unlockGateId);
+    }
+
+    if (choice.questBranch) {
+      onQuestBranch?.(choice.questBranch);
     }
 
     const npcId = this.activeInspectionTarget.npcId;

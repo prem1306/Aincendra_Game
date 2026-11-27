@@ -7,6 +7,7 @@ import type {
   RampCollider,
 } from '../core/types';
 import type { PickablePropSpec } from './PickableProps';
+import { buildCastleVaelcrest } from './CastleVaelcrest';
 
 export interface MetropolisMaterials {
   road: THREE.Material;
@@ -550,82 +551,20 @@ export function buildElarionMetropolisExpansion(
   }
 
   // =========================================================================
-  // 5. ADMINISTRATIVE & NOBLE HEIGHTS + VAELCREST DEFENCE CITADEL
-  // Three-Council Assembly Hall, Coastal Railgun Bastions & Knight Training Yard
+  // 5. CASTLE VAELCREST — GRAND COASTAL CITADEL ON EASTERN CLIFF
   // =========================================================================
-  {
-    addBox(220.25, -0.4, 24.0, 169.5, 5.6, 128.0, mats.marbleInlay);
-    addBox(182.0, 5.14, 18.5, 92.0, 0.08, 9.0, mats.road, { collide: false });
-
-    // Three-Council Assembly Palace (Council of Law, Council of Authority, Council of Elders)
-    // Classical coastal-European tiered mansard slate roof & octagonal copper cupola
-    addBox(258.0, 5.20, 19.0, 58.0, 16.5, 60.0, mats.limestone);
-    addBox(258.0, 21.70, 19.0, 60.0, 1.4, 62.0, mats.sandstone);
-    addBox(258.0, 23.10, 19.0, 48.0, 4.8, 50.0, mats.slateRoof);
-    const palaceCupolaGeo = new THREE.CylinderGeometry(7.2, 8.4, 5.2, 8);
-    const palaceHipRoofGeo = new THREE.ConeGeometry(8.6, 6.2, 8);
-    const palaceFinialGeo = new THREE.CylinderGeometry(0.25, 0.75, 4.2, 8);
-    disposables.push(palaceCupolaGeo, palaceHipRoofGeo, palaceFinialGeo);
-    const pCupola = new THREE.Mesh(palaceCupolaGeo, mats.sandstone);
-    pCupola.position.set(258.0, 30.5, 19.0);
-    const pHipRoof = new THREE.Mesh(palaceHipRoofGeo, mats.copper);
-    pHipRoof.position.set(258.0, 36.2, 19.0);
-    const pFinial = new THREE.Mesh(palaceFinialGeo, mats.manaLamp);
-    pFinial.position.set(258.0, 41.2, 19.0);
-    group.add(pCupola, pHipRoof, pFinial);
-
-    for (let pz = -4; pz <= 42; pz += 7.5) {
-      addBox(224.0, 5.20, pz, 1.2, 11.0, 1.2, mats.sandstone);
-    }
-    addBox(224.0, 16.20, 19.0, 3.0, 1.8, 50.0, mats.limestone);
-
-    // Reflecting Pool & Noble Gardens
-    addBox(190.0, 5.20, -11.0, 32.0, 0.55, 16.0, mats.limestone);
-    addBox(190.0, 5.52, -11.0, 30.0, 0.25, 14.0, mats.water, { collide: false });
-    addTree(166.0, 5.20, -24.0, 1.25);
-    addTree(214.0, 5.20, -24.0, 1.25);
-    addTree(166.0, 5.20, 4.0, 1.25);
-    addTree(214.0, 5.20, 4.0, 1.25);
-
-    // Citadel Armory & Twin Mana-Railgun Coastal Defence Emplacements (X = 152..210, Z = 36..80)
-    addBox(181.0, 5.20, 74.0, 42.0, 8.2, 14.0, mats.sandstone);
-    addBox(181.0, 13.40, 74.0, 43.2, 2.0, 14.8, mats.slateRoof);
-
-    const railBarrelGeo = new THREE.CylinderGeometry(0.32, 0.45, 7.2, 10);
-    disposables.push(railBarrelGeo);
-    for (const bx of [154.0, 206.0]) {
-      addBox(bx, 5.20, -32.0, 5.6, 2.4, 5.6, mats.iron);
-      const barrel = new THREE.Mesh(railBarrelGeo, mats.copper);
-      barrel.rotation.x = -Math.PI / 2 + 0.28;
-      barrel.position.set(bx, 8.6, -34.0);
-      const coil = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.5, 2.4), mats.manaLamp);
-      coil.position.set(bx, 8.2, -32.5);
-      disposables.push(coil.geometry);
-      group.add(barrel, coil);
-    }
-
-    // Grand Citadel Steps descending South (y = 5.20 -> 0.16) at X = 148..164, Z = 88..112
-    addRamp(156.0, 100.0, 16.0, 24.0, '-z', 0.16, 5.20, 20, mats.limestone);
-    addBox(208.5, -0.4, 104.0, 193.0, 0.56, 32.0, mats.pavement);
-
-    addBox(307.0, 0.16, 140.0, 3.0, 14.0, 380.0, mats.sandstone);
-    addBox(220.0, 5.20, -40.5, 174.0, 1.4, 1.2, mats.sandstone);
-
-    // East Residential Estates & Civic Gardens (X = 185..302, Z = 166..328)
-    addBox(243.5, -0.4, 247.0, 117.0, 0.56, 162.0, mats.pavement);
-    for (const [ex, ez, col] of [
-      [212, 196, mats.warmPlaster],
-      [264, 196, mats.sagePlaster],
-      [212, 248, mats.terracottaPlaster],
-      [264, 248, mats.brick],
-      [212, 298, mats.sandstone],
-      [264, 298, mats.warmPlaster],
-    ] as Array<[number, number, THREE.Material]>) {
-      addBox(ex, 0.16, ez, 32.0, 9.2, 24.0, col);
-      addBox(ex, 9.36, ez, 33.2, 2.0, 25.2, mats.slateRoof);
-      addTree(ex - 20.0, 0.16, ez, 1.2);
-    }
-  }
+  const castle = buildCastleVaelcrest(
+    boxColliders,
+    rampColliders,
+    raycastTargets,
+    disposables,
+    mats
+  );
+  group.add(castle.group);
+  npcSpawns.push(...castle.npcSpawns);
+  interactables.push(...castle.interactables);
+  pickableSpecs.push(...castle.pickableSpecs);
+  combatDummies.push(...castle.combatDummies);
 
   // =========================================================================
   // 6. METROPOLIS CITIZENS (34 Articulated NPCs Reflecting Vaelcrest Lore)
@@ -860,15 +799,50 @@ export function buildElarionMetropolisExpansion(
           id: 'gate_grant',
           npcReaction: 'salute',
           lines: [
-            'You carry yourself well and bear Vaelcrest steel. Sound the winch bolts — clear the Overland Gate for passage!',
+            'You carry yourself well and bear Vaelcrest steel. Before we unbar the Overland Gate, declare which Charter shall regulate the Emerald Wilds ley-conduits:',
           ],
           choices: [
             {
-              label: 'Unlock & swing open the Bastion Gate',
+              label: 'Pledge to Mana-Works Guild (Overclock Conduit Charter +25 Rep)',
               nextNodeId: 'gate_opened',
               npcReaction: 'salute',
               playerEmote: 'salute',
               unlockGateId: 'south_bastion_gate',
+              questBranch: {
+                questId: 'q_gate_conduit',
+                stageIndex: 2,
+                label: 'Aligned with Mana-Works Guild',
+                faction: 'manaworks',
+                repDelta: 25,
+              },
+            },
+            {
+              label: 'Pledge to Aetheric Purists (Preserve Wild Ley-Shrines +25 Rep)',
+              nextNodeId: 'gate_opened',
+              npcReaction: 'bow',
+              playerEmote: 'salute',
+              unlockGateId: 'south_bastion_gate',
+              questBranch: {
+                questId: 'q_gate_conduit',
+                stageIndex: 2,
+                label: 'Aligned with Aetheric Purists',
+                faction: 'purists',
+                repDelta: 25,
+              },
+            },
+            {
+              label: 'Pledge to House Vaelcrest Crown Guard (+25 Rep)',
+              nextNodeId: 'gate_opened',
+              npcReaction: 'salute',
+              playerEmote: 'salute',
+              unlockGateId: 'south_bastion_gate',
+              questBranch: {
+                questId: 'q_gate_conduit',
+                stageIndex: 2,
+                label: 'Sworn to House Vaelcrest',
+                faction: 'vaelcrest',
+                repDelta: 25,
+              },
             },
           ],
         },
@@ -912,52 +886,6 @@ export function buildElarionMetropolisExpansion(
       position: [9.5, 0.16, 327.0],
       facingYaw: -0.25,
       tunicColor: 0x24303c,
-      accentColor: 0xc27f4e,
-    },
-    {
-      id: 'npc_council_administrator',
-      role: 'Harbourmaster',
-      behavior: 'interact',
-      actionKind: 'clipboard',
-      position: [220.0, 5.20, 18.5],
-      facingYaw: -1.57,
-      tunicColor: 0x23384d,
-      accentColor: 0xe6b85c,
-      randomDialogues: [
-        ['Here convene the Council of Law, the Council of Authority, and every quarter the Council of Elders.'],
-        ['House Vaelcrest holds sovereignty, yet capable commoners rise here to become mayors, commanders, and senior ministers.'],
-      ],
-    },
-    {
-      id: 'npc_citadel_knight_a',
-      role: 'Heavy Infantry',
-      heavyArmor: true,
-      behavior: 'idle',
-      actionKind: 'watch',
-      position: [216.0, 5.20, 8.0],
-      facingYaw: -1.57,
-      tunicColor: 0x26323e,
-      accentColor: 0xd4a44e,
-    },
-    {
-      id: 'npc_citadel_knight_b',
-      role: 'Heavy Infantry',
-      heavyArmor: true,
-      behavior: 'idle',
-      actionKind: 'watch',
-      position: [216.0, 5.20, 29.0],
-      facingYaw: -1.57,
-      tunicColor: 0x26323e,
-      accentColor: 0xd4a44e,
-    },
-    {
-      id: 'npc_palace_gardener',
-      role: 'Resident',
-      behavior: 'work',
-      actionKind: 'sweep',
-      position: [186.0, 5.20, 0.0],
-      facingYaw: 0.9,
-      tunicColor: 0x4d6b47,
       accentColor: 0xc27f4e,
     },
     {
@@ -1082,31 +1010,6 @@ export function buildElarionMetropolisExpansion(
       ],
     },
     {
-      id: 'int_three_councils_hall',
-      title: 'Three-Council Assembly Hall',
-      subtitle: 'Administrative & Noble Heights',
-      category: 'Landmark',
-      promptAction: 'Inspect',
-      position: [222.0, 5.2, 18.5],
-      radius: 3.8,
-      lines: [
-        'Seat of the Council of Law, the Council of Authority, and the quarterly Council of Elders under House Vaelcrest.',
-        'Here mayors, fief governors, and meritocratically appointed commoners coordinate the entire coastal civilization.',
-      ],
-    },
-    {
-      id: 'int_coastal_railgun_battery',
-      title: 'Coastal Mana-Railgun Battery',
-      subtitle: 'Citadel Bastion Overlook',
-      category: 'Infrastructure',
-      promptAction: 'Inspect',
-      position: [154.0, 5.2, -26.0],
-      radius: 3.8,
-      lines: [
-        'Heavy external-mana railgun emplacements guard the harbour approaches alongside traditional knights and barrier pylons.',
-      ],
-    },
-    {
       id: 'int_southgate_highway',
       title: 'Domain Overland Bastion Gate',
       subtitle: 'Highway & Rail Link to Vaelcrest Domain',
@@ -1173,14 +1076,6 @@ export function buildElarionMetropolisExpansion(
       lines: ['Precision chronometer synchronizing maritime shipping ledgers with inland rail departures.'],
     },
     {
-      id: 'pick_council_folio',
-      title: 'Three-Council Charter Roll',
-      subtitle: 'Administrative Heights · Council Portico',
-      propKind: 'dispatch-scroll',
-      position: [220.0, 5.2, 12.0],
-      lines: ['Legislative memorandum signed jointly by the Council of Law and Council of Authority.'],
-    },
-    {
       id: 'pick_bastion_mana_cell',
       title: 'Barrier Pylon Capacitor',
       subtitle: 'Overland Bastion Rampart',
@@ -1194,22 +1089,6 @@ export function buildElarionMetropolisExpansion(
   // 9. CITADEL & BASTION COMBAT SPARRING DUMMIES
   // =========================================================================
   combatDummies.push(
-    {
-      id: 'el_dummy_citadel_north',
-      name: 'House Vaelcrest Knight Dummy',
-      position: [176.0, 5.2, 54.0],
-      facingYaw: -1.57,
-      maxHp: 260,
-      armored: true,
-    },
-    {
-      id: 'el_dummy_citadel_south',
-      name: 'Domain Lancer Dummy',
-      position: [184.0, 5.2, 60.0],
-      facingYaw: -2.2,
-      maxHp: 220,
-      armored: true,
-    },
     {
       id: 'el_dummy_southgate_post',
       name: 'Bastion Gate Watch Dummy',
@@ -1262,6 +1141,9 @@ export function buildElarionMetropolisExpansion(
   let simTime = 0;
 
   const unlockGate = (gateId: string): boolean => {
+    if (gateId === 'vaelcrest_castle_gate') {
+      return castle.unlockGate(gateId);
+    }
     if (gateId !== 'south_bastion_gate' || southGateUnlocked) return false;
     southGateUnlocked = true;
     gateCollider.maxY = -10;
@@ -1269,8 +1151,12 @@ export function buildElarionMetropolisExpansion(
     return true;
   };
 
-  const isGateOpen = (gateId: string): boolean =>
-    gateId === 'south_bastion_gate' ? southGateUnlocked : false;
+  const isGateOpen = (gateId: string): boolean => {
+    if (gateId === 'vaelcrest_castle_gate') {
+      return castle.isGateOpen(gateId);
+    }
+    return gateId === 'south_bastion_gate' ? southGateUnlocked : false;
+  };
 
   const update = (dt: number) => {
     const clampedDt = Math.min(dt, 0.05);
@@ -1287,6 +1173,8 @@ export function buildElarionMetropolisExpansion(
     gateOpenAngle = THREE.MathUtils.damp(gateOpenAngle, targetAngle, 3.6, clampedDt);
     leftGatePivot.rotation.y = gateOpenAngle;
     rightGatePivot.rotation.y = -gateOpenAngle;
+
+    castle.update(clampedDt);
   };
 
   return {
